@@ -1,0 +1,70 @@
+# Configuration TDD Orchestrator
+
+github:
+  token: "${GITHUB_TOKEN}"  # Variable d'environnement
+  repo_owner: "your-username"
+  repo_name: "your-repo-name"
+  project_number: 1
+
+# Garde-fous qualité
+quality_gates:
+  min_coverage: 80          # Couverture minimale requise
+  max_complexity: 10        # Complexité cyclomatique max
+  require_docstrings: true  # Documentation obligatoire
+  require_type_hints: true  # Type hints obligatoires
+
+# Workflow TDD strict
+tdd_workflow:
+  phases:
+    red:
+      description: "Tests written, must fail initially"
+      required_actions:
+        - "Write comprehensive tests"
+        - "Ensure tests fail before implementation"
+        - "Cover all acceptance criteria"
+    
+    green:
+      description: "Minimal implementation to pass tests"  
+      required_actions:
+        - "Write minimum code to pass tests"
+        - "Don't over-engineer"
+        - "All tests must pass"
+        - "Coverage >= minimum threshold"
+    
+    refactor:
+      description: "Improve code quality while keeping tests green"
+      required_actions:
+        - "Apply SOLID principles"
+        - "Remove duplication"
+        - "Improve readability"
+        - "All tests must still pass"
+
+# Blockers - conditions qui arrêtent le workflow
+blockers:
+  failing_tests: true       # Arrêt si des tests échouent
+  low_coverage: true        # Arrêt si couverture < minimum
+  lint_errors: true         # Arrêt si erreurs de linting
+  type_check_errors: true   # Arrêt si erreurs mypy
+
+# GitHub integration
+github_integration:
+  comment_on_start: true
+  comment_on_phase_change: true
+  comment_on_completion: true
+  update_issue_status: true
+  create_branch_per_issue: true
+  auto_create_pr: false     # Créer automatiquement les PR
+
+# AI Configuration
+ai_settings:
+  model: "qwen/qwen3-coder-30b"
+  temperature: 0.3          # Plus déterministe pour le code
+  max_tokens: 1500
+  timeout: 300
+
+# File structure
+project_structure:
+  src_dir: "src"
+  test_dir: "tests" 
+  docs_dir: "docs"
+  requirements_file: "requirements.txt"

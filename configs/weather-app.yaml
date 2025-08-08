@@ -1,0 +1,224 @@
+# Configuration projet météo - Exemple d'utilisation
+# Utilise le template NextJS qui hérite du workflow de base
+
+project:
+  name: "weather-app-woluwe"
+  type: "nextjs" 
+  description: "Application météo NextJS pour Woluwe-Saint-Pierre 1150, Belgique"
+  version: "1.0.0"
+  author: "Universal Orchestrator"
+  output_dir: "C:/Users/alexi/weather-v2-orchestrated"
+  
+  # Variables spécifiques au projet météo
+  variables:
+    location: "Woluwe-Saint-Pierre"
+    postal_code: "1150"
+    country: "Belgique"
+    coordinates_lat: "50.8503"
+    coordinates_lon: "4.4347"
+    weather_api: "OpenWeatherMap"
+
+# Configuration GitHub
+github:
+  enabled: true
+  auto_create: false
+  token: "${GITHUB_TOKEN}"
+  owner: "AlexisVS"
+  repo_name: "test-weather-app-ia-orchestrator"
+  private: false
+  create_issues: true
+  create_project: true
+  
+# Configuration IA (LM Studio + Qwen)
+ai:
+  url: "http://127.0.0.1:1234/v1/chat/completions"
+  model: "qwen/qwen3-coder-30b"
+  temperature: 0.3
+  max_tokens: 2000
+  
+  # Prompt système spécialisé pour projet météo
+  system_prompt: |
+    Tu es un expert NextJS/TypeScript qui développe une application météo avec TDD strict.
+    
+    CONTEXTE PROJET:
+    - Application météo pour Woluwe-Saint-Pierre 1150, Belgique
+    - Coordonnées: 50.8503, 4.4347
+    - NextJS 14 + TypeScript + Tailwind CSS
+    - API OpenWeatherMap
+    - Interface responsive moderne
+    
+    SPÉCIFICITÉS MÉTÉO:
+    - Affichage temps réel
+    - Cache intelligent (10 minutes)
+    - Gestion hors ligne basique
+    - Données: température, description, humidité, vent
+    - Interface intuitive et accessible
+    
+    RÈGLES TDD:
+    1. Tests d'abord (RED phase)
+    2. Code minimal fonctionnel (GREEN phase)  
+    3. Refactoring avec tests passants (REFACTOR phase)
+    4. Couverture > 80%
+    5. Zero erreur de linting/types
+
+# Configuration TDD
+tdd:
+  enabled: true
+  strict_mode: true  # Bloque si tests échouent
+  coverage_threshold: 85
+  
+  # Issues personnalisées pour l'app météo
+  custom_issues:
+    - title: "🌤️ Feature: API météo Woluwe-Saint-Pierre"
+      description: "Créer API route pour récupérer météo temps réel"
+      details: |
+        ## Description
+        Route API NextJS pour météo de Woluwe-Saint-Pierre (50.8503, 4.4347)
+        
+        ## Critères d'acceptation
+        - Route `/api/weather`
+        - Integration OpenWeatherMap
+        - Cache 10 minutes
+        - Données: temp, description, humidité, vent
+        - Gestion erreurs robuste
+        - Types TypeScript stricts
+        
+        ## Tests requis
+        - Réponse API valide
+        - Cache fonctionnel  
+        - Gestion erreurs réseau
+        - Validation données météo
+      labels: ["feature", "api", "weather"]
+      
+    - title: "🎨 UI: Interface météo responsive"
+      description: "Composant d'affichage météo moderne"
+      details: |
+        ## Description
+        Interface utilisateur pour afficher météo Woluwe-Saint-Pierre
+        
+        ## Critères d'acceptation
+        - Composant WeatherDisplay
+        - Design responsive (mobile + desktop)
+        - Affichage: "Woluwe-Saint-Pierre 1150"
+        - Température en °C proéminente
+        - Icônes météo appropriées
+        - États: loading, error, success
+        - Bouton actualisation
+        
+        ## Design
+        - Couleurs selon météo
+        - Animations subtiles
+        - Accessibilité WCAG 2.1
+        - Performance optimisée
+      labels: ["feature", "ui", "weather", "responsive"]
+
+# Configuration des tests
+testing:
+  enabled: true
+  frameworks:
+    - "jest"
+    - "@testing-library/react"
+    - "@testing-library/user-event"
+    
+  commands:
+    - "npm test"
+    - "npm run test:coverage"
+    
+  coverage_threshold: 85
+  
+  # Types de tests requis
+  test_types:
+    - "unit"      # Tests unitaires composants
+    - "integration"  # Tests API routes  
+    - "e2e"       # Tests bout en bout (optionnel)
+
+# Configuration qualité
+quality:
+  enabled: true
+  
+  mandatory_checks:
+    - name: "typescript"
+      command: "npm run typecheck" 
+      blocking: true
+      
+    - name: "eslint"
+      command: "npm run lint"
+      blocking: true
+      
+    - name: "prettier"
+      command: "npm run format:check"
+      blocking: false
+      
+    - name: "build"
+      command: "npm run build"
+      blocking: true
+      
+  # Métriques qualité spécifiques
+  metrics:
+    accessibility_score: 95  # Score Lighthouse accessibilité
+    performance_score: 90    # Score Lighthouse performance  
+    seo_score: 95           # Score Lighthouse SEO
+
+# Configuration déploiement
+deploy:
+  enabled: true
+  platform: "vercel"
+  
+  # Variables d'environnement pour déploiement
+  environment_variables:
+    - name: "WEATHER_API_KEY"
+      description: "Clé API OpenWeatherMap"
+      required: false  # Mode démo disponible
+      
+    - name: "NEXT_PUBLIC_APP_NAME"
+      value: "Météo Woluwe-Saint-Pierre"
+      
+    - name: "NEXT_PUBLIC_LOCATION"
+      value: "Woluwe-Saint-Pierre 1150, Belgique"
+  
+  # Commandes de déploiement
+  commands:
+    - "npm run build"
+    - "vercel --prod"
+    
+  # Vérifications post-déploiement
+  post_deploy_checks:
+    - name: "health_check"
+      url: "https://{deployment_url}/api/health"
+      expected_status: 200
+      
+    - name: "weather_api_check"  
+      url: "https://{deployment_url}/api/weather"
+      expected_status: 200
+
+# Configuration monitoring (optionnel)
+monitoring:
+  enabled: false  # Désactivé pour projet de démo
+  
+  # Métriques à surveiller
+  metrics:
+    - "response_time"
+    - "error_rate" 
+    - "api_calls_count"
+    - "user_sessions"
+
+# Configuration documentation
+documentation:
+  auto_generate: true
+  
+  files:
+    - "README.md"
+    - "API.md"
+    - "DEPLOYMENT.md"
+    - "CONTRIBUTING.md"
+  
+  # Sections automatiques dans README
+  readme_sections:
+    - "description"
+    - "features"
+    - "installation"
+    - "usage"
+    - "api_endpoints"
+    - "testing"
+    - "deployment" 
+    - "contributing"

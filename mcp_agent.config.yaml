@@ -1,0 +1,146 @@
+$schema: ./schema/mcp-agent.config.schema.json
+
+execution_engine: asyncio
+
+logger:
+  type: file
+  level: info
+  path: "./logs/dev_orchestrator.jsonl"
+
+# MCP Servers Configuration
+mcp:
+  servers:
+    # Filesystem server for local file operations
+    filesystem:
+      command: "npx"
+      args: ["@modelcontextprotocol/server-filesystem"]
+      roots:
+        - uri: "file:///"
+          name: "root"
+    
+    # Git server for version control operations
+    git:
+      command: "npx"
+      args: ["@modelcontextprotocol/server-git"]
+      cwd: "."
+    
+    # Python interpreter for code execution
+    python:
+      command: "uv"
+      args: ["run", "python", "-m", "mcp_python.server"]
+      
+    # Memory server for persistent context
+    memory:
+      command: "npx"
+      args: ["@modelcontextprotocol/server-memory"]
+
+# Model Provider Configuration
+model_providers:
+  # LM Studio (local models)
+  lm_studio:
+    type: openai_compatible
+    base_url: http://localhost:1234/v1
+    api_key: not-needed
+    default_model: local-model
+    
+  # OpenAI (optional, for specific tasks)
+  openai:
+    default_model: gpt-4o-mini
+    temperature: 0.7
+    max_tokens: 4096
+    
+  # Anthropic (optional)
+  anthropic:
+    default_model: claude-3-5-haiku-latest
+    max_tokens: 4096
+
+# Agent Configuration
+agents:
+  # Code refactoring agent
+  refactor_agent:
+    model_provider: lm_studio
+    system_prompt: |
+      You are a code refactoring specialist. Apply SOLID principles,
+      clean code practices, and design patterns to improve code quality.
+    tools:
+      - filesystem
+      - git
+      - python
+      
+  # Testing agent
+  test_agent:
+    model_provider: lm_studio
+    system_prompt: |
+      You are a testing specialist. Write comprehensive unit tests,
+      integration tests, and ensure high code coverage.
+    tools:
+      - filesystem
+      - python
+      
+  # Documentation agent
+  doc_agent:
+    model_provider: lm_studio
+    system_prompt: |
+      You are a documentation specialist. Write clear, comprehensive
+      technical documentation including API docs, README files, and guides.
+    tools:
+      - filesystem
+      - git
+      
+  # Database optimization agent
+  db_agent:
+    model_provider: lm_studio
+    system_prompt: |
+      You are a database optimization specialist. Analyze and optimize
+      database queries, indexes, and schema design for performance.
+    tools:
+      - filesystem
+      - python
+      
+  # Git operations agent
+  git_agent:
+    model_provider: lm_studio
+    system_prompt: |
+      You are a Git specialist. Handle version control, create meaningful
+      commits with conventional commit format, and manage pull requests.
+    tools:
+      - git
+      - filesystem
+
+# Task Router Configuration
+task_router:
+  rules:
+    - pattern: "refactor|SOLID|clean code|design pattern"
+      agent: refactor_agent
+    - pattern: "test|unit test|coverage|pytest|jest"
+      agent: test_agent
+    - pattern: "document|docs|README|API doc"
+      agent: doc_agent
+    - pattern: "database|query|optimize|SQL|index"
+      agent: db_agent
+    - pattern: "commit|pull request|PR|git|merge"
+      agent: git_agent
+  default_agent: refactor_agent
+
+# Workflow Configuration
+workflows:
+  development_pipeline:
+    steps:
+      - name: analyze_task
+        description: Analyze and break down the task
+      - name: route_to_agents
+        description: Route subtasks to appropriate agents
+      - name: execute_tasks
+        description: Execute tasks in parallel when possible
+      - name: aggregate_results
+        description: Combine results from all agents
+      - name: validate
+        description: Validate the complete solution
+
+# Performance Settings
+performance:
+  max_parallel_agents: 3
+  timeout_seconds: 300
+  retry_attempts: 2
+  cache_results: true
+  cache_ttl_seconds: 3600

@@ -1,0 +1,320 @@
+# Template NextJS - Hérite du workflow de base
+# Spécialisations pour les projets NextJS
+
+extends: "base/workflow.yaml"
+
+project_type: "nextjs"
+language: "typescript"
+framework: "nextjs"
+test_framework: "jest"
+
+# Configuration spécifique NextJS
+setup:
+  initialization_commands:
+    - "npx create-next-app@latest . --typescript --eslint --tailwindcss --app --src-dir"
+    - "npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event"
+    - "npm install --save-dev @types/jest"
+    
+  required_files:
+    - "package.json"
+    - "tsconfig.json" 
+    - "next.config.js"
+    - "tailwind.config.js"
+    - "jest.config.js"
+
+# Structure de fichiers spécifique NextJS
+structure:
+  folders:
+    - "src/app"
+    - "src/components" 
+    - "src/lib"
+    - "src/types"
+    - "src/utils"
+    - "__tests__"
+    - "__tests__/components"
+    - "__tests__/app"
+    - "__tests__/lib"
+    - "public"
+    
+  files:
+    - path: "package.json"
+      template: |
+        {
+          "name": "{name}",
+          "version": "1.0.0", 
+          "private": true,
+          "description": "{description}",
+          "scripts": {
+            "dev": "next dev",
+            "build": "next build",
+            "start": "next start",
+            "lint": "next lint",
+            "test": "jest",
+            "test:watch": "jest --watch",
+            "test:coverage": "jest --coverage",
+            "typecheck": "tsc --noEmit"
+          },
+          "dependencies": {
+            "next": "^14.2.0",
+            "react": "^18.2.0",
+            "react-dom": "^18.2.0",
+            "typescript": "^5.4.0"
+          },
+          "devDependencies": {
+            "@types/node": "^20.11.0",
+            "@types/react": "^18.2.0", 
+            "@types/react-dom": "^18.2.0",
+            "@types/jest": "^29.5.0",
+            "eslint": "^8.57.0",
+            "eslint-config-next": "^14.2.0",
+            "jest": "^29.7.0",
+            "jest-environment-jsdom": "^29.7.0",
+            "@testing-library/react": "^14.2.0",
+            "@testing-library/jest-dom": "^6.4.0",
+            "@testing-library/user-event": "^14.5.0",
+            "tailwindcss": "^3.4.0",
+            "autoprefixer": "^10.4.0",
+            "postcss": "^8.4.0"
+          }
+        }
+        
+    - path: "jest.config.js"
+      template: |
+        const nextJest = require('next/jest')
+        
+        const createJestConfig = nextJest({
+          dir: './',
+        })
+        
+        const customJestConfig = {
+          setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+          testEnvironment: 'jsdom',
+          collectCoverageFrom: [
+            'src/**/*.{js,jsx,ts,tsx}',
+            '!src/**/*.d.ts',
+            '!src/**/*.stories.{js,jsx,ts,tsx}',
+          ],
+          coverageThreshold: {
+            global: {
+              branches: 80,
+              functions: 80,
+              lines: 80,
+              statements: 80,
+            },
+          },
+        }
+        
+        module.exports = createJestConfig(customJestConfig)
+        
+    - path: "jest.setup.js"
+      template: |
+        import '@testing-library/jest-dom'
+        
+    - path: "tsconfig.json"
+      template: |
+        {
+          "compilerOptions": {
+            "target": "es5",
+            "lib": ["dom", "dom.iterable", "es6"],
+            "allowJs": true,
+            "skipLibCheck": true,
+            "strict": true,
+            "noEmit": true,
+            "esModuleInterop": true,
+            "module": "esnext",
+            "moduleResolution": "bundler", 
+            "resolveJsonModule": true,
+            "isolatedModules": true,
+            "jsx": "preserve",
+            "incremental": true,
+            "plugins": [{"name": "next"}],
+            "baseUrl": ".",
+            "paths": {"@/*": ["./src/*"]}
+          },
+          "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+          "exclude": ["node_modules"]
+        }
+
+# Issues spécifiques NextJS générées automatiquement
+issues:
+  issues:
+    - title: "🏗️ Setup: Initialiser projet NextJS avec TypeScript"
+      body: |
+        ## Description
+        Initialiser un nouveau projet NextJS 14 avec TypeScript, ESLint, Tailwind CSS et structure TDD.
+        
+        ## Critères d'acceptation
+        - [x] NextJS 14+ avec App Router
+        - [x] TypeScript configuré strictement
+        - [x] ESLint + Prettier
+        - [x] Tailwind CSS
+        - [x] Jest + Testing Library
+        - [x] Structure src/ organisée
+        - [x] Configuration TDD complète
+        
+        ## Définition de terminé
+        - Tests unitaires passent
+        - Build sans erreurs
+        - Linting sans warnings
+        - TypeScript strict validé
+        
+        **Projet**: {name}
+        **Description**: {description}
+        **Type**: {type}
+      labels: ["setup", "nextjs", "typescript", "tdd-red"]
+      
+    - title: "🎨 UI: Créer layout et page principale"
+      body: |
+        ## Description
+        Développer le layout principal et la page d'accueil avec TDD.
+        
+        ## Critères d'acceptation
+        - [x] Layout root avec metadata SEO
+        - [x] Page d'accueil responsive
+        - [x] Navigation fonctionnelle
+        - [x] Composants réutilisables
+        - [x] Styles Tailwind CSS
+        - [x] Tests de rendu complets
+        
+        ## Tests requis
+        - Rendu correct du layout
+        - Metadata présents
+        - Navigation fonctionnelle
+        - Responsive design
+        - Accessibilité de base
+        
+        **Framework**: NextJS 14 + TypeScript
+        **Styling**: Tailwind CSS
+      labels: ["feature", "ui", "nextjs", "tdd-red"]
+      
+    - title: "⚡ API: Routes API avec validation"
+      body: |
+        ## Description
+        Créer les routes API NextJS avec validation et tests complets.
+        
+        ## Critères d'acceptation
+        - [x] Routes API avec TypeScript
+        - [x] Validation des données
+        - [x] Gestion d'erreurs robuste
+        - [x] Documentation OpenAPI
+        - [x] Tests d'intégration API
+        - [x] Middleware de sécurité
+        
+        ## Architecture
+        - App Router API routes
+        - Validation avec Zod ou similaire
+        - Types TypeScript stricts
+        - Tests avec Supertest
+        
+        **Sécurité**: Validation, CORS, Rate limiting
+      labels: ["feature", "api", "nextjs", "security", "tdd-red"]
+
+# Validation spécifique NextJS
+validation:
+  commands:
+    - "npm test"
+    - "npm run lint"
+    - "npm run typecheck"
+    - "npm run build"
+    
+  quality_checks:
+    - name: "nextjs_build"
+      command: "npm run build"
+      description: "Build NextJS sans erreur"
+      blocking: true
+      
+    - name: "typescript_check"
+      command: "npm run typecheck"
+      description: "Vérification TypeScript"
+      blocking: true
+      
+    - name: "lighthouse_check"
+      command: "npm run lighthouse"  # si configuré
+      description: "Score Lighthouse > 90"
+      blocking: false
+
+# Prompts IA spécialisés NextJS
+ai_prompts:
+  system_nextjs: |
+    Tu es un expert NextJS 14 avec TypeScript qui applique le TDD strict.
+    
+    SPÉCIALISATIONS NEXTJS:
+    - App Router (pas Pages Router)
+    - Server Components et Client Components
+    - API Routes avec validation
+    - Metadata et SEO optimisés
+    - Tailwind CSS pour le styling
+    - Performance et Core Web Vitals
+    - Accessibilité WCAG 2.1
+    
+    CONVENTIONS NEXTJS:
+    - Utiliser 'use client' uniquement quand nécessaire
+    - Préférer Server Components
+    - Types TypeScript stricts
+    - Barrel exports pour composants
+    - Hooks personnalisés dans src/hooks/
+    - Utils dans src/lib/
+    
+  component_generation: |
+    Génère un composant NextJS avec TDD pour:
+    {component_description}
+    
+    Exigences:
+    - TypeScript strict avec interfaces
+    - Props typées correctement
+    - 'use client' si interactions nécessaires
+    - Responsive avec Tailwind CSS
+    - Accessible (ARIA labels, semantic HTML)
+    - Tests React Testing Library complets
+    
+    Tests à inclure:
+    - Rendu correct
+    - Props handling
+    - Interactions utilisateur
+    - États du composant
+    - Cas d'erreur
+    
+    Structure: Composant + Tests dans fichiers séparés
+    
+  api_route_generation: |
+    Génère une route API NextJS pour:
+    {api_description}
+    
+    Exigences:
+    - App Router API route (route.ts)
+    - Handlers HTTP (GET, POST, etc.)
+    - Validation des données entrantes
+    - Types TypeScript pour request/response
+    - Gestion d'erreurs appropriée
+    - Tests d'intégration complets
+    
+    Sécurité:
+    - Validation des inputs
+    - Gestion des erreurs sans fuite d'info
+    - Headers de sécurité appropriés
+    
+    Tests:
+    - Tests unitaires des handlers
+    - Tests d'intégration avec requêtes HTTP
+    - Tests des cas d'erreur
+    - Tests de validation des données
+
+# Configuration déploiement NextJS
+deploy:
+  platforms:
+    - name: "vercel"
+      commands:
+        - "vercel --prod"
+      environment_variables:
+        - "NODE_ENV=production"
+        
+    - name: "netlify"
+      commands:
+        - "npm run build"
+        - "netlify deploy --prod --dir=out"
+        
+  pre_deploy_checks:
+    - "npm test"
+    - "npm run lint"
+    - "npm run typecheck" 
+    - "npm run build"

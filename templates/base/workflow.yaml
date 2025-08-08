@@ -1,0 +1,333 @@
+# Template Parent - Workflow commun à tous les projets
+# Toutes les étapes immutables du processus de développement
+
+workflow:
+  name: "Universal TDD Workflow"
+  version: "1.0"
+  description: "Workflow universel TDD avec GitHub integration"
+  
+  # Étapes communes obligatoires pour tous les projets
+  phases:
+    - name: "setup"
+      description: "Configuration initiale du projet"
+      required: true
+      tasks:
+        - validate_config
+        - test_ai_connection
+        - create_project_structure
+        
+    - name: "github_sync" 
+      description: "Synchronisation GitHub (repo, project, issues)"
+      required: true
+      tasks:
+        - create_or_validate_repo
+        - create_github_project
+        - sync_project_columns
+        - create_issues_from_template
+        - link_issues_to_project
+        
+    - name: "tdd_red"
+      description: "Phase RED - Tests qui échouent"
+      required: true
+      tasks:
+        - generate_failing_tests
+        - run_tests_expect_failure
+        - update_github_issue_status
+        
+    - name: "tdd_green"
+      description: "Phase GREEN - Code minimal pour tests passants"
+      required: true
+      tasks:
+        - generate_minimal_implementation
+        - run_tests_expect_success
+        - update_github_issue_status
+        
+    - name: "tdd_refactor"
+      description: "Phase REFACTOR - Amélioration du code"
+      required: true
+      tasks:
+        - refactor_code
+        - run_tests_confirm_success
+        - run_quality_checks
+        - update_github_issue_status
+        
+    - name: "validation"
+      description: "Validation finale obligatoire"
+      required: true
+      tasks:
+        - run_all_tests
+        - check_code_coverage
+        - run_linting
+        - run_type_checking
+        - security_scan
+        - performance_check
+        
+    - name: "completion"
+      description: "Finalisation du projet"
+      required: true  
+      tasks:
+        - generate_documentation
+        - update_readme
+        - close_github_issues
+        - create_release_tag
+        - deploy_if_configured
+
+# Configuration GitHub commune
+github:
+  project_columns:
+    - name: "📋 To Do"
+      purpose: "Issues en attente"
+      
+    - name: "🔴 RED Phase"
+      purpose: "Tests en échec (phase RED TDD)"
+      
+    - name: "🟢 GREEN Phase" 
+      purpose: "Tests passants (phase GREEN TDD)"
+      
+    - name: "🔄 REFACTOR Phase"
+      purpose: "Amélioration code (phase REFACTOR)"
+      
+    - name: "✅ Done"
+      purpose: "Issues terminées et validées"
+      
+    - name: "🚫 Blocked"
+      purpose: "Issues bloquées nécessitant intervention"
+
+  # Labels standards pour toutes les issues
+  standard_labels:
+    - name: "tdd-red"
+      color: "d73a4a"
+      description: "Phase RED du cycle TDD"
+      
+    - name: "tdd-green" 
+      color: "28a745"
+      description: "Phase GREEN du cycle TDD"
+      
+    - name: "tdd-refactor"
+      color: "0366d6"
+      description: "Phase REFACTOR du cycle TDD"
+      
+    - name: "tests-required"
+      color: "fbca04"
+      description: "Nécessite des tests"
+      
+    - name: "quality-check"
+      color: "7057ff"
+      description: "Vérification qualité requise"
+      
+    - name: "documentation"
+      color: "0075ca"
+      description: "Documentation nécessaire"
+      
+    - name: "blocked"
+      color: "d4c5f9"  
+      description: "Bloqué - intervention requise"
+
+# Validation de qualité commune
+quality_gates:
+  # Tous les projets DOIVENT respecter ces critères
+  mandatory_checks:
+    - name: "tests_passing"
+      description: "Tous les tests doivent passer"
+      blocking: true
+      
+    - name: "code_coverage"
+      description: "Couverture de code minimum"
+      threshold: 80
+      blocking: true
+      
+    - name: "no_lint_errors"
+      description: "Aucune erreur de linting"
+      blocking: true
+      
+    - name: "type_checking"
+      description: "Vérification des types (si applicable)"
+      blocking: true
+      
+    - name: "security_scan"
+      description: "Scan de sécurité de base"
+      blocking: false  # Warning seulement
+      
+  # Checks optionnels configurables par projet
+  optional_checks:
+    - name: "performance_benchmark"
+      description: "Tests de performance"
+      
+    - name: "accessibility_check"
+      description: "Tests d'accessibilité (UI)"
+      
+    - name: "cross_browser_test"
+      description: "Tests multi-navigateurs (web)"
+
+# Configuration IA commune
+ai_prompts:
+  system_base: |
+    Tu es un développeur expert qui applique rigoureusement le TDD (Test-Driven Development).
+    
+    RÈGLES ABSOLUES:
+    1. TOUJOURS écrire les tests AVANT le code (RED phase)
+    2. Écrire le code MINIMAL pour faire passer les tests (GREEN phase)  
+    3. Refactoriser pour améliorer sans casser les tests (REFACTOR phase)
+    4. Suivre les bonnes pratiques de ton langage/framework
+    5. Générer du code FONCTIONNEL sans erreur
+    6. Documenter le code de manière claire
+    7. Respecter les conventions de nommage
+    8. Optimiser pour la lisibilité et la maintenabilité
+    
+    IMPORTANT: Ne jamais retourner "Error" ou "API Error" - toujours générer du code valide.
+    
+  test_generation: |
+    Génère des tests complets qui DOIVENT ÉCHOUER initialement (phase RED TDD) pour:
+    {feature_description}
+    
+    Exigences:
+    - Tests détaillés couvrant tous les cas d'usage
+    - Tests d'erreur et cas limites
+    - Mocks appropriés pour les dépendances
+    - Structure de test claire et lisible
+    - Assertions précises et descriptives
+    
+    Langage: {language}
+    Framework de test: {test_framework}
+    
+  implementation: |
+    Génère l'implémentation MINIMALE pour faire passer ces tests (phase GREEN TDD):
+    {test_code}
+    
+    Pour la feature: {feature_description}
+    
+    Exigences:
+    - Code minimal mais fonctionnel
+    - Respecter l'interface définie par les tests
+    - Pas de sur-engineering
+    - Code propre et lisible
+    - Gestion d'erreurs basique
+    
+    Langage: {language}
+    Framework: {framework}
+    
+  refactoring: |
+    Améliore ce code (phase REFACTOR TDD) sans casser les tests existants:
+    {existing_code}
+    
+    Tests à respecter: {test_code}
+    
+    Améliorations à apporter:
+    - Optimisation de la structure
+    - Amélioration de la lisibilité
+    - Respect des principes SOLID
+    - Ajout de documentation
+    - Optimisation des performances si nécessaire
+    - Gestion d'erreur robuste
+    
+    IMPORTANT: Les tests existants doivent TOUJOURS passer après refactoring.
+
+# Configuration des rapports
+reporting:
+  # Rapports générés automatiquement
+  auto_reports:
+    - name: "tdd_progress_report"
+      description: "Rapport d'avancement TDD par issue"
+      frequency: "per_issue"
+      
+    - name: "quality_gates_report"
+      description: "Rapport des validations qualité"
+      frequency: "per_phase"
+      
+    - name: "test_coverage_report" 
+      description: "Rapport de couverture de tests"
+      frequency: "final"
+      
+    - name: "project_summary"
+      description: "Résumé final du projet"
+      frequency: "completion"
+
+# Messages standards pour GitHub
+github_messages:
+  issue_start: |
+    🤖 **Développement automatique démarré**
+    
+    **Phase**: Analyse et planification TDD
+    **Orchestrateur**: Universal TDD Orchestrator v1.0
+    **Workflow**: RED → GREEN → REFACTOR
+    
+    ⏳ Analyse en cours...
+    
+  phase_red: |
+    🔴 **Phase RED - Tests qui échouent**
+    
+    **Statut**: Tests générés avec succès
+    **Résultat attendu**: ❌ Tests échouent (comportement normal en phase RED)
+    
+    **Tests créés**:
+    ```
+    {test_files}
+    ```
+    
+    ➡️ **Prochaine étape**: Phase GREEN (implémentation minimale)
+    
+  phase_green: |
+    🟢 **Phase GREEN - Tests passants**
+    
+    **Statut**: Implémentation minimale créée
+    **Résultat**: ✅ Tests passent maintenant
+    
+    **Fichiers créés/modifiés**:
+    ```
+    {implementation_files}
+    ```
+    
+    ➡️ **Prochaine étape**: Phase REFACTOR (amélioration du code)
+    
+  phase_refactor: |
+    🔄 **Phase REFACTOR - Code amélioré**
+    
+    **Statut**: Code refactorisé avec succès
+    **Résultat**: ✅ Tests toujours passants + Qualité améliorée
+    
+    **Améliorations apportées**:
+    - Structure de code optimisée
+    - Documentation ajoutée
+    - Gestion d'erreurs robuste
+    - Performance optimisée
+    
+    **Validation qualité**: {quality_results}
+    
+    ➡️ **Prochaine étape**: Validation finale
+    
+  issue_completed: |
+    ✅ **Issue terminée avec succès!**
+    
+    **Cycle TDD complet**: RED → GREEN → REFACTOR ✅
+    **Tests**: {test_count} tests, {coverage}% couverture
+    **Qualité**: Tous les critères respectés
+    
+    **Fichiers livrés**:
+    {delivered_files}
+    
+    **Prêt pour review!** 🚀
+    
+  issue_blocked: |
+    🚫 **Issue bloquée - Intervention requise**
+    
+    **Problème**: {blocking_reason}
+    **Phase bloquée**: {blocked_phase}
+    
+    **Action requise**: {required_action}
+    
+    L'orchestrateur reprendra automatiquement une fois le problème résolu.
+
+# Configuration de validation finale
+final_validation:
+  required_files:
+    - "README.md"
+    - "package.json"  # ou équivalent selon le type de projet
+    
+  required_directories:
+    - "tests/"  # ou __tests__ selon les conventions
+    
+  validation_commands:
+    # Ces commandes seront adaptées selon le type de projet
+    - "npm test"  # exemple pour Node.js
+    - "npm run lint"
+    - "npm run typecheck"
