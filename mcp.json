@@ -1,0 +1,135 @@
+{
+  "mcpServers": {
+    "mcp-agent": {
+      "command": "python",
+      "args": ["../mcp-agent/main.py"],
+      "env": {
+        "PYTHONPATH": "../mcp-agent"
+      }
+    },
+    "github": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "ghcr.io/github/github-mcp-server"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "filesystem": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "${PWD}:/workspace", "mcp/filesystem"],
+      "env": {}
+    },
+    "git": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "${PWD}:/repo", "mcp/git"],
+      "env": {}
+    },
+    "memory": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/memory"],
+      "env": {}
+    },
+    "playwright": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/playwright"],
+      "env": {}
+    },
+    "wikipedia": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/wikipedia-mcp"],
+      "env": {}
+    },
+    "youtube-transcript": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/youtube-transcript"],
+      "env": {}
+    },
+    "needle": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/needle-mcp"],
+      "env": {}
+    },
+    "dockerhub": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/dockerhub"],
+      "env": {}
+    },
+    "ref-tools": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/ref-tools-mcp"],
+      "env": {}
+    },
+    "api-gateway": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/api-gateway"],
+      "env": {}
+    },
+    "fetch": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/fetch"],
+      "env": {}
+    },
+    "jetbrains": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/jetbrains"],
+      "env": {}
+    },
+    "node-code-sandbox": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/node-code-sandbox"],
+      "env": {}
+    },
+    "npm-sentinel": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/npm-sentinel"],
+      "env": {}
+    },
+    "openapi-schema": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/openapi-schema"],
+      "env": {}
+    },
+    "paper-search": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/paper-search"],
+      "env": {}
+    },
+    "sequential-thinking": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/sequentialthinking"],
+      "env": {}
+    },
+    "time": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/time"],
+      "env": {}
+    },
+    "python": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "mcp_python.server"],
+      "env": {}
+    },
+    "mcp-playwright": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "--network", "host", "mcp/mcp-playwright"],
+      "env": {}
+    }
+  },
+  "defaults": {
+    "maxTimeout": 300000,
+    "retryAttempts": 3,
+    "retryDelay": 1000
+  },
+  "projectSettings": {
+    "name": "avs_ai_orchestrator",
+    "description": "AI Agent Orchestrator with TDD workflow and Docker MCP servers",
+    "primaryServers": [
+      "filesystem",
+      "git",
+      "github",
+      "python",
+      "memory"
+    ],
+    "autoStart": true
+  }
+}

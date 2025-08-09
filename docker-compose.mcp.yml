@@ -1,0 +1,156 @@
+version: '3.8'
+
+networks:
+  mcp-network:
+    driver: bridge
+
+services:
+  # Core MCP Services
+  github-mcp:
+    image: ghcr.io/github/github-mcp-server:latest
+    container_name: mcp-github
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  filesystem-mcp:
+    image: mcp/filesystem:latest
+    container_name: mcp-filesystem
+    volumes:
+      - ./:/workspace
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  git-mcp:
+    image: mcp/git:latest
+    container_name: mcp-git
+    volumes:
+      - ./:/repo
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  memory-mcp:
+    image: mcp/memory:latest
+    container_name: mcp-memory
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  # Browser Automation
+  playwright-mcp:
+    image: mcp/playwright:latest
+    container_name: mcp-playwright
+    network_mode: host
+    restart: unless-stopped
+
+  # Knowledge & Search Services
+  wikipedia-mcp:
+    image: mcp/wikipedia-mcp:latest
+    container_name: mcp-wikipedia
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  youtube-mcp:
+    image: mcp/youtube-transcript:latest
+    container_name: mcp-youtube
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  paper-search-mcp:
+    image: mcp/paper-search:latest
+    container_name: mcp-paper-search
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  # Development Tools
+  dockerhub-mcp:
+    image: mcp/dockerhub:latest
+    container_name: mcp-dockerhub
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  npm-sentinel-mcp:
+    image: mcp/npm-sentinel:latest
+    container_name: mcp-npm-sentinel
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  node-sandbox-mcp:
+    image: mcp/node-code-sandbox:latest
+    container_name: mcp-node-sandbox
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  # API & Schema Tools
+  api-gateway-mcp:
+    image: mcp/api-gateway:latest
+    container_name: mcp-api-gateway
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  openapi-mcp:
+    image: mcp/openapi-schema:latest
+    container_name: mcp-openapi
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  fetch-mcp:
+    image: mcp/fetch:latest
+    container_name: mcp-fetch
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  # IDE Integration
+  jetbrains-mcp:
+    image: mcp/jetbrains:latest
+    container_name: mcp-jetbrains
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  # AI Enhancement Tools
+  ref-tools-mcp:
+    image: mcp/ref-tools-mcp:latest
+    container_name: mcp-ref-tools
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  sequential-thinking-mcp:
+    image: mcp/sequentialthinking:latest
+    container_name: mcp-sequential
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  needle-mcp:
+    image: mcp/needle-mcp:latest
+    container_name: mcp-needle
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  # Utility Services
+  time-mcp:
+    image: mcp/time:latest
+    container_name: mcp-time
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+volumes:
+  mcp-data:
+    driver: local

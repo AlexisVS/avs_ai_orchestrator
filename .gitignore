@@ -1,0 +1,68 @@
+# IDE Files
+.idea/
+.vscode/
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.pytest_cache/
+cover/
+htmlcov/
+.nyc_output
+
+# Logs
+*.log
+logs/
+
+# Temp Files
+*.tmp
+*.temp
+.temp/
+.tmp/
+.init_status.json
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# MCP Secrets
+.env.mcp
+mcp_agent.secrets.yaml
