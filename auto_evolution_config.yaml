@@ -1,0 +1,122 @@
+# Configuration pour l'auto-évolution autonome
+# Ce fichier active le système d'auto-génération complet
+
+project:
+  name: "avs-ai-orchestrator"
+  type: "python"
+  description: "Orchestrateur AI avec auto-évolution autonome"
+  version: "1.0.0"
+
+# Configuration Auto-Evolution (CRITIQUE)
+auto_evolution:
+  enabled: true
+  evolution_interval: 300  # 5 minutes entre chaque cycle
+  sandbox_path: "../avs_ai_orchestrator_sandbox"
+  main_repo_path: "."
+  max_evolution_cycles: 100
+  min_test_coverage: 80.0
+  max_quality_issues: 10
+  auto_restart: true
+  
+  # Détection automatique d'améliorations
+  improvement_detection:
+    analyze_logs: true
+    analyze_performance: true
+    detect_missing_features: true
+    analyze_test_coverage: true
+    error_pattern_threshold: 3
+    performance_threshold: 2.0  # secondes
+  
+  # Génération de code automatique
+  code_generation:
+    fix_bugs: true
+    add_features: true
+    optimize_performance: true
+    improve_test_coverage: true
+    ai_provider: "claude"  # ou "gpt-4", "local"
+    
+  # Validation automatique
+  validation:
+    run_full_test_suite: true
+    check_type_hints: true
+    verify_code_style: true
+    security_scan: true
+    quality_gates: true
+
+# GitHub Integration pour auto-push
+github:
+  enabled: true
+  owner: "AlexisVS"
+  repo_name: "avs_ai_orchestrator"
+  auto_commit: true
+  auto_push: false  # Désactivé par sécurité initialement
+  commit_message_prefix: "[AUTO-EVOLUTION]"
+
+# AI Providers
+ai:
+  provider: "claude"  # Provider principal pour l'auto-génération
+  model: "claude-3-sonnet"
+  temperature: 0.1  # Précision maximale pour le code
+  max_tokens: 4000
+  
+  # Fallback providers
+  fallback_providers:
+    - provider: "local"
+      model: "codellama"
+    - provider: "openai"
+      model: "gpt-4"
+
+# Docker Models (pour l'auto-génération distribuée)
+docker:
+  enabled: false  # À activer quand disponible
+  models:
+    - name: "code-generator"
+      image: "codegen:latest"
+      port: 8080
+    - name: "test-runner"
+      image: "testrunner:latest"
+      port: 8081
+
+# LM Studio Integration
+lm_studio:
+  enabled: false  # À activer si LM Studio disponible
+  endpoint: "http://localhost:1234"
+  models:
+    - "codellama-7b"
+    - "deepseek-coder"
+
+# MCP Servers (pour capacités étendues)
+mcp:
+  enabled: false  # Phase 2
+  servers: []
+
+# Logging et Monitoring
+logging:
+  level: "INFO"
+  file: "logs/auto_evolution.log"
+  max_size: "10MB"
+  backup_count: 5
+  
+monitoring:
+  enabled: true
+  metrics_file: "metrics.json"
+  evolution_history_file: "evolution_history.json"
+  alert_on_failure: true
+
+# Security
+security:
+  sandbox_isolation: true
+  code_review_required: false  # Auto-review par AI
+  dangerous_operations:
+    - "os.system"
+    - "subprocess.Popen"
+    - "eval"
+    - "exec"
+  
+# Quality Gates
+quality:
+  min_test_coverage: 80.0
+  max_complexity: 10
+  max_line_length: 120
+  enforce_type_hints: true
+  enforce_docstrings: true

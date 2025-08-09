@@ -1,0 +1,79 @@
+{
+  "evolution_interval": 180,
+  "autonomy_threshold": 0.85,
+  "self_modification_enabled": true,
+  "continuous_evolution": true,
+  "auto_testing": true,
+  "auto_deployment": true,
+  "independence_mode": true,
+  "coverage_target": 0.75,
+  "max_evolution_cycles": 1000,
+  "error_recovery_enabled": true,
+  "meta_learning_enabled": true,
+  "feature_auto_generation": true,
+  "sandbox_isolation": true,
+  "production_deployment": true,
+  "self_restart_enabled": true,
+  "pull_mode_enabled": true,
+  "logging": {
+    "level": "INFO",
+    "file_rotation": true,
+    "max_file_size": "10MB",
+    "backup_count": 5
+  },
+  "agents": {
+    "self_evolution": {
+      "enabled": true,
+      "priority": "critical",
+      "auto_sandbox_creation": true,
+      "code_generation": true
+    },
+    "bug_detector": {
+      "enabled": true,
+      "priority": "high",
+      "continuous_monitoring": true,
+      "auto_fix": true,
+      "pattern_learning": true
+    },
+    "code_generator": {
+      "enabled": true,
+      "priority": "high",
+      "auto_feature_generation": true,
+      "smart_templates": true,
+      "code_optimization": true
+    },
+    "meta_cognitive": {
+      "enabled": true,
+      "priority": "medium",
+      "self_awareness": true,
+      "learning_enabled": true,
+      "goal_adaptation": true
+    },
+    "test_runner": {
+      "enabled": true,
+      "priority": "high",
+      "auto_testing": true,
+      "coverage_improvement": true,
+      "quality_gates": true
+    }
+  },
+  "thresholds": {
+    "min_test_coverage": 0.50,
+    "max_error_rate": 0.05,
+    "min_performance_score": 0.70,
+    "max_memory_usage": 0.80,
+    "min_disk_space_gb": 5
+  },
+  "auto_improvement": {
+    "bug_fix_generation": true,
+    "test_coverage_enhancement": true,
+    "performance_optimization": true,
+    "feature_enhancement": true,
+    "architecture_evolution": true
+  },
+  "github": {
+    "owner": "AlexisVS",
+    "repo": "avs_ai_orchestrator",
+    "project_id": "12"
+  }
+}
