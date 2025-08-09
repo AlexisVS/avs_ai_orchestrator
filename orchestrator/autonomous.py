@@ -243,18 +243,18 @@ class IndependentOrchestrator:
         # MODE PULL : Récupérer les opportunités depuis GitHub Issues et Project Board
         if self.config.get("pull_mode_enabled", False):
             try:
-                self.logger.info("🔄 Mode PULL activé - Lecture des issues GitHub...")
+                self.logger.info("[REFRESH] Mode PULL activé - Lecture des issues GitHub...")
                 github_result = await self.github_sync.execute_pull_workflow()
                 
                 if github_result.get("workflow_status") == "completed":
                     github_opportunities = github_result.get("opportunities_created", [])
                     opportunities.extend(github_opportunities)
-                    self.logger.info(f"✅ GitHub PULL: {len(github_opportunities)} opportunités détectées")
+                    self.logger.info(f"[OK] GitHub PULL: {len(github_opportunities)} opportunités détectées")
                 else:
-                    self.logger.warning(f"⚠️ GitHub PULL échoué: {github_result.get('error', 'Unknown error')}")
+                    self.logger.warning(f"[WARN] GitHub PULL échoué: {github_result.get('error', 'Unknown error')}")
                     
             except Exception as e:
-                self.logger.error(f"❌ Erreur GitHub PULL mode: {e}")
+                self.logger.error(f"[ERROR] Erreur GitHub PULL mode: {e}")
         
         # Analyser les logs pour des patterns d'erreur
         error_patterns = await self._analyze_error_logs()

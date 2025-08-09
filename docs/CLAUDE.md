@@ -108,6 +108,12 @@ python -m pytest --cov=. --cov-report=term-missing
 6. **Verify MCP servers** are running before using them
 7. **READ PROJECT_RULES.md** before making any changes
 
+### ❌ CRITICAL CODING RULES
+1. **NEVER USE EMOJIS IN PYTHON SCRIPTS** - Causes encoding bugs on Windows
+2. Use ASCII text only in print statements and strings
+3. For user output, use words: "OK", "ERROR", "WARN", "INFO"
+4. Emojis only allowed in: git commits, markdown docs, comments
+
 ## 🔧 TROUBLESHOOTING
 
 ### If MCP servers not accessible:

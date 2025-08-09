@@ -115,6 +115,24 @@ class Orchestrator:
 - **Class methods**: ≤ 20 methods per class
 - **Cyclomatic complexity**: ≤ 10 per function
 
+## ❌ FORBIDDEN IN PYTHON CODE
+
+### Encoding Issues Prevention
+1. **NEVER use emojis in Python scripts** - Causes UnicodeEncodeError on Windows
+2. **Use ASCII-only text** in print statements and user output
+3. **Alternative text representations:**
+   - ✅ → "OK" or "[OK]"
+   - ❌ → "ERROR" or "[ERROR]"
+   - ⚠️ → "WARN" or "[WARN]"
+   - 🔧 → "INFO" or "[INFO]"
+   - 🚀 → "START" or "[START]"
+
+### Allowed Emoji Usage
+- **Git commit messages** ✅
+- **Markdown documentation** ✅ 
+- **Code comments** ✅ (but not recommended)
+- **Python strings/prints** ❌ **FORBIDDEN**
+
 ## 🚨 VIOLATION PENALTIES
 
 ### Automatic Actions on Rule Violation

@@ -258,13 +258,13 @@ Return the refactored code that maintains the same functionality.
         issue_title = issue["title"]
         
         print(f"\n{'='*80}")
-        print(f"🎯 PROCESSING ISSUE #{issue_number}: {issue_title}")
+        print(f"[TARGET] PROCESSING ISSUE #{issue_number}: {issue_title}")
         print(f"{'='*80}")
         
         self.current_issue = issue
         
         # Étape 1: Analyser l'issue
-        print(f"\n[PHASE 1] 🔍 Analyzing issue with AI...")
+        print(f"\n[PHASE 1] [SEARCH] Analyzing issue with AI...")
         await self.comment_on_issue(issue_number, f"🤖 **Auto-development started**\n\n**Phase:** Analysis\n**Status:** Analyzing requirements and planning TDD approach...")
         
         analysis = await self.ai_analyze_issue(issue)
@@ -275,10 +275,10 @@ Return the refactored code that maintains the same functionality.
         print(f"[SUCCESS] Analysis complete ({analysis.get('tokens', 0)} tokens)")
         
         # Étape 2: Phase RED - Écrire les tests qui échouent
-        print(f"\n[PHASE 2] 🔴 RED - Writing failing tests...")
+        print(f"\n[PHASE 2] [EMOJI] RED - Writing failing tests...")
         self.tdd_phase = TDDPhase.RED
         
-        await self.comment_on_issue(issue_number, f"🔴 **TDD Phase: RED**\n\nWriting tests that should fail initially. This drives the implementation requirements.")
+        await self.comment_on_issue(issue_number, f"[EMOJI] **TDD Phase: RED**\n\nWriting tests that should fail initially. This drives the implementation requirements.")
         
         tests_code = await self.ai_write_tests(issue, analysis)
         if not tests_code:
@@ -326,16 +326,16 @@ Return the refactored code that maintains the same functionality.
         
         if coverage < 80:
             print(f"[WARNING] Coverage {coverage}% below minimum (80%)")
-            await self.comment_on_issue(issue_number, f"⚠️ **Coverage Warning**\n\nCurrent coverage: {coverage}%\nMinimum required: 80%\nAdding more tests...")
+            await self.comment_on_issue(issue_number, f"[WARN] **Coverage Warning**\n\nCurrent coverage: {coverage}%\nMinimum required: 80%\nAdding more tests...")
             
             # Demander plus de tests à l'IA
             # ... (logique pour améliorer la couverture)
         
         # Étape 4: Phase REFACTOR - Amélioration du code
-        print(f"\n[PHASE 4] 🔄 REFACTOR - Code improvement...")
+        print(f"\n[PHASE 4] [REFRESH] REFACTOR - Code improvement...")
         self.tdd_phase = TDDPhase.REFACTOR
         
-        await self.comment_on_issue(issue_number, f"🔄 **TDD Phase: REFACTOR**\n\nImproving code quality while maintaining all tests green.\nCoverage: {coverage}%")
+        await self.comment_on_issue(issue_number, f"[REFRESH] **TDD Phase: REFACTOR**\n\nImproving code quality while maintaining all tests green.\nCoverage: {coverage}%")
         
         refactored_code = await self.ai_refactor_code(issue, implementation, test_result["output"])
         if refactored_code:
@@ -349,19 +349,19 @@ Return the refactored code that maintains the same functionality.
                 print(f"[SUCCESS] Refactoring complete! Final coverage: {final_coverage}%")
                 
                 # Commentaire final
-                await self.comment_on_issue(issue_number, f"""✅ **Development Complete!**
+                await self.comment_on_issue(issue_number, f"""[OK] **Development Complete!**
 
 **TDD Cycle Completed:**
-- 🔴 RED: Tests written and failed initially
+- [EMOJI] RED: Tests written and failed initially
 - 🟢 GREEN: Minimal implementation made tests pass  
-- 🔄 REFACTOR: Code improved while maintaining tests
+- [REFRESH] REFACTOR: Code improved while maintaining tests
 
 **Final Results:**
-- ✅ All tests passing
-- 📊 Coverage: {final_coverage}%
-- 📁 Files: `{impl_file.name}`, `{test_file.name}`
+- [OK] All tests passing
+- [DATA] Coverage: {final_coverage}%
+- [EMOJI] Files: `{impl_file.name}`, `{test_file.name}`
 
-Ready for code review! 🚀""")
+Ready for code review! [START]""")
                 
                 return True
             else:
@@ -372,7 +372,7 @@ Ready for code review! 🚀""")
     
     async def run_development_cycle(self, project_number: int):
         """Lance le cycle complet de développement"""
-        print(f"🚀 Starting GitHub TDD Development Cycle")
+        print(f"[START] Starting GitHub TDD Development Cycle")
         print(f"Repository: {self.repo_owner}/{self.repo_name}")
         print(f"Project: #{project_number}")
         
@@ -395,9 +395,9 @@ Ready for code review! 🚀""")
                 print(f"[FAILED] Issue #{issue['number']} - stopping here")
                 break
             
-            print(f"[COMPLETED] Issue #{issue['number']} ✅")
+            print(f"[COMPLETED] Issue #{issue['number']} [OK]")
         
-        print(f"\n🎉 Development cycle complete!")
+        print(f"\n[SUCCESS] Development cycle complete!")
 
 async def main():
     """Point d'entrée principal"""
@@ -411,7 +411,7 @@ async def main():
     }
     
     if config["github_token"] == "your-token-here":
-        print("⚠️  Please configure your GitHub token and repository details")
+        print("[WARN]  Please configure your GitHub token and repository details")
         print("Set GITHUB_TOKEN environment variable or edit the config")
         return
     

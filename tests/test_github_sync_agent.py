@@ -144,7 +144,7 @@ class TestGitHubIssueCreation:
         title, description = agent._generate_issue_content(improvement)
         
         # THEN le titre doit être approprié
-        assert title.startswith("🐛 Auto-Fix:")
+        assert title.startswith("[BUG] Auto-Fix:")
         assert "TypeError in agent.py line 42" in title
         
         # AND la description doit contenir les détails
@@ -168,7 +168,7 @@ class TestGitHubIssueCreation:
         title, description = agent._generate_issue_content(improvement)
         
         # THEN le titre doit être approprié
-        assert title.startswith("🧪 Auto-Test:")
+        assert title.startswith("[TEST] Auto-Test:")
         assert "couverture de tests" in title
         
         # AND la description doit contenir les gaps
@@ -190,7 +190,7 @@ class TestGitHubIssueCreation:
         title, description = agent._generate_issue_content(improvement)
         
         # THEN le titre doit être approprié
-        assert title.startswith("⚡ Auto-Optimisation:")
+        assert title.startswith("[EMOJI] Auto-Optimisation:")
         assert "Performance" in title
         
         # AND la description doit contenir les issues
@@ -211,7 +211,7 @@ class TestGitHubIssueCreation:
         title, description = agent._generate_issue_content(improvement)
         
         # THEN le titre doit contenir la première idée
-        assert title.startswith("✨ Auto-Feature:")
+        assert title.startswith("[EMOJI] Auto-Feature:")
         assert "TODO: Add caching system" in title
         
         # AND la description doit contenir toutes les idées

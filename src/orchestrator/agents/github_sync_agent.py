@@ -148,7 +148,7 @@ class GitHubSyncAgent:
         priority = improvement.get("priority", "medium")
         
         if issue_type == "bug_fix":
-            title = f"🐛 Auto-Fix: {improvement.get('patterns', ['Unknown issue'])[0]}"
+            title = f"[BUG] Auto-Fix: {improvement.get('patterns', ['Unknown issue'])[0]}"
             description = f"""## Bug Détecté Automatiquement
 
 **Priorité:** {priority.upper()}
@@ -167,7 +167,7 @@ class GitHubSyncAgent:
 """
         
         elif issue_type == "test_coverage":
-            title = f"🧪 Auto-Test: Améliorer couverture de tests"
+            title = f"[TEST] Auto-Test: Améliorer couverture de tests"
             description = f"""## Gap de Couverture Détecté
 
 **Priorité:** {priority.upper()}
@@ -185,7 +185,7 @@ class GitHubSyncAgent:
 """
         
         elif issue_type == "performance":
-            title = f"⚡ Auto-Optimisation: Performance"
+            title = f"[EMOJI] Auto-Optimisation: Performance"
             description = f"""## Optimisation Performance Requise
 
 **Priorité:** {priority.upper()}
@@ -203,7 +203,7 @@ class GitHubSyncAgent:
 """
         
         elif issue_type == "feature":
-            title = f"✨ Auto-Feature: {improvement.get('ideas', ['New Feature'])[0]}"
+            title = f"[EMOJI] Auto-Feature: {improvement.get('ideas', ['New Feature'])[0]}"
             description = f"""## Nouvelle Fonctionnalité Auto-Générée
 
 **Priorité:** {priority.upper()}
