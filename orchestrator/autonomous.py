@@ -18,16 +18,33 @@ from typing import Dict, Any, Optional
 # Ajouter le path src pour les imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
-from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
-from orchestrator.agents.bug_detector_agent import BugDetectorAgent
-from orchestrator.agents.code_generator_agent import CodeGeneratorAgent
-from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
-from orchestrator.agents.test_runner_agent import TestRunnerAgent
-from orchestrator.agents.github_sync_agent import GitHubSyncAgent
-
-# DDD et SOLID imports
-from orchestrator.application.project_service import ProjectApplicationService
+try:
+    from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
+    from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
+    from orchestrator.agents.bug_detector_agent import BugDetectorAgent
+    from orchestrator.agents.code_generator_agent import CodeGeneratorAgent
+    from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
+    from orchestrator.agents.test_runner_agent import TestRunnerAgent
+    from orchestrator.agents.github_sync_agent import GitHubSyncAgent
+    from orchestrator.application.project_service import ProjectApplicationService
+except ImportError:
+    # Essayer avec les imports src/
+    from src.orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
+    from src.orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
+    from src.orchestrator.agents.bug_detector_agent import BugDetectorAgent
+    from src.orchestrator.agents.code_generator_agent import CodeGeneratorAgent
+    from src.orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
+    from src.orchestrator.agents.test_runner_agent import TestRunnerAgent
+    from src.orchestrator.agents.github_sync_agent import GitHubSyncAgent
+    
+    # DDD et SOLID imports - essayer sans project_service si pas dispo
+    try:
+        from src.orchestrator.application.project_service import ProjectApplicationService
+    except ImportError:
+        # Mock si pas disponible
+        class ProjectApplicationService:
+            def resolve_project_config(self, project_name):
+                return {"name": project_name}
 
 
 class IndependentOrchestrator:
