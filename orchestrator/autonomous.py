@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Main Autonomous Orchestrator - Point d'entrée pour l'orchestration indépendante
-Lance le système d'auto-évolution perpétuelle en production
+Main Autonomous Orchestrator - Point d'entree pour l'orchestration independante
+Lance le systeme d'auto-evolution perpetuelle en production
 """
 
 import asyncio
@@ -10,12 +10,13 @@ import os
 import signal
 import json
 import logging
+import argparse
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 # Ajouter le path src pour les imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
 from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
@@ -25,11 +26,17 @@ from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
 from orchestrator.agents.test_runner_agent import TestRunnerAgent
 from orchestrator.agents.github_sync_agent import GitHubSyncAgent
 
+# DDD et SOLID imports
+from orchestrator.application.project_service import ProjectApplicationService
+
 
 class IndependentOrchestrator:
-    """Orchestrateur complètement indépendant qui s'auto-évolue en permanence"""
+    """Orchestrateur completement independant qui s'auto-evolue en permanence"""
     
-    def __init__(self):
+    def __init__(self, target_project: Optional[str] = None):
+        self.target_project = target_project
+        # Dependency Injection (SOLID: Dependency Inversion Principle)
+        self.project_service = ProjectApplicationService()
         self.config = self._load_config()
         self.orchestrator = AutonomousOrchestrator(self.config)
         self.evolution_agent = SelfEvolutionAgent(self.config)
@@ -70,6 +77,11 @@ class IndependentOrchestrator:
             except Exception as e:
                 print(f"[CONFIG] Erreur lecture config: {e}")
         
+        # Surcharger avec le projet cible si spécifié
+        if self.target_project:
+            project_config = self._generate_project_config(self.target_project)
+            config.update(project_config)
+        
         return config
     
     def setup_logging(self):
@@ -89,18 +101,18 @@ class IndependentOrchestrator:
         self.logger = logging.getLogger("IndependentOrchestrator")
     
     def setup_signal_handlers(self):
-        """Configurer les gestionnaires de signaux pour arrêt gracieux"""
+        """Configurer les gestionnaires de signaux pour arret gracieux"""
         signal.signal(signal.SIGINT, self._signal_handler)
         signal.signal(signal.SIGTERM, self._signal_handler)
     
     def _signal_handler(self, signum, frame):
-        """Gestionnaire de signaux pour arrêt propre"""
-        self.logger.info(f"Signal {signum} reçu, arrêt gracieux...")
+        """Gestionnaire de signaux pour arret propre"""
+        self.logger.info(f"Signal {signum} recu, arret gracieux...")
         self.running = False
     
     async def initialize_system(self):
-        """Initialiser tous les composants du système autonome"""
-        self.logger.info("=== INITIALISATION ORCHESTRATEUR INDÉPENDANT ===")
+        """Initialiser tous les composants du systeme autonome"""
+        self.logger.info("=== INITIALISATION ORCHESTRATEUR INDEPENDANT ===")
         
         # Initialiser l'orchestrateur principal
         self.orchestrator.is_running = True
@@ -134,7 +146,7 @@ class IndependentOrchestrator:
         self.logger.info("Systeme autonome initialise avec 5 agents")
         
     async def start_perpetual_evolution(self):
-        """Démarrer la boucle d'évolution perpétuelle"""
+        """Demarrer la boucle d'evolution perpetuelle"""
         self.logger.info("DEMARRAGE EVOLUTION PERPETUELLE")
         self.running = True
         
@@ -143,38 +155,38 @@ class IndependentOrchestrator:
                 self.evolution_cycle += 1
                 cycle_start = datetime.now()
                 
-                self.logger.info(f"=== CYCLE ÉVOLUTION #{self.evolution_cycle} ===")
+                self.logger.info(f"=== CYCLE EVOLUTION #{self.evolution_cycle} ===")
                 
-                # 1. Auto-surveillance du système
+                # 1. Auto-surveillance du systeme
                 health_status = await self._perform_system_health_check()
-                self.logger.info(f"Santé système: {health_status['overall_health']}")
+                self.logger.info(f"Sante systeme: {health_status['overall_health']}")
                 
-                # 2. Détection des opportunités d'amélioration
+                # 2. Detection des opportunites d'amelioration
                 improvements = await self._detect_improvement_opportunities()
-                self.logger.info(f"Opportunités détectées: {len(improvements)}")
+                self.logger.info(f"Opportunites detectees: {len(improvements)}")
                 
-                # 3. Auto-génération des améliorations avec GitHub sync
+                # 3. Auto-generation des ameliorations avec GitHub sync
                 if improvements:
-                    # Initier workflow GitHub pour chaque amélioration
+                    # Initier workflow GitHub pour chaque amelioration
                     github_workflows = []
                     for improvement in improvements:
                         improvement["cycle"] = self.evolution_cycle
                         workflow = await self.github_sync.sync_improvement_to_github(improvement)
                         github_workflows.append(workflow)
-                        self.logger.info(f"GitHub workflow initié: Issue #{workflow.get('issue_created', 'N/A')}")
+                        self.logger.info(f"GitHub workflow initie: Issue #{workflow.get('issue_created', 'N/A')}")
                     
                     generation_result = await self._auto_generate_improvements(improvements)
-                    self.logger.info(f"Améliorations générées: {generation_result['generated']}")
+                    self.logger.info(f"Ameliorations generees: {generation_result['generated']}")
                     
                     # 4. Auto-test des modifications
                     if generation_result["generated"] > 0:
                         test_result = await self._auto_test_modifications()
                         self.logger.info(f"Tests: {test_result['passed']}/{test_result['total']}")
                         
-                        # 5. Compléter les workflows GitHub
+                        # 5. Completer les workflows GitHub
                         for i, workflow in enumerate(github_workflows):
                             if "issue_created" in workflow:
-                                # Utiliser les vrais noms de fichiers générés
+                                # Utiliser les vrais noms de fichiers generes
                                 improvement_type = improvements[i]['type']
                                 real_generated_files = {
                                     f"src/{improvement_type}s.py": f"# Auto-generated code for {improvement_type}",
@@ -183,19 +195,19 @@ class IndependentOrchestrator:
                                 completion = await self.github_sync.complete_improvement_workflow(
                                     workflow["issue_created"], real_generated_files
                                 )
-                                self.logger.info(f"Workflow GitHub terminé: {completion.get('workflow_completed', False)}")
+                                self.logger.info(f"Workflow GitHub termine: {completion.get('workflow_completed', False)}")
                         
-                        # 6. Auto-déploiement si tests passent
+                        # 6. Auto-deploiement si tests passent
                         if test_result["success"]:
                             deploy_result = await self._auto_deploy_improvements()
                             status = "SUCCES" if deploy_result['success'] else "ECHEC"
                             self.logger.info(f"Deploiement: {status}")
                             
-                            # 7. Auto-relance si nécessaire
+                            # 7. Auto-relance si necessaire
                             if deploy_result["restart_required"]:
                                 await self._prepare_self_restart()
                 
-                # 8. Métriques et apprentissage
+                # 8. Metriques et apprentissage
                 await self._record_evolution_metrics(cycle_start)
                 await self._perform_meta_learning()
                 
@@ -208,16 +220,16 @@ class IndependentOrchestrator:
                 await asyncio.sleep(self.config["evolution_interval"])
                 
             except Exception as e:
-                self.logger.error(f"Erreur cycle évolution {self.evolution_cycle}: {e}")
-                # Auto-récupération
+                self.logger.error(f"Erreur cycle evolution {self.evolution_cycle}: {e}")
+                # Auto-recuperation
                 await self._perform_error_recovery(e)
                 await asyncio.sleep(60)  # Attendre 1 minute avant retry
     
     async def _perform_system_health_check(self) -> Dict[str, Any]:
-        """Vérification complète de la santé du système"""
+        """Verification complete de la sante du systeme"""
         status = await self.orchestrator._get_complete_system_status()
         
-        # Ajouter des vérifications spécifiques
+        # Ajouter des verifications specifiques
         health_checks = {
             "agents_responsive": all(
                 agent.get("status") == "active" 
@@ -237,21 +249,21 @@ class IndependentOrchestrator:
         }
     
     async def _detect_improvement_opportunities(self) -> list:
-        """Détecter les opportunités d'amélioration"""
+        """Detecter les opportunites d'amelioration"""
         opportunities = []
         
-        # MODE PULL : Récupérer les opportunités depuis GitHub Issues et Project Board
+        # MODE PULL : Recuperer les opportunites depuis GitHub Issues et Project Board
         if self.config.get("pull_mode_enabled", False):
             try:
-                self.logger.info("[REFRESH] Mode PULL activé - Lecture des issues GitHub...")
+                self.logger.info("[REFRESH] Mode PULL active - Lecture des issues GitHub...")
                 github_result = await self.github_sync.execute_pull_workflow()
                 
                 if github_result.get("workflow_status") == "completed":
                     github_opportunities = github_result.get("opportunities_created", [])
                     opportunities.extend(github_opportunities)
-                    self.logger.info(f"[OK] GitHub PULL: {len(github_opportunities)} opportunités détectées")
+                    self.logger.info(f"[OK] GitHub PULL: {len(github_opportunities)} opportunites detectees")
                 else:
-                    self.logger.warning(f"[WARN] GitHub PULL échoué: {github_result.get('error', 'Unknown error')}")
+                    self.logger.warning(f"[WARN] GitHub PULL echoue: {github_result.get('error', 'Unknown error')}")
                     
             except Exception as e:
                 self.logger.error(f"[ERROR] Erreur GitHub PULL mode: {e}")
@@ -272,7 +284,7 @@ class IndependentOrchestrator:
                 "gaps": coverage_gaps
             })
         
-        # Détecter des optimisations possibles
+        # Detecter des optimisations possibles
         performance_issues = await self._detect_performance_issues()
         if performance_issues:
             opportunities.append({
@@ -281,7 +293,7 @@ class IndependentOrchestrator:
                 "issues": performance_issues
             })
         
-        # Auto-générer de nouvelles fonctionnalités basées sur l'usage
+        # Auto-generer de nouvelles fonctionnalites basees sur l'usage
         feature_ideas = await self._generate_feature_ideas()
         if feature_ideas:
             opportunities.append({
@@ -293,7 +305,7 @@ class IndependentOrchestrator:
         return opportunities
     
     async def _auto_generate_improvements(self, opportunities: list) -> Dict[str, Any]:
-        """Auto-générer les améliorations"""
+        """Auto-generer les ameliorations"""
         generated_count = 0
         
         for opportunity in opportunities:
@@ -325,12 +337,12 @@ class IndependentOrchestrator:
                     generated_count += len(features)
                     
             except Exception as e:
-                self.logger.error(f"Erreur génération {opportunity['type']}: {e}")
+                self.logger.error(f"Erreur generation {opportunity['type']}: {e}")
         
         return {"generated": generated_count}
     
     async def _apply_generated_code(self, code_dict: Dict[str, str], category: str):
-        """Appliquer le code généré dans la sandbox"""
+        """Appliquer le code genere dans la sandbox"""
         sandbox_path = self.config["sandbox_path"]
         
         for file_path, code_content in code_dict.items():
@@ -338,7 +350,7 @@ class IndependentOrchestrator:
                 full_path = sandbox_path / file_path
                 full_path.parent.mkdir(parents=True, exist_ok=True)
                 full_path.write_text(code_content)
-                self.logger.info(f"Code généré appliqué: {file_path} ({category})")
+                self.logger.info(f"Code genere applique: {file_path} ({category})")
             except Exception as e:
                 self.logger.error(f"Erreur application code {file_path}: {e}")
     
@@ -360,9 +372,9 @@ class IndependentOrchestrator:
             return {"success": False, "passed": 0, "total": 1, "coverage": 0.0}
     
     async def _auto_deploy_improvements(self) -> Dict[str, Any]:
-        """Déployer automatiquement les améliorations"""
+        """Deployer automatiquement les ameliorations"""
         try:
-            # Copier les fichiers modifiés de la sandbox vers le repo principal
+            # Copier les fichiers modifies de la sandbox vers le repo principal
             await self._sync_sandbox_to_main()
             
             # Commit automatique
@@ -372,14 +384,14 @@ class IndependentOrchestrator:
             return {"success": True, "restart_required": True}
             
         except Exception as e:
-            self.logger.error(f"Erreur déploiement: {e}")
+            self.logger.error(f"Erreur deploiement: {e}")
             return {"success": False, "restart_required": False}
     
     async def _prepare_self_restart(self):
-        """Préparer l'auto-relance du système"""
+        """Preparer l'auto-relance du systeme"""
         self.logger.info("PREPARATION AUTO-RELANCE...")
         
-        # Sauvegarder l'état actuel
+        # Sauvegarder l'etat actuel
         state = {
             "evolution_cycle": self.evolution_cycle,
             "last_evolution": datetime.now().isoformat(),
@@ -390,13 +402,13 @@ class IndependentOrchestrator:
         state_file = Path("evolution_state.json")
         state_file.write_text(json.dumps(state, indent=2))
         
-        self.logger.info("État sauvegardé, redémarrage dans 10 secondes...")
+        self.logger.info("Etat sauvegarde, redemarrage dans 10 secondes...")
         await asyncio.sleep(10)
         
         # Auto-relance
         os.execl(sys.executable, sys.executable, *sys.argv)
     
-    # Méthodes utilitaires simplifiées pour le prototype
+    # Methodes utilitaires simplifiees pour le prototype
     def _check_memory_usage(self) -> bool:
         return True  # Toujours OK pour le prototype
     
@@ -404,7 +416,7 @@ class IndependentOrchestrator:
         return True  # Toujours OK pour le prototype
     
     async def _check_evolution_capability(self) -> bool:
-        return True  # Capacité d'évolution toujours active
+        return True  # Capacite d'evolution toujours active
     
     async def _analyze_error_logs(self) -> list:
         # Simulation : retourner parfois des patterns d'erreur
@@ -415,17 +427,17 @@ class IndependentOrchestrator:
     async def _analyze_test_coverage_gaps(self) -> list:
         # Simulation : identifier des gaps de couverture
         if self.evolution_cycle % 4 == 0:
-            return ["Module sans test: new_module", "Méthode non couverte: process_data"]
+            return ["Module sans test: new_module", "Methode non couverte: process_data"]
         return []
     
     async def _detect_performance_issues(self) -> list:
-        # Simulation : détecter des problèmes de performance
+        # Simulation : detecter des problemes de performance
         if self.evolution_cycle % 5 == 0:
             return [{"function": "slow_processing", "type": "slow_function"}]
         return []
     
     async def _generate_feature_ideas(self) -> list:
-        # Simulation : générer des idées de fonctionnalités
+        # Simulation : generer des idees de fonctionnalites
         if self.evolution_cycle % 6 == 0:
             return ["TODO: Add caching system", "TODO: Implement retry logic"]
         return []
@@ -443,25 +455,111 @@ class IndependentOrchestrator:
     
     async def _record_evolution_metrics(self, cycle_start: datetime):
         cycle_duration = (datetime.now() - cycle_start).total_seconds()
-        self.logger.info(f"Cycle {self.evolution_cycle} terminé en {cycle_duration:.1f}s")
+        self.logger.info(f"Cycle {self.evolution_cycle} termine en {cycle_duration:.1f}s")
     
     async def _perform_meta_learning(self):
-        # Méta-apprentissage pour optimiser le processus d'évolution
-        self.logger.info("Méta-apprentissage en cours...")
+        # Meta-apprentissage pour optimiser le processus d'evolution
+        self.logger.info("Meta-apprentissage en cours...")
         await asyncio.sleep(0.1)
     
     async def _perform_error_recovery(self, error: Exception):
-        # Récupération automatique d'erreur
-        self.logger.info(f"Récupération d'erreur: {type(error).__name__}")
+        # Recuperation automatique d'erreur
+        self.logger.info(f"Recuperation d'erreur: {type(error).__name__}")
         await asyncio.sleep(1)
+    
+    def _generate_project_config(self, project_name: str) -> Dict[str, Any]:
+        """Générer la configuration spécifique au projet (DDD + SOLID)"""
+        try:
+            # Utiliser le service d'application (DDD Application Service)
+            return self.project_service.generate_configuration_dict(project_name)
+            
+        except Exception as e:
+            self.logger.error(f"[CONFIG] Erreur génération config projet {project_name}: {e}")
+            # Le service a déjà un fallback intégré, mais on peut ajouter un fallback supplémentaire
+            return {
+                "target_project": {
+                    "name": project_name,
+                    "path": str(Path.cwd().parent / project_name)
+                },
+                "github": {
+                    "repo": project_name,
+                    "owner": "AlexisVS"
+                }
+            }
 
 
-async def main():
-    """Point d'entrée principal pour l'orchestrateur indépendant"""
+# ============================================================================
+# FUNCTIONS FOR PROJECT ARGUMENT SUPPORT (SOLID Principles Applied)
+# ============================================================================
+
+def parse_arguments(args_list: Optional[list] = None) -> argparse.Namespace:
+    """Parse command line arguments (SOLID: Single Responsibility)"""
+    parser = argparse.ArgumentParser(
+        description="Orchestrateur AI Autonome",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python orchestrator/autonomous.py --project weather-dashboard
+  python orchestrator/autonomous.py --target-project my-project
+  python orchestrator/autonomous.py  # Use default config
+        """
+    )
+    
+    parser.add_argument(
+        '--project', '--target-project',
+        dest='project',
+        type=str,
+        help='Nom du projet cible à orchestrer'
+    )
+    
+    if args_list is not None:
+        return parser.parse_args(args_list)
+    return parser.parse_args()
+
+
+def resolve_project_path(project_name: str) -> str:
+    """Résoudre le chemin du projet (Facade for DDD service)"""
+    # Utilise le service DDD derrière le facade pour la compatibilité
+    service = ProjectApplicationService()
+    return service.resolve_project_path(project_name)
+
+
+def validate_project_config(project_name: str, project_path: str) -> Dict[str, Any]:
+    """Valider la configuration du projet (Facade for DDD service)"""
+    # Utilise le service DDD derrière le facade pour la compatibilité
+    service = ProjectApplicationService()
+    return service.validate_project_configuration(project_name, project_path)
+
+
+def validate_github_repo(repo_name: str) -> Dict[str, Any]:
+    """Valider l'existence du repo GitHub (Legacy compatibility)"""
+    # Maintenu pour compatibilité arrière, mais utilise le service DDD
+    from orchestrator.domain.project import GitHubValidationService
+    service = GitHubValidationService()
+    return service.validate_repository(repo_name)
+
+
+def generate_project_config(
+    project_name: str, 
+    project_path: str, 
+    github_owner: str = "AlexisVS"
+) -> Dict[str, Any]:
+    """Générer la configuration pour un projet (Facade for DDD service)"""
+    # Utilise le service DDD derrière le facade pour la compatibilité
+    service = ProjectApplicationService()
+    return service.generate_configuration_dict(project_name, project_path, github_owner)
+
+
+async def main_with_args():
+    """Point d'entrée avec parsing d'arguments (SOLID: Open/Closed)"""
+    args = parse_arguments()
+    
     print("=== ORCHESTRATEUR AI INDEPENDANT ===")
+    if args.project:
+        print(f"Projet cible: {args.project}")
     print("Demarrage du systeme d'auto-evolution perpetuelle...")
     
-    # Restaurer l'état si redémarrage
+    # Restaurer l'etat si redemarrage
     state_file = Path("evolution_state.json")
     if state_file.exists():
         try:
@@ -471,13 +569,13 @@ async def main():
         except Exception as e:
             print(f"Erreur lecture etat: {e}")
     
-    orchestrator = IndependentOrchestrator()
+    orchestrator = IndependentOrchestrator(target_project=args.project)
     
     try:
         # Initialisation
         await orchestrator.initialize_system()
         
-        # Démarrage de l'évolution perpétuelle
+        # Demarrage de l'evolution perpetuelle
         await orchestrator.start_perpetual_evolution()
         
     except KeyboardInterrupt:
@@ -487,6 +585,12 @@ async def main():
         logging.exception("Erreur fatale dans l'orchestrateur")
     finally:
         print("Arret de l'orchestrateur autonome")
+
+
+async def main():
+    """Point d'entree principal pour l'orchestrateur independant (legacy)"""
+    # Utiliser la nouvelle fonction avec support d'arguments
+    await main_with_args()
 
 
 if __name__ == "__main__":
