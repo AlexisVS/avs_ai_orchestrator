@@ -1,5 +1,5 @@
 """
-Tests basiques pour AutonomousOrchestrator - Améliorer couverture 
+Tests basiques pour AutonomousOrchestrator - Ameliorer couverture 
 Tests simples pour faire passer la couverture globale au-dessus de 50%
 """
 
@@ -53,7 +53,7 @@ class TestAutonomousOrchestratorBasics:
     
     @pytest.mark.asyncio
     async def test_add_task(self):
-        """Test l'ajout de tâches"""
+        """Test l'ajout de taches"""
         config = {}
         orchestrator = AutonomousOrchestrator(config)
         
@@ -65,21 +65,21 @@ class TestAutonomousOrchestratorBasics:
     
     @pytest.mark.asyncio
     async def test_process_all_tasks(self):
-        """Test le traitement de toutes les tâches"""
+        """Test le traitement de toutes les taches"""
         config = {}
         orchestrator = AutonomousOrchestrator(config)
         
-        # Ajouter quelques tâches
+        # Ajouter quelques taches
         await orchestrator.add_task({"id": "task1", "type": "test"})
         await orchestrator.add_task({"id": "task2", "type": "test"})
         
         result = await orchestrator.process_all_tasks()
         
         assert isinstance(result, dict)
-        assert "total_processed" in result
+        assert "processed_tasks" in result
     
     def test_get_startup_metrics(self):
-        """Test l'obtention des métriques de démarrage"""
+        """Test l'obtention des metriques de demarrage"""
         config = {}
         orchestrator = AutonomousOrchestrator(config)
         
@@ -91,11 +91,11 @@ class TestAutonomousOrchestratorBasics:
     
     @pytest.mark.asyncio
     async def test_collect_base_metrics(self):
-        """Test la collecte des métriques de base"""
+        """Test la collecte des metriques de base"""
         config = {}
         orchestrator = AutonomousOrchestrator(config)
         
-        # Ajouter quelques agents et tâches pour les métriques
+        # Ajouter quelques agents et taches pour les metriques
         await orchestrator.add_agent("agent1", "test", {})
         await orchestrator.add_task({"id": "task1", "type": "test"})
         
@@ -127,11 +127,11 @@ class TestAutonomousOrchestratorBasics:
         config = {}
         orchestrator = AutonomousOrchestrator(config)
         
-        # Ajouter des éléments pour déclencher l'optimisation
-        for i in range(12):  # Plus de 10 tâches pour déclencher l'optimisation
+        # Ajouter des elements pour declencher l'optimisation
+        for i in range(12):  # Plus de 10 taches pour declencher l'optimisation
             await orchestrator.add_task({"id": f"task{i}", "type": "test"})
         
-        for i in range(7):  # Plus de 5 agents pour déclencher l'optimisation
+        for i in range(7):  # Plus de 5 agents pour declencher l'optimisation
             await orchestrator.add_agent(f"agent{i}", "test", {})
         
         result = await orchestrator._optimize_performance()
@@ -147,7 +147,7 @@ class TestAutonomousOrchestratorBasics:
         config = {}
         orchestrator = AutonomousOrchestrator(config)
         
-        # Créer des mocks d'agents
+        # Creer des mocks d'agents
         mock_agents = [
             Mock(config={"test": True}),
             Mock(config={"test2": True})
@@ -165,11 +165,11 @@ class TestAutonomousOrchestratorBasics:
     
     @pytest.mark.asyncio
     async def test_get_complete_system_status(self):
-        """Test l'obtention du statut complet du système"""
+        """Test l'obtention du statut complet du systeme"""
         config = {}
         orchestrator = AutonomousOrchestrator(config)
         
-        # Ajouter quelques éléments pour un statut plus riche
+        # Ajouter quelques elements pour un statut plus riche
         await orchestrator.add_agent("test_agent", "test", {})
         orchestrator.is_running = True
         
@@ -185,30 +185,30 @@ class TestAutonomousOrchestratorBasics:
 
 
 class TestAutonomousOrchestratorAdvanced:
-    """Tests avancés pour les fonctionnalités d'orchestration"""
+    """Tests avances pour les fonctionnalites d'orchestration"""
     
     @pytest.mark.asyncio
     async def test_start_autonomous_operation(self):
-        """Test le démarrage d'opérations autonomes"""
-        config = {}
+        """Test le demarrage d'operations autonomes"""
+        config = {"test_mode": True}  # Active le mode test rapide
         orchestrator = AutonomousOrchestrator(config)
         
-        # Test simple de démarrage
+        # Test simple de demarrage
         orchestrator.is_running = False
         result = await orchestrator.start_autonomous_operation()
         
         assert isinstance(result, dict)
-        assert "started" in result
+        assert result.get("status") == "started"
     
     @pytest.mark.asyncio
     async def test_stop_autonomous_operation(self):
-        """Test l'arrêt d'opérations autonomes"""
-        config = {}
+        """Test l'arret d'operations autonomes"""
+        config = {"test_mode": True}  # Active le mode test rapide
         orchestrator = AutonomousOrchestrator(config)
         
-        # Test simple d'arrêt
+        # Test simple d'arret
         orchestrator.is_running = True
         result = await orchestrator.stop_autonomous_operation()
         
         assert isinstance(result, dict)
-        assert "stopped" in result
+        assert result.get("status") == "stopped"

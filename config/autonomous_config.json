@@ -75,5 +75,10 @@
     "owner": "AlexisVS",
     "repo": "avs_ai_orchestrator",
     "project_id": "12"
+  },
+  "target_project": {
+    "path": "C:/Users/alexi/mcp-agent/avs_ai_orchestrator",
+    "name": "avs_ai_orchestrator",
+    "type": "python_fullstack"
   }
 }
