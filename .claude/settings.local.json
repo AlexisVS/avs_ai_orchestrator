@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(py --version)",
+      "Bash(py main_orchestrator.py configs/weather-app.yaml)",
+      "Bash(pip install:*)",
+      "Bash(py -m pip install:*)",
+      "Bash(py:*)",
+      "Bash(mkdir:*)",
+      "Bash(move main_orchestrator.py srcorchestratorcoremain.py)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(/bashes)",
+      "Bash(gh issue:*)",
+      "Bash(gh project list:*)",
+      "Bash(gh project item-add:*)",
+      "Bash(gh project item-list:*)",
+      "Bash(gh api:*)",
+      "Bash(curl:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": []
+  }
+}
