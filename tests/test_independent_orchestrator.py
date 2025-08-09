@@ -15,7 +15,7 @@ from datetime import datetime
 try:
     import sys
     sys.path.insert(0, str(Path(__file__).parent.parent))
-    from main_autonomous_orchestrator import IndependentOrchestrator
+    from orchestrator.autonomous import IndependentOrchestrator
 except ImportError:
     IndependentOrchestrator = None
 

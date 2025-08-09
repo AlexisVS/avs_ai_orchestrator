@@ -408,7 +408,7 @@ class TestBidirectionalWorkflow:
     async def test_integration_with_orchestrator(self):
         """Test intégration du mode PULL avec l'orchestrateur"""
         # GIVEN un orchestrateur avec GitHub Sync en mode PULL
-        from main_autonomous_orchestrator import IndependentOrchestrator
+        from orchestrator.autonomous import IndependentOrchestrator
         
         orchestrator = IndependentOrchestrator()
         orchestrator.config["pull_mode_enabled"] = True

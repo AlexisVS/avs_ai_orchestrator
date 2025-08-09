@@ -20,13 +20,13 @@ Ce système représente l'implémentation de l'**auto-évolution autonome** déc
 ### Mode Auto-Évolution Complet
 ```bash
 # Démarrage de l'auto-évolution permanente
-python start_auto_evolution.py
+python scripts/start_evolution.py
 ```
 
 ### Mode Manuel avec Auto-Évolution
 ```bash
 # Démarrage avec config auto-évolution
-python orchestrator.py auto_evolution_config.yaml
+python orchestrator.py config/evolution.yaml
 ```
 
 ## 🏗️ Architecture Auto-Évolutive
@@ -39,8 +39,8 @@ avs_ai_orchestrator/           # 📍 DÉPÔT PRINCIPAL (exécution)
 │   ├── code_generator_agent.py    # ⚙️  Génération de code autonome
 │   ├── test_runner_agent.py       # 🧪 Tests automatiques
 │   └── bug_detector_agent.py      # 🔍 Détection d'erreurs
-├── start_auto_evolution.py        # 🚀 Script de démarrage
-└── auto_evolution_config.yaml     # ⚡ Configuration critique
+├── scripts/start_evolution.py        # 🚀 Script de démarrage
+└── config/evolution.yaml     # ⚡ Configuration critique
 
 ../avs_ai_orchestrator_sandbox/   # 🏖️  SANDBOX (développement)
 ├── [code généré automatiquement]
@@ -73,7 +73,7 @@ avs_ai_orchestrator/           # 📍 DÉPÔT PRINCIPAL (exécution)
 
 ### Activation
 ```yaml
-# auto_evolution_config.yaml
+# config/evolution.yaml
 auto_evolution:
   enabled: true                    # 🔥 ACTIVER L'AUTO-ÉVOLUTION
   evolution_interval: 300          # Cycle toutes les 5 minutes
@@ -180,7 +180,7 @@ code_generation:
 ### Démarrage Simple
 ```bash
 # Lancer l'auto-évolution permanente
-python start_auto_evolution.py
+python scripts/start_evolution.py
 
 # Le système va maintenant:
 # 1. Se surveiller lui-même

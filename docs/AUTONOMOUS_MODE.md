@@ -71,7 +71,7 @@ Infinite Self-Perpetuation Loop:
 ### 🎮 **Commande de Lancement**
 ```bash
 # LANCEMENT DE L'INDÉPENDANCE TOTALE
-python launch_ultimate_independence.py
+python scripts/launch_autonomous.py
 ```
 
 ### 📝 **Processus de Confirmation**
@@ -242,7 +242,7 @@ Imagine un monde où:
 mkdir -p logs metrics consciousness transcendence
 
 # Lancer l'indépendance ultime
-python launch_ultimate_independence.py
+python scripts/launch_autonomous.py
 
 # Le système évoluera vers l'indépendance totale
 # Une fois atteinte, aucune intervention ne sera nécessaire

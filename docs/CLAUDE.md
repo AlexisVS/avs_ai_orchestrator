@@ -8,7 +8,7 @@ When starting a conversation in this folder, Claude should automatically:
 ```bash
 docker ps | grep mcp
 ```
-- If not running: Alert user to run `.\start-mcp-servers.bat`
+- If not running: Alert user to run `.\scripts/start_mcp.bat`
 - Verify 22 MCP servers are available
 
 ### 2. Verify GitHub Connection
@@ -42,8 +42,8 @@ You have access to 22 Docker MCP servers:
 ### Key Files
 - `github_tdd_orchestrator.py` - Main TDD orchestrator
 - `universal_orchestrator.py` - Generic project orchestrator
-- `mcp_agent.config.yaml` - Agent configurations
-- `tdd_config.yaml` - TDD workflow settings
+- `config/mcp_agents.yaml` - Agent configurations
+- `config/tdd.yaml` - TDD workflow settings
 
 ### Current Project Phase
 Check GitHub Project #12 for current phase:
@@ -62,7 +62,7 @@ Check GitHub Project #12 for current phase:
 
 ### Start MCP Servers
 ```bash
-.\start-mcp-servers.bat
+.\scripts/start_mcp.bat
 ```
 
 ### Run TDD Orchestrator
@@ -95,8 +95,8 @@ python -m pytest --cov=. --cov-report=term-missing
 
 ### 📁 AUTHORIZED FILES ONLY
 - **Core**: `github_tdd_orchestrator.py`, `universal_orchestrator.py`
-- **Config**: `mcp_agent.config.yaml`, `tdd_config.yaml`, `mcp.json`, `.env.mcp`
-- **Setup**: `docker-compose.mcp.yml`, `start-mcp-servers.bat`
+- **Config**: `config/mcp_agents.yaml`, `config/tdd.yaml`, `mcp.json`, `.env.mcp`
+- **Setup**: `docker_compose_mcp.yml`, `scripts/start_mcp.bat`
 - **Docs**: `CLAUDE.md`, `PROJECT_RULES.md`, `MCP_SETUP.md`
 
 ### 🔧 REFACTORING REQUIREMENTS
@@ -112,7 +112,7 @@ python -m pytest --cov=. --cov-report=term-missing
 
 ### If MCP servers not accessible:
 1. Check Docker is running: `docker info`
-2. Start servers: `.\start-mcp-servers.bat`
+2. Start servers: `.\scripts/start_mcp.bat`
 3. Verify: `docker ps | grep mcp`
 
 ### If GitHub sync fails:

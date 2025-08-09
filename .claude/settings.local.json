@@ -19,7 +19,13 @@
       "Bash(curl:*)",
       "Bash(git add:*)",
       "Bash(git rm:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "Bash(gh issue view:*)",
+      "Bash(git branch:*)",
+      "Bash(gh issue close:*)",
+      "Bash(mkdir:*)",
+      "Bash(git mv:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

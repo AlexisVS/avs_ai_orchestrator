@@ -51,10 +51,10 @@ cp .env.mcp .env
 ### 2. Start All MCP Servers
 ```bash
 # Windows
-.\start-mcp-servers.bat
+.\scripts/start_mcp.bat
 
 # Linux/Mac
-docker-compose -f docker-compose.mcp.yml up -d
+docker-compose -f docker_compose_mcp.yml up -d
 ```
 
 ### 3. Verify Installation
@@ -63,7 +63,7 @@ docker-compose -f docker-compose.mcp.yml up -d
 docker ps | grep mcp
 
 # View logs for a specific service
-docker-compose -f docker-compose.mcp.yml logs -f github-mcp
+docker-compose -f docker_compose_mcp.yml logs -f github-mcp
 ```
 
 ## Using MCP Servers in Claude Desktop
@@ -100,27 +100,27 @@ The MCP servers are integrated with your AI Orchestrator project to provide:
 
 ### Start Services
 ```bash
-docker-compose -f docker-compose.mcp.yml up -d
+docker-compose -f docker_compose_mcp.yml up -d
 ```
 
 ### Stop Services
 ```bash
-docker-compose -f docker-compose.mcp.yml down
+docker-compose -f docker_compose_mcp.yml down
 ```
 
 ### Update Images
 ```bash
-docker-compose -f docker-compose.mcp.yml pull
-docker-compose -f docker-compose.mcp.yml up -d
+docker-compose -f docker_compose_mcp.yml pull
+docker-compose -f docker_compose_mcp.yml up -d
 ```
 
 ### View Logs
 ```bash
 # All services
-docker-compose -f docker-compose.mcp.yml logs -f
+docker-compose -f docker_compose_mcp.yml logs -f
 
 # Specific service
-docker-compose -f docker-compose.mcp.yml logs -f github-mcp
+docker-compose -f docker_compose_mcp.yml logs -f github-mcp
 ```
 
 ## Troubleshooting
@@ -129,7 +129,7 @@ docker-compose -f docker-compose.mcp.yml logs -f github-mcp
 Ensure Docker Desktop is running before starting MCP servers.
 
 ### Port Conflicts
-Check `docker-compose.mcp.yml` and adjust ports if needed.
+Check `docker_compose_mcp.yml` and adjust ports if needed.
 
 ### Permission Issues
 Run Docker commands with administrator privileges on Windows.

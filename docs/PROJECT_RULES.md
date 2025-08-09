@@ -23,14 +23,14 @@
 - `universal_orchestrator.py` - Generic project orchestrator
 
 ### Configuration Files
-- `mcp_agent.config.yaml` - MCP agent configuration
-- `tdd_config.yaml` - TDD workflow settings
+- `config/mcp_agents.yaml` - MCP agent configuration
+- `config/tdd.yaml` - TDD workflow settings
 - `mcp.json` - MCP server definitions
 - `.env.mcp` - Environment variables
 
 ### Setup Files
-- `docker-compose.mcp.yml` - MCP Docker services
-- `start-mcp-servers.bat` - MCP server startup
+- `docker_compose_mcp.yml` - MCP Docker services
+- `scripts/start_mcp.bat` - MCP server startup
 - `MCP_SETUP.md` - MCP documentation
 
 ### Project Documentation
