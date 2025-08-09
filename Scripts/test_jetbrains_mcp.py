@@ -12,7 +12,7 @@ async def test_jetbrains_mcp():
     print("Test de connexion JetBrains MCP")
     print("=" * 40)
     
-    # Vérifier si le conteneur est en cours d'exécution
+    # Verifier si le conteneur est en cours d'execution
     try:
         async with aiohttp.ClientSession() as session:
             # Test de connexion de base
@@ -36,7 +36,7 @@ async def test_jetbrains_mcp():
         return False
 
 async def main():
-    """Point d'entrée"""
+    """Point d'entree"""
     connected = await test_jetbrains_mcp()
     
     if connected:

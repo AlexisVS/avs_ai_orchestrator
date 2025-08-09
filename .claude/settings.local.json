@@ -25,8 +25,207 @@
       "Bash(gh issue close:*)",
       "Bash(mkdir:*)",
       "Bash(git mv:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(pip install:*)",
+      "Bash(git reset:*)",
+      "Bash(git clone:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(for i in 1 2 3 4 5)",
+      "Bash(do gh issue close $i --repo AlexisVS/weather-dashboard --comment \"Issues incorrectes - Suppression pour recréation propre\")",
+      "Bash(done)",
+      "Bash(gh label create:*)",
+      "Bash(for i in 6 7 8 9 10)",
+      "Bash(do gh issue close $i --repo AlexisVS/weather-dashboard --comment \"Nettoyage - L''orchestrateur autonome va créer ses propres issues\")",
+      "Bash(gh issue create:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(tasklist:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker images:*)",
+      "Bash(claude mcp:*)",
+      "Bash(claude --version)",
+      "Bash(docker run:*)",
+      "Bash(gh auth:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)",
+      "Bash(tree:*)",
+      "Bash(where python)",
+      "Bash(set PYTHONIOENCODING=utf-8)",
+      "Bash(deactivate)",
+      "Bash(true)",
+      "Bash(source:*)",
+      "Bash(.venv\\Scripts\\activate)",
+      "Bash(gh repo view:*)",
+      "Bash(git push:*)",
+      "Bash(grep:*)",
+      "Bash(docker:*)",
+      "Bash(timeout:*)",
+      "Bash(sed:*)",
+      "Bash(set \"PYTHONIOENCODING=utf-8\")"
     ],
     "deny": []
+  },
+  "mcpServers": {
+    "jetbrains": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-p",
+        "8080:8080",
+        "mcp/jetbrains"
+      ]
+    },
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "ghcr.io/github/github-mcp-server"
+      ]
+    },
+    "filesystem": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-v",
+        "${workspaceFolder}:/workspace",
+        "mcp/filesystem"
+      ]
+    },
+    "git": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-v",
+        "${workspaceFolder}:/workspace",
+        "mcp/git"
+      ]
+    },
+    "playwright": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/playwright"
+      ]
+    },
+    "wikipedia": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/wikipedia-mcp"
+      ]
+    },
+    "youtube-transcript": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/youtube-transcript"
+      ]
+    },
+    "fetch": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/fetch"
+      ]
+    },
+    "memory": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/memory"
+      ]
+    },
+    "time": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/time"
+      ]
+    },
+    "openapi-schema": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/openapi-schema"
+      ]
+    },
+    "api-gateway": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/api-gateway"
+      ]
+    },
+    "dockerhub": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/dockerhub"
+      ]
+    },
+    "npm-sentinel": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/npm-sentinel"
+      ]
+    },
+    "paper-search": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/paper-search"
+      ]
+    },
+    "ref-tools": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/ref-tools-mcp"
+      ]
+    },
+    "needle": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/needle-mcp"
+      ]
+    },
+    "node-code-sandbox": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/node-code-sandbox"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "mcp/sequentialthinking"
+      ]
+    }
   }
 }

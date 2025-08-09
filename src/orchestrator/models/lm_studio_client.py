@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 LM Studio Client - Implementation
-Connexion aux modèles LM Studio via API REST
+Connexion aux modeles LM Studio via API REST
 Respecte les principes DDD (Domain-Driven Design) et SOLID
 """
 
@@ -48,22 +48,22 @@ class LMStudioClient(AIModelInterface):
     
     @property
     def base_url(self) -> str:
-        """Propriété pour accès à l'URL de base"""
+        """Propriete pour acces a l'URL de base"""
         return self._config.base_url
     
     @property
     def timeout(self) -> int:
-        """Propriété pour accès au timeout"""
+        """Propriete pour acces au timeout"""
         return self._config.timeout
     
     @property
     def max_retries(self) -> int:
-        """Propriété pour accès au max_retries"""
+        """Propriete pour acces au max_retries"""
         return self._config.max_retries
     
     @property
     def retry_delay(self) -> float:
-        """Propriété pour accès au retry_delay"""
+        """Propriete pour acces au retry_delay"""
         return self._config.retry_delay
     
     async def _ensure_session(self) -> aiohttp.ClientSession:
@@ -83,7 +83,7 @@ class LMStudioClient(AIModelInterface):
         return self._session
     
     async def _make_request(self, method: str, url: str, **kwargs) -> Dict[str, Any]:
-        """Faire une requête HTTP avec retry logic"""
+        """Faire une requete HTTP avec retry logic"""
         session = await self._ensure_session()
         
         for attempt in range(self._config.max_retries):
@@ -106,9 +106,9 @@ class LMStudioClient(AIModelInterface):
                 await asyncio.sleep(self._config.retry_delay)
     
     async def generate_code(self, prompt: str, **kwargs) -> str:
-        """Générer du code via LM Studio"""
+        """Generer du code via LM Studio"""
         try:
-            # Construction du prompt système pour génération de code
+            # Construction du prompt systeme pour generation de code
             system_prompt = kwargs.get('system_prompt', 
                 "You are an expert software developer. Generate clean, well-documented code based on the request."
             )
@@ -146,9 +146,9 @@ class LMStudioClient(AIModelInterface):
             raise AIModelError(f"Code generation failed: {e}")
     
     async def analyze_text(self, text: str, analysis_type: str, **kwargs) -> str:
-        """Analyser du texte selon un type spécifique"""
+        """Analyser du texte selon un type specifique"""
         try:
-            # Prompts système selon le type d'analyse
+            # Prompts systeme selon le type d'analyse
             system_prompts = {
                 "bug_detection": "You are a code analysis expert. Analyze the code for potential bugs, security issues, and improvements.",
                 "code_review": "You are a senior developer conducting a code review. Provide detailed feedback on code quality, style, and best practices.",
@@ -185,9 +185,9 @@ class LMStudioClient(AIModelInterface):
             raise AIModelError(f"Text analysis failed: {e}")
     
     async def generate_tests(self, code: str, test_framework: str = "pytest", **kwargs) -> str:
-        """Générer des tests pour le code donné"""
+        """Generer des tests pour le code donne"""
         try:
-            # Prompt spécialisé pour génération de tests TDD
+            # Prompt specialise pour generation de tests TDD
             system_prompt = f"""You are a test-driven development expert using {test_framework}. 
             Generate comprehensive unit tests following TDD best practices:
             - Use GIVEN/WHEN/THEN structure in comments
@@ -272,7 +272,7 @@ Provide the corrected code maintaining the same structure and functionality."""
             raise AIModelError(f"Bug fixing failed: {e}")
     
     async def list_available_models(self) -> List[Dict[str, Any]]:
-        """Lister les modèles disponibles sur LM Studio"""
+        """Lister les modeles disponibles sur LM Studio"""
         try:
             response = await self._make_request("GET", self._models_url)
             
@@ -286,16 +286,16 @@ Provide the corrected code maintaining the same structure and functionality."""
             return []
     
     async def health_check(self) -> Dict[str, Any]:
-        """Vérifier la santé du serveur LM Studio"""
+        """Verifier la sante du serveur LM Studio"""
         try:
-            # Tentative de requête simple pour vérifier la disponibilité
+            # Tentative de requete simple pour verifier la disponibilite
             models = await self.list_available_models()
             
             return {
                 "status": "healthy",
                 "base_url": self._config.base_url,
                 "models_available": len(models),
-                "models": [model.get("id", "unknown") for model in models[:3]]  # Premier 3 modèles
+                "models": [model.get("id", "unknown") for model in models[:3]]  # Premier 3 modeles
             }
             
         except Exception as e:
@@ -319,13 +319,13 @@ Provide the corrected code maintaining the same structure and functionality."""
         await self.close()
 
 
-# Factory Pattern pour création de clients selon DDD
+# Factory Pattern pour creation de clients selon DDD
 class LMStudioClientFactory:
-    """Factory pour créer des instances de LMStudioClient"""
+    """Factory pour creer des instances de LMStudioClient"""
     
     @staticmethod
     def create_client(config: Dict[str, Any]) -> LMStudioClient:
-        """Créer un client LM Studio à partir d'une configuration"""
+        """Creer un client LM Studio a partir d'une configuration"""
         required_fields = ["base_url"]
         
         for field in required_fields:
@@ -336,7 +336,7 @@ class LMStudioClientFactory:
     
     @staticmethod
     def create_from_env() -> LMStudioClient:
-        """Créer un client à partir des variables d'environnement"""
+        """Creer un client a partir des variables d'environnement"""
         import os
         
         base_url = os.getenv("LM_STUDIO_BASE_URL", "http://localhost:1234")

@@ -56,8 +56,8 @@ class TestMainOrchestrator:
     async def test_run_full_workflow_success(self, config_file, mock_ai_client):
         """Test le workflow complet avec succes"""
         # GIVEN un orchestrateur configure
-        with patch('orchestrator.core.main.UniversalOrchestrator') as MockUniversal:
-            with patch('orchestrator.core.main.TodoLoopManager') as MockTodo:
+        with patch('orchestrator.core.UniversalOrchestrator') as MockUniversal:
+            with patch('src.orchestrator.core.TodoLoopManager') as MockTodo:
                 mock_universal = MockUniversal.return_value
                 mock_universal.test_ai_connection = AsyncMock(return_value=True)
                 mock_universal.load_templates = Mock()
@@ -109,8 +109,8 @@ class TestMainOrchestrator:
     async def test_github_phase_creates_issues(self, config_file):
         """Test la creation des issues GitHub"""
         # GIVEN un orchestrateur avec GitHub active
-        with patch('orchestrator.core.main.UniversalOrchestrator') as MockUniversal:
-            with patch('orchestrator.core.main.TodoLoopManager') as MockTodo:
+        with patch('orchestrator.core.UniversalOrchestrator') as MockUniversal:
+            with patch('src.orchestrator.core.TodoLoopManager') as MockTodo:
                 mock_universal = MockUniversal.return_value
                 mock_universal.create_github_repository = AsyncMock(return_value=True)
                 mock_universal.create_github_issues = AsyncMock(return_value=[
@@ -142,8 +142,8 @@ class TestMainOrchestrator:
         # GIVEN une tache a traiter
         task = Mock(id=1, title="Test Task")
         
-        with patch('orchestrator.core.main.UniversalOrchestrator') as MockUniversal:
-            with patch('orchestrator.core.main.TodoLoopManager') as MockTodo:
+        with patch('orchestrator.core.UniversalOrchestrator') as MockUniversal:
+            with patch('src.orchestrator.core.TodoLoopManager') as MockTodo:
                 mock_universal = MockUniversal.return_value
                 mock_universal.config = {}
                 
@@ -167,8 +167,8 @@ class TestMainOrchestrator:
         # GIVEN une tache avec tests ecrits
         task = Mock(id=1, title="Test Task")
         
-        with patch('orchestrator.core.main.UniversalOrchestrator') as MockUniversal:
-            with patch('orchestrator.core.main.TodoLoopManager') as MockTodo:
+        with patch('orchestrator.core.UniversalOrchestrator') as MockUniversal:
+            with patch('src.orchestrator.core.TodoLoopManager') as MockTodo:
                 mock_universal = MockUniversal.return_value
                 mock_universal.config = {}
                 
@@ -192,8 +192,8 @@ class TestMainOrchestrator:
         # GIVEN une tache avec code minimal
         task = Mock(id=1, title="Test Task")
         
-        with patch('orchestrator.core.main.UniversalOrchestrator') as MockUniversal:
-            with patch('orchestrator.core.main.TodoLoopManager') as MockTodo:
+        with patch('orchestrator.core.UniversalOrchestrator') as MockUniversal:
+            with patch('src.orchestrator.core.TodoLoopManager') as MockTodo:
                 mock_universal = MockUniversal.return_value
                 mock_universal.config = {}
                 
@@ -220,8 +220,8 @@ class TestMainOrchestrator:
             Mock(id=2, title="Task 2")
         ]
         
-        with patch('orchestrator.core.main.UniversalOrchestrator') as MockUniversal:
-            with patch('orchestrator.core.main.TodoLoopManager') as MockTodo:
+        with patch('orchestrator.core.UniversalOrchestrator') as MockUniversal:
+            with patch('src.orchestrator.core.TodoLoopManager') as MockTodo:
                 mock_universal = MockUniversal.return_value
                 mock_universal.config = {}
                 

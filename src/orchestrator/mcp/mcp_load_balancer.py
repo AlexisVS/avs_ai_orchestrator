@@ -1,6 +1,6 @@
 """
-MCP Load Balancer - Équilibrage de charge entre serveurs MCP
-Implémentation minimale pour faire passer les tests
+MCP Load Balancer - Equilibrage de charge entre serveurs MCP
+Implementation minimale pour faire passer les tests
 """
 
 from typing import Dict, Any, List, Optional
@@ -8,7 +8,7 @@ import asyncio
 
 
 class MCPLoadBalancer:
-    """Load balancer pour distribuer les requêtes entre serveurs MCP"""
+    """Load balancer pour distribuer les requetes entre serveurs MCP"""
     
     def __init__(self):
         self.servers: List[Dict[str, Any]] = []
@@ -16,7 +16,7 @@ class MCPLoadBalancer:
         self.strategy = "least_loaded"  # least_loaded, round_robin, random
     
     async def get_next_server(self) -> Optional[Dict[str, Any]]:
-        """Obtenir le prochain serveur selon la stratégie"""
+        """Obtenir le prochain serveur selon la strategie"""
         if not self.servers:
             return None
         
@@ -31,7 +31,7 @@ class MCPLoadBalancer:
             return server
         
         elif self.strategy == "random":
-            # Sélection aléatoire
+            # Selection aleatoire
             import random
             return random.choice(self.servers)
         
@@ -47,7 +47,7 @@ class MCPLoadBalancer:
         self.servers = [s for s in self.servers if s.get("name") != server_name]
     
     async def update_server_load(self, server_name: str, load: float):
-        """Mettre à jour la charge d'un serveur"""
+        """Mettre a jour la charge d'un serveur"""
         for server in self.servers:
             if server.get("name") == server_name:
                 server["load"] = load
@@ -58,17 +58,17 @@ class MCPLoadBalancer:
         return len(self.servers)
     
     def set_strategy(self, strategy: str):
-        """Définir la stratégie de load balancing"""
+        """Definir la strategie de load balancing"""
         if strategy in ["least_loaded", "round_robin", "random"]:
             self.strategy = strategy
     
     async def health_check(self) -> List[Dict[str, Any]]:
-        """Vérifier la santé de tous les serveurs"""
+        """Verifier la sante de tous les serveurs"""
         healthy_servers = []
         
         for server in self.servers:
-            # Implémentation minimale : considérer tous les serveurs comme sains
-            # Dans la vraie implémentation, on ferait un vrai health check
+            # Implementation minimale : considerer tous les serveurs comme sains
+            # Dans la vraie implementation, on ferait un vrai health check
             if server.get("load", 0) < server.get("capacity", 100):
                 healthy_servers.append(server)
         

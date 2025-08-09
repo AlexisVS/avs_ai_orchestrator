@@ -153,7 +153,7 @@ class TestRealIndependentOrchestration:
         orchestrator = IndependentOrchestrator()
         
         # WHEN on lance les tests automatiques
-        with patch('orchestrator.agents.test_runner_agent.TestRunnerAgent.run_tests') as mock_run_tests:
+        with patch('orchestrator.agents.test_runner_agent.QualityAssuranceAgent.run_tests') as mock_run_tests:
             mock_run_tests.return_value = {
                 "success": True,
                 "passed": 8,

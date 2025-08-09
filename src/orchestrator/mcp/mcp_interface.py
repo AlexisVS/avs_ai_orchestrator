@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Interface MCPInterface - Domain-Driven Design
-Définit le contrat pour tous les clients MCP
+Definit le contrat pour tous les clients MCP
 Respecte le principe SOLID ISP (Interface Segregation Principle)
 """
 
@@ -11,7 +11,7 @@ from enum import Enum
 
 
 class MCPConnectionState(Enum):
-    """États de connexion MCP"""
+    """Etats de connexion MCP"""
     DISCONNECTED = "disconnected"
     CONNECTING = "connecting"
     CONNECTED = "connected"
@@ -28,20 +28,20 @@ class MCPInterface(ABC):
         Se connecter au serveur MCP
         
         Returns:
-            True si la connexion réussit
+            True si la connexion reussit
             
         Raises:
-            MCPConnectionError: En cas d'échec de connexion
+            MCPConnectionError: En cas d'echec de connexion
         """
         pass
     
     @abstractmethod
     async def disconnect(self) -> bool:
         """
-        Se déconnecter du serveur MCP
+        Se deconnecter du serveur MCP
         
         Returns:
-            True si la déconnexion réussit
+            True si la deconnexion reussit
         """
         pass
     
@@ -51,11 +51,11 @@ class MCPInterface(ABC):
         Appeler un outil MCP
         
         Args:
-            tool_name: Nom de l'outil à appeler
+            tool_name: Nom de l'outil a appeler
             arguments: Arguments pour l'outil
             
         Returns:
-            Résultat de l'appel d'outil
+            Resultat de l'appel d'outil
             
         Raises:
             MCPToolError: En cas d'erreur d'appel d'outil
@@ -68,7 +68,7 @@ class MCPInterface(ABC):
         Lister les outils disponibles
         
         Returns:
-            Liste des outils avec leurs métadonnées
+            Liste des outils avec leurs metadonnees
             
         Raises:
             MCPError: En cas d'erreur de communication
@@ -78,10 +78,10 @@ class MCPInterface(ABC):
     @abstractmethod
     async def get_resources(self) -> List[Dict[str, Any]]:
         """
-        Récupérer les ressources disponibles
+        Recuperer les ressources disponibles
         
         Returns:
-            Liste des ressources avec leurs métadonnées
+            Liste des ressources avec leurs metadonnees
             
         Raises:
             MCPError: En cas d'erreur de communication
@@ -91,13 +91,13 @@ class MCPInterface(ABC):
     @property
     @abstractmethod
     def is_connected(self) -> bool:
-        """Indique si le client est connecté"""
+        """Indique si le client est connecte"""
         pass
     
     @property
     @abstractmethod
     def connection_state(self) -> MCPConnectionState:
-        """État actuel de la connexion"""
+        """Etat actuel de la connexion"""
         pass
 
 
@@ -124,7 +124,7 @@ class MCPToolError(MCPError):
 
 
 class MCPResourceError(MCPError):
-    """Erreur d'accès aux ressources MCP"""
+    """Erreur d'acces aux ressources MCP"""
     pass
 
 
@@ -146,19 +146,19 @@ class MCPConfiguration:
     ):
         # Validation selon DDD
         if not container_name or not isinstance(container_name, str):
-            raise ValueError("container_name doit être une string non-vide")
+            raise ValueError("container_name doit etre une string non-vide")
         
         if timeout <= 0:
-            raise ValueError("timeout doit être positif")
+            raise ValueError("timeout doit etre positif")
         
         if max_retries < 0:
-            raise ValueError("max_retries ne peut être négatif")
+            raise ValueError("max_retries ne peut etre negatif")
         
         if retry_delay < 0:
-            raise ValueError("retry_delay ne peut être négatif")
+            raise ValueError("retry_delay ne peut etre negatif")
         
         if health_check_interval <= 0:
-            raise ValueError("health_check_interval doit être positif")
+            raise ValueError("health_check_interval doit etre positif")
         
         # Immutable value object
         self._container_name = container_name
@@ -247,7 +247,7 @@ class MCPConfiguration:
 
 
 class MCPToolMetadata:
-    """Métadonnées d'un outil MCP - Value Object DDD"""
+    """Metadonnees d'un outil MCP - Value Object DDD"""
     
     def __init__(
         self,
@@ -259,13 +259,13 @@ class MCPToolMetadata:
         version: Optional[str] = None
     ):
         if not name or not isinstance(name, str):
-            raise ValueError("name doit être une string non-vide")
+            raise ValueError("name doit etre une string non-vide")
         
         if not description or not isinstance(description, str):
-            raise ValueError("description doit être une string non-vide")
+            raise ValueError("description doit etre une string non-vide")
         
         if not isinstance(input_schema, dict):
-            raise ValueError("input_schema doit être un dictionnaire")
+            raise ValueError("input_schema doit etre un dictionnaire")
         
         self._name = name
         self._description = description
@@ -299,20 +299,20 @@ class MCPToolMetadata:
         return self._version
     
     def has_tag(self, tag: str) -> bool:
-        """Vérifie si l'outil a un tag donné"""
+        """Verifie si l'outil a un tag donne"""
         return tag in self._tags
     
     def validates_input(self, arguments: Dict[str, Any]) -> bool:
-        """Valide les arguments selon le schema d'entrée (simplifiée)"""
+        """Valide les arguments selon le schema d'entree (simplifiee)"""
         required = self._input_schema.get("required", [])
         properties = self._input_schema.get("properties", {})
         
-        # Vérifier les champs requis
+        # Verifier les champs requis
         for field in required:
             if field not in arguments:
                 return False
         
-        # Vérifier les types (validation basique)
+        # Verifier les types (validation basique)
         for field, value in arguments.items():
             if field in properties:
                 expected_type = properties[field].get("type")
@@ -367,10 +367,10 @@ class MCPResource:
         metadata: Optional[Dict[str, Any]] = None
     ):
         if not uri or not isinstance(uri, str):
-            raise ValueError("uri doit être une string non-vide")
+            raise ValueError("uri doit etre une string non-vide")
         
         if not name or not isinstance(name, str):
-            raise ValueError("name doit être une string non-vide")
+            raise ValueError("name doit etre une string non-vide")
         
         self._uri = uri
         self._name = name

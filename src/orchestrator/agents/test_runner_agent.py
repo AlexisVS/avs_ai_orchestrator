@@ -1,6 +1,6 @@
 """
-Test Runner Agent - Exécution automatique des tests
-Exécute les tests, analyse la couverture, et valide la qualité
+Test Runner Agent - Execution automatique des tests
+Execute les tests, analyse la couverture, et valide la qualite
 """
 
 import asyncio
@@ -11,8 +11,8 @@ from typing import Dict, Any, List
 from pathlib import Path
 
 
-class TestRunnerAgent:
-    """Agent responsable de l'exécution des tests et validation qualité"""
+class QualityAssuranceAgent:
+    """Agent responsable de l'execution des tests et validation qualite"""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -20,13 +20,13 @@ class TestRunnerAgent:
         self.test_timeout = config.get("test_timeout", 300)  # 5 minutes
         
     async def run_tests(self, project_path: Path) -> Dict[str, Any]:
-        """Exécuter tous les tests du projet"""
+        """Executer tous les tests du projet"""
         original_cwd = os.getcwd()
         
         try:
             os.chdir(project_path)
             
-            # Exécuter les tests avec pytest et coverage
+            # Executer les tests avec pytest et coverage
             result = await self._run_pytest_with_coverage()
             
             if result["success"]:
@@ -34,7 +34,7 @@ class TestRunnerAgent:
                 coverage_data = await self._analyze_coverage()
                 result.update(coverage_data)
                 
-                # Exécuter les quality gates
+                # Executer les quality gates
                 quality_result = await self._run_quality_checks()
                 result.update(quality_result)
             
@@ -44,7 +44,7 @@ class TestRunnerAgent:
             os.chdir(original_cwd)
     
     async def _run_pytest_with_coverage(self) -> Dict[str, Any]:
-        """Exécuter pytest avec coverage"""
+        """Executer pytest avec coverage"""
         try:
             cmd = [
                 self.python_cmd, "-m", "pytest",
@@ -57,7 +57,7 @@ class TestRunnerAgent:
                 "--timeout=60"
             ]
             
-            # Exécuter les tests
+            # Executer les tests
             process = await asyncio.create_subprocess_exec(
                 *cmd,
                 stdout=asyncio.subprocess.PIPE,
@@ -82,7 +82,7 @@ class TestRunnerAgent:
             # Analyser la sortie
             output = stdout.decode() + stderr.decode()
             
-            # Extraire les résultats
+            # Extraire les resultats
             passed, failed, total = self._parse_pytest_results(output)
             
             return {
@@ -150,7 +150,7 @@ class TestRunnerAgent:
         }
     
     async def _run_quality_checks(self) -> Dict[str, Any]:
-        """Exécuter les vérifications de qualité de code"""
+        """Executer les verifications de qualite de code"""
         quality_results = {}
         
         # Type checking avec mypy
@@ -165,14 +165,14 @@ class TestRunnerAgent:
         bandit_result = await self._run_bandit()
         quality_results["bandit"] = bandit_result
         
-        # Calculer le score de qualité global
+        # Calculer le score de qualite global
         quality_score = self._calculate_quality_score(quality_results)
         quality_results["quality_score"] = quality_score
         
         return quality_results
     
     async def _run_mypy(self) -> Dict[str, Any]:
-        """Exécuter mypy pour le type checking"""
+        """Executer mypy pour le type checking"""
         try:
             cmd = [self.python_cmd, "-m", "mypy", "src/", "--json-report", "mypy-report"]
             
@@ -195,7 +195,7 @@ class TestRunnerAgent:
             return {"success": False, "error": str(e), "issues": 0}
     
     async def _run_flake8(self) -> Dict[str, Any]:
-        """Exécuter flake8 pour le style de code"""
+        """Executer flake8 pour le style de code"""
         try:
             cmd = [self.python_cmd, "-m", "flake8", "src/", "--format=json"]
             
@@ -223,7 +223,7 @@ class TestRunnerAgent:
             return {"success": False, "error": str(e), "issues": 0}
     
     async def _run_bandit(self) -> Dict[str, Any]:
-        """Exécuter bandit pour la sécurité"""
+        """Executer bandit pour la securite"""
         try:
             cmd = [self.python_cmd, "-m", "bandit", "-r", "src/", "-f", "json"]
             
@@ -253,19 +253,19 @@ class TestRunnerAgent:
             return {"success": True, "error": str(e), "issues": 0}
     
     def _parse_pytest_results(self, output: str) -> tuple[int, int, int]:
-        """Parser les résultats de pytest"""
+        """Parser les resultats de pytest"""
         import re
         
-        # Chercher le résumé final
+        # Chercher le resume final
         # Format: "X passed, Y failed in Z.XXs"
         passed = failed = 0
         
-        # Pattern pour les tests passés
+        # Pattern pour les tests passes
         passed_match = re.search(r'(\d+) passed', output)
         if passed_match:
             passed = int(passed_match.group(1))
         
-        # Pattern pour les tests échoués
+        # Pattern pour les tests echoues
         failed_match = re.search(r'(\d+) failed', output)
         if failed_match:
             failed = int(failed_match.group(1))
@@ -281,10 +281,10 @@ class TestRunnerAgent:
         return len([line for line in lines if 'error:' in line or 'warning:' in line])
     
     def _calculate_quality_score(self, quality_results: Dict[str, Any]) -> float:
-        """Calculer un score de qualité global (0-100)"""
+        """Calculer un score de qualite global (0-100)"""
         score = 100.0
         
-        # Pénalités pour les issues
+        # Penalites pour les issues
         mypy_issues = quality_results.get("mypy", {}).get("issues", 0)
         score -= mypy_issues * 2  # -2 points par issue mypy
         
@@ -293,13 +293,13 @@ class TestRunnerAgent:
         
         bandit_high = quality_results.get("bandit", {}).get("high_severity", 0)
         bandit_medium = quality_results.get("bandit", {}).get("medium_severity", 0)
-        score -= bandit_high * 10  # -10 points par issue sécurité haute
-        score -= bandit_medium * 5  # -5 points par issue sécurité moyenne
+        score -= bandit_high * 10  # -10 points par issue securite haute
+        score -= bandit_medium * 5  # -5 points par issue securite moyenne
         
         return max(0.0, min(100.0, score))
     
     async def run_specific_test(self, test_path: str) -> Dict[str, Any]:
-        """Exécuter un test spécifique"""
+        """Executer un test specifique"""
         try:
             cmd = [self.python_cmd, "-m", "pytest", test_path, "-v"]
             
@@ -326,46 +326,46 @@ class TestRunnerAgent:
             }
     
     async def validate_code_quality(self, min_coverage: float = 80.0, max_issues: int = 10) -> bool:
-        """Valider que la qualité du code respecte les critères"""
+        """Valider que la qualite du code respecte les criteres"""
         current_path = Path.cwd()
         result = await self.run_tests(current_path)
         
-        # Vérifier la couverture
+        # Verifier la couverture
         coverage = result.get("coverage", 0)
         if coverage < min_coverage:
             print(f"[QUALITY] Couverture insuffisante: {coverage}% < {min_coverage}%")
             return False
         
-        # Vérifier les tests
+        # Verifier les tests
         if result.get("failed", 0) > 0:
-            print(f"[QUALITY] Tests échoués: {result['failed']}")
+            print(f"[QUALITY] Tests echoues: {result['failed']}")
             return False
         
-        # Vérifier les issues de qualité
+        # Verifier les issues de qualite
         mypy_issues = result.get("mypy", {}).get("issues", 0)
         flake8_issues = result.get("flake8", {}).get("issues", 0)
         total_issues = mypy_issues + flake8_issues
         
         if total_issues > max_issues:
-            print(f"[QUALITY] Trop d'issues de qualité: {total_issues} > {max_issues}")
+            print(f"[QUALITY] Trop d'issues de qualite: {total_issues} > {max_issues}")
             return False
         
-        print(f"[QUALITY] Validation réussie - Couverture: {coverage}%, Issues: {total_issues}")
+        print(f"[QUALITY] Validation reussie - Couverture: {coverage}%, Issues: {total_issues}")
         return True
     
     async def _create_autonomous_quality_validator(self):
-        """Créer un validateur de qualité complètement autonome"""
-        print("[TEST-RUNNER] Création du validateur qualité autonome...")
+        """Creer un validateur de qualite completement autonome"""
+        print("[TEST-RUNNER] Creation du validateur qualite autonome...")
         
         class AutonomousQualityValidator:
-            """Validateur de qualité complètement autonome"""
+            """Validateur de qualite completement autonome"""
             
             def __init__(self, test_runner):
                 self.test_runner = test_runner
                 
             async def autonomous_test_execution(self):
-                """Exécution autonome des tests"""
-                print("[QUALITY] Exécution autonome des tests...")
+                """Execution autonome des tests"""
+                print("[QUALITY] Execution autonome des tests...")
                 return {"tests_executed": 25, "passed": 24, "failed": 1}
                 
             async def autonomous_coverage_analysis(self):
@@ -379,15 +379,15 @@ class TestRunnerAgent:
                 return {"code_quality_score": 8.7, "suggestions": 3}
                 
             async def autonomous_security_scan(self):
-                """Scan de sécurité autonome"""
-                print("[QUALITY] Scan de sécurité autonome...")
+                """Scan de securite autonome"""
+                print("[QUALITY] Scan de securite autonome...")
                 return {"security_score": 9.2, "vulnerabilities": 0}
                 
             async def validate_completely_autonomous(self):
-                """Validation complètement autonome"""
-                print("[QUALITY] Validation complètement autonome...")
+                """Validation completement autonome"""
+                print("[QUALITY] Validation completement autonome...")
                 
-                # Exécuter toutes les validations
+                # Executer toutes les validations
                 test_result = await self.autonomous_test_execution()
                 coverage_result = await self.autonomous_coverage_analysis()
                 review_result = await self.autonomous_code_review()
@@ -401,7 +401,7 @@ class TestRunnerAgent:
                     (security_result["security_score"] / 10) * 0.2
                 ) * 100
                 
-                # Décision autonome
+                # Decision autonome
                 autonomous_decision = "APPROVE" if overall_score >= 80 else "REJECT"
                 
                 return {

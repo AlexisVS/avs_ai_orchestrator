@@ -1,0 +1,91 @@
+# Configuration pour le projet Weather Dashboard
+project:
+  name: weather-dashboard
+  path: C:/Users/alexi/mcp-agent/weather-dashboard
+  github:
+    owner: AlexisVS
+    repo: weather-dashboard
+    
+# Issues à créer pour le développement TDD
+issues:
+  - title: "[FEATURE] Setup projet structure et configuration"
+    description: |
+      Créer la structure de base du projet Weather Dashboard
+      - Setup Python environment
+      - Configuration files
+      - Basic project structure
+    labels: ["enhancement", "setup"]
+    
+  - title: "[FEATURE] Intégration API OpenWeatherMap"
+    description: |
+      Implémenter l'intégration avec l'API météo
+      - Client API avec httpx
+      - Gestion des clés API
+      - Cache des requêtes
+    labels: ["enhancement", "api"]
+    
+  - title: "[FEATURE] Base de données SQLite"
+    description: |
+      Setup de la base de données pour stocker l'historique
+      - Schema SQLAlchemy
+      - CRUD operations
+      - Migrations
+    labels: ["enhancement", "database"]
+    
+  - title: "[FEATURE] Dashboard Streamlit"
+    description: |
+      Créer l'interface utilisateur interactive
+      - Layout principal
+      - Graphiques Plotly
+      - Formulaires de recherche
+    labels: ["enhancement", "frontend"]
+    
+  - title: "[FEATURE] Tests et CI/CD"
+    description: |
+      Mise en place des tests et intégration continue
+      - Tests unitaires pytest
+      - Coverage > 80%
+      - GitHub Actions
+    labels: ["enhancement", "testing"]
+
+# Configuration de l'orchestrateur
+orchestrator:
+  mode: github_tdd
+  auto_create_issues: true
+  auto_develop: true
+  tdd_strict: true
+  
+# Configuration des agents
+agents:
+  code_generator:
+    enabled: true
+    use_local_ai: false  # Utiliser des templates pour la démo
+    templates_path: templates/weather/
+    
+  test_runner:
+    enabled: true
+    framework: pytest
+    min_coverage: 80
+    
+  github_sync:
+    enabled: true
+    auto_merge: false
+    create_prs: true
+    
+# Workflow TDD
+workflow:
+  phases:
+    - name: "RED"
+      actions:
+        - write_failing_tests
+        - verify_tests_fail
+        
+    - name: "GREEN"  
+      actions:
+        - implement_minimal_code
+        - verify_tests_pass
+        
+    - name: "REFACTOR"
+      actions:
+        - improve_code_quality
+        - maintain_tests_passing

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test du mode PULL - Synchronisation Bidirectionnelle GitHub
-Demo résolvant l'issue #15
+Demo resolvant l'issue #15
 """
 
 import asyncio
@@ -16,7 +16,7 @@ from orchestrator.agents.github_sync_agent import GitHubSyncAgent
 
 
 async def demo_bidirectional_sync():
-    """Démonstration du mode PULL bidirectionnel"""
+    """Demonstration du mode PULL bidirectionnel"""
     
     print("=== DEMO MODE PULL - SYNCHRONISATION BIDIRECTIONNELLE ===")
     print()
@@ -29,30 +29,30 @@ async def demo_bidirectional_sync():
             "repo": "avs_ai_orchestrator", 
             "project_id": "12"
         },
-        "auto_merge": False,  # Désactivé pour la démo
+        "auto_merge": False,  # Desactive pour la demo
         "auto_versioning": False
     }
     
-    # Créer l'agent GitHub Sync
+    # Creer l'agent GitHub Sync
     sync_agent = GitHubSyncAgent(config)
-    print("Agent GitHub Sync créé avec mode PULL activé")
+    print("Agent GitHub Sync cree avec mode PULL active")
     print()
     
-    # 1. Récupérer les issues existantes
-    print("1. RÉCUPÉRATION DES ISSUES GITHUB EXISTANTES")
+    # 1. Recuperer les issues existantes
+    print("1. RECUPERATION DES ISSUES GITHUB EXISTANTES")
     print("-" * 50)
     
     try:
-        # Récupérer toutes les issues
+        # Recuperer toutes les issues
         all_issues = await sync_agent.fetch_github_issues()
-        print(f"Issues récupérées: {len(all_issues)}")
+        print(f"Issues recuperees: {len(all_issues)}")
         
-        # Récupérer seulement les issues manuelles (non auto-générées)
+        # Recuperer seulement les issues manuelles (non auto-generees)
         manual_issues = await sync_agent.fetch_github_issues(exclude_auto_generated=True)
         print(f"Issues manuelles: {len(manual_issues)}")
         print()
         
-        # Afficher les 3 premières issues manuelles
+        # Afficher les 3 premieres issues manuelles
         for i, issue in enumerate(manual_issues[:3]):
             title = issue.get('title', 'Sans titre')
             number = issue.get('number', 0)
@@ -62,28 +62,28 @@ async def demo_bidirectional_sync():
         print()
         
     except Exception as e:
-        print(f"Erreur récupération issues: {e}")
-        # Créer des issues de test pour la démo
+        print(f"Erreur recuperation issues: {e}")
+        # Creer des issues de test pour la demo
         all_issues = [
             {
                 "number": 15,
                 "title": "[FEATURE] Synchronisation Bidirectionnelle GitHub - Mode PULL",
-                "body": "Implémenter le mode PULL pour sync bidirectionnel",
+                "body": "Implementer le mode PULL pour sync bidirectionnel",
                 "labels": [{"name": "enhancement"}, {"name": "high-priority"}],
                 "assignees": [],
                 "milestone": None
             }
         ]
         manual_issues = all_issues
-        print("Utilisation d'issues de test pour la démo")
+        print("Utilisation d'issues de test pour la demo")
         print()
     
-    # 2. Conversion des issues en opportunités
+    # 2. Conversion des issues en opportunites
     print("2. CONVERSION ISSUES -> OPPORTUNITES D'AMELIORATION")
     print("-" * 50)
     
     opportunities = []
-    for issue in manual_issues[:5]:  # Limite à 5 pour la démo
+    for issue in manual_issues[:5]:  # Limite a 5 pour la demo
         opportunity = sync_agent.parse_issue_to_opportunity(issue)
         opportunities.append(opportunity)
         
@@ -104,17 +104,17 @@ async def demo_bidirectional_sync():
         sync_result = await sync_agent.sync_with_project_board()
         
         if sync_result.get("synced"):
-            print(f"[OK] Sync réussie!")
+            print(f"[OK] Sync reussie!")
             print(f"  Cartes Todo: {sync_result.get('todo_count', 0)}")
             print(f"  Cartes In Progress: {sync_result.get('in_progress_count', 0)}")
             print(f"  Total Issues: {sync_result.get('total_issues', 0)}")
             print(f"  Opportunites creees: {len(sync_result.get('opportunities', []))}")
         else:
-            print(f"[ERROR] Sync échouée: {sync_result.get('error', 'Unknown error')}")
+            print(f"[ERROR] Sync echouee: {sync_result.get('error', 'Unknown error')}")
             
     except Exception as e:
         print(f"[ERROR] Erreur sync project board: {e}")
-        print("Mode simulation activé pour la démo")
+        print("Mode simulation active pour la demo")
         sync_result = {
             "synced": True,
             "todo_count": 8,
@@ -126,7 +126,7 @@ async def demo_bidirectional_sync():
     
     print()
     
-    # 4. Exécution complète du workflow PULL
+    # 4. Execution complete du workflow PULL
     print("4. WORKFLOW PULL COMPLET")
     print("-" * 50)
     
@@ -134,23 +134,23 @@ async def demo_bidirectional_sync():
         workflow_result = await sync_agent.execute_pull_workflow()
         
         if workflow_result.get("workflow_status") == "completed":
-            print("[OK] Workflow PULL terminé avec succès!")
-            print(f"  Issues récupérées: {workflow_result.get('issues_fetched', 0)}")
-            print(f"  Cartes synchronisées: {workflow_result.get('cards_synced', 0)}")
+            print("[OK] Workflow PULL termine avec succes!")
+            print(f"  Issues recuperees: {workflow_result.get('issues_fetched', 0)}")
+            print(f"  Cartes synchronisees: {workflow_result.get('cards_synced', 0)}")
             print(f"  Opportunites pretes: {len(workflow_result.get('opportunities_created', []))}")
         else:
-            print(f"[ERROR] Workflow PULL échoué: {workflow_result.get('error', 'Unknown')}")
+            print(f"[ERROR] Workflow PULL echoue: {workflow_result.get('error', 'Unknown')}")
             
     except Exception as e:
         print(f"[ERROR] Erreur workflow: {e}")
-        # Simulation pour démo
+        # Simulation pour demo
         workflow_result = {
             "issues_fetched": len(all_issues),
             "cards_synced": 13,
             "opportunities_created": opportunities[:2],
             "workflow_status": "completed"
         }
-        print("[SIMULATION] Workflow PULL simulé avec succès")
+        print("[SIMULATION] Workflow PULL simule avec succes")
         print(f"  Opportunites traitables: {len(workflow_result['opportunities_created'])}")
     
     print()
@@ -165,10 +165,10 @@ async def demo_bidirectional_sync():
         print(f"  {key}: {value}")
     print()
     
-    # 6. Résumé de la démo
+    # 6. Resume de la demo
     print("RESUME - ISSUE #15 RESOLUE")
     print("=" * 50)
-    print("Le mode PULL bidirectionnel est maintenant OPÉRATIONNEL:")
+    print("Le mode PULL bidirectionnel est maintenant OPERATIONNEL:")
     print()
     print("[OK] Lecture des issues GitHub existantes")
     print("[OK] Filtrage des issues auto-generees vs manuelles") 
@@ -191,7 +191,7 @@ if __name__ == "__main__":
     try:
         asyncio.run(demo_bidirectional_sync())
     except KeyboardInterrupt:
-        print("\nDémo interrompue par l'utilisateur")
+        print("\nDemo interrompue par l'utilisateur")
     except Exception as e:
         print(f"\nErreur fatale: {e}")
         import traceback

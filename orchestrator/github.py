@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-GitHub TDD Orchestrator - Développement automatisé avec TDD strict
-Récupère les issues GitHub, développe avec TDD, et maintient la qualité
+GitHub TDD Orchestrator - Developpement automatise avec TDD strict
+Recupere les issues GitHub, developpe avec TDD, et maintient la qualite
 """
 
 import asyncio
@@ -24,9 +24,9 @@ class TaskStatus(Enum):
     DONE = "Done"
 
 class TDDPhase(Enum):
-    RED = "red"      # Test écrit, échoue
+    RED = "red"      # Test ecrit, echoue
     GREEN = "green"  # Code minimal pour faire passer
-    REFACTOR = "refactor"  # Amélioration du code
+    REFACTOR = "refactor"  # Amelioration du code
 
 class GitHubTDDOrchestrator:
     """Orchestrateur GitHub avec TDD strict"""
@@ -41,7 +41,7 @@ class GitHubTDDOrchestrator:
         self.tdd_phase = TDDPhase.RED
         
     async def get_project_issues(self, project_number: int) -> List[Dict]:
-        """Récupère les issues d'un GitHub Project"""
+        """Recupere les issues d'un GitHub Project"""
         headers = {
             "Authorization": f"Bearer {self.github_token}",
             "Accept": "application/vnd.github.v3+json",
@@ -49,7 +49,7 @@ class GitHubTDDOrchestrator:
         }
         
         async with httpx.AsyncClient() as client:
-            # Récupérer les issues du projet
+            # Recuperer les issues du projet
             url = f"https://api.github.com/repos/{self.repo_owner}/{self.repo_name}/issues"
             params = {
                 "state": "open",
@@ -61,20 +61,20 @@ class GitHubTDDOrchestrator:
             
             if response.status_code == 200:
                 issues = response.json()
-                # Filtrer les issues avec les labels appropriés
+                # Filtrer les issues avec les labels appropries
                 return [issue for issue in issues if self._is_development_task(issue)]
             else:
                 print(f"[ERROR] Failed to fetch issues: {response.status_code}")
                 return []
     
     def _is_development_task(self, issue: Dict) -> bool:
-        """Vérifie si une issue est une tâche de développement"""
+        """Verifie si une issue est une tache de developpement"""
         labels = [label["name"].lower() for label in issue.get("labels", [])]
         dev_labels = ["feature", "enhancement", "bug", "task", "story"]
         return any(label in labels for label in dev_labels)
     
     async def comment_on_issue(self, issue_number: int, comment: str):
-        """Ajoute un commentaire à une issue"""
+        """Ajoute un commentaire a une issue"""
         headers = {
             "Authorization": f"Bearer {self.github_token}",
             "Accept": "application/vnd.github.v3+json"
@@ -92,7 +92,7 @@ class GitHubTDDOrchestrator:
                 print(f"[ERROR] Failed to comment: {response.status_code}")
     
     async def ai_analyze_issue(self, issue: Dict) -> Dict[str, Any]:
-        """Analyse une issue avec l'IA pour planifier le développement"""
+        """Analyse une issue avec l'IA pour planifier le developpement"""
         prompt = f"""
 Analyze this GitHub issue for TDD development:
 
@@ -113,7 +113,7 @@ Focus on TDD approach: Tests first, minimal implementation, then refactor.
         return await self._call_ai(prompt, max_tokens=1000)
     
     async def ai_write_tests(self, issue: Dict, analysis: Dict) -> str:
-        """Génère les tests pour une fonctionnalité (phase RED)"""
+        """Genere les tests pour une fonctionnalite (phase RED)"""
         prompt = f"""
 Write comprehensive tests for this feature using TDD approach:
 
@@ -135,7 +135,7 @@ Focus on making tests fail first - this drives the implementation.
         return await self._call_ai(prompt, max_tokens=1500)
     
     async def ai_implement_feature(self, issue: Dict, tests: str) -> str:
-        """Implémente le minimum pour faire passer les tests (phase GREEN)"""
+        """Implemente le minimum pour faire passer les tests (phase GREEN)"""
         prompt = f"""
 Implement the MINIMAL code to make these tests pass (GREEN phase of TDD):
 
@@ -157,7 +157,7 @@ We'll refactor in the next phase.
         return await self._call_ai(prompt, max_tokens=1500)
     
     async def ai_refactor_code(self, issue: Dict, implementation: str, test_results: str) -> str:
-        """Améliore le code sans casser les tests (phase REFACTOR)"""
+        """Ameliore le code sans casser les tests (phase REFACTOR)"""
         prompt = f"""
 Refactor this code while keeping all tests passing (REFACTOR phase of TDD):
 
@@ -198,7 +198,7 @@ Return the refactored code that maintains the same functionality.
                         }
                     ],
                     "max_tokens": max_tokens,
-                    "temperature": 0.3,  # Plus déterministe pour le code
+                    "temperature": 0.3,  # Plus deterministe pour le code
                     "stream": False
                 }
                 
@@ -222,7 +222,7 @@ Return the refactored code that maintains the same functionality.
             return {"success": False, "error": str(e)}
     
     def run_tests(self) -> Dict[str, Any]:
-        """Exécute les tests et retourne les résultats"""
+        """Execute les tests et retourne les resultats"""
         try:
             # Essayer pytest d'abord
             result = subprocess.run(
@@ -253,7 +253,7 @@ Return the refactored code that maintains the same functionality.
         return 0.0
     
     async def process_issue_with_tdd(self, issue: Dict) -> bool:
-        """Traite une issue complète avec cycle TDD"""
+        """Traite une issue complete avec cycle TDD"""
         issue_number = issue["number"]
         issue_title = issue["title"]
         
@@ -263,7 +263,7 @@ Return the refactored code that maintains the same functionality.
         
         self.current_issue = issue
         
-        # Étape 1: Analyser l'issue
+        # Etape 1: Analyser l'issue
         print(f"\n[PHASE 1] [SEARCH] Analyzing issue with AI...")
         await self.comment_on_issue(issue_number, f"🤖 **Auto-development started**\n\n**Phase:** Analysis\n**Status:** Analyzing requirements and planning TDD approach...")
         
@@ -274,7 +274,7 @@ Return the refactored code that maintains the same functionality.
         
         print(f"[SUCCESS] Analysis complete ({analysis.get('tokens', 0)} tokens)")
         
-        # Étape 2: Phase RED - Écrire les tests qui échouent
+        # Etape 2: Phase RED - Ecrire les tests qui echouent
         print(f"\n[PHASE 2] [EMOJI] RED - Writing failing tests...")
         self.tdd_phase = TDDPhase.RED
         
@@ -290,14 +290,14 @@ Return the refactored code that maintains the same functionality.
         with open(test_file, 'w', encoding='utf-8') as f:
             f.write(tests_code)
         
-        # Exécuter les tests (doivent échouer)
+        # Executer les tests (doivent echouer)
         test_result = self.run_tests()
         if test_result["success"]:
             print("[WARNING] Tests pass immediately - they should fail in RED phase!")
         else:
             print(f"[SUCCESS] Tests fail as expected (RED phase)")
         
-        # Étape 3: Phase GREEN - Implémentation minimale
+        # Etape 3: Phase GREEN - Implementation minimale
         print(f"\n[PHASE 3] 🟢 GREEN - Minimal implementation...")
         self.tdd_phase = TDDPhase.GREEN
         
@@ -308,12 +308,12 @@ Return the refactored code that maintains the same functionality.
             print("[ERROR] Failed to generate implementation")
             return False
         
-        # Sauvegarder l'implémentation
+        # Sauvegarder l'implementation
         impl_file = self.repo_path / f"{issue_title.lower().replace(' ', '_')}.py"
         with open(impl_file, 'w', encoding='utf-8') as f:
             f.write(implementation)
         
-        # Vérifier que les tests passent maintenant
+        # Verifier que les tests passent maintenant
         test_result = self.run_tests()
         if not test_result["success"]:
             print(f"[ERROR] Tests still failing after implementation!")
@@ -328,10 +328,10 @@ Return the refactored code that maintains the same functionality.
             print(f"[WARNING] Coverage {coverage}% below minimum (80%)")
             await self.comment_on_issue(issue_number, f"[WARN] **Coverage Warning**\n\nCurrent coverage: {coverage}%\nMinimum required: 80%\nAdding more tests...")
             
-            # Demander plus de tests à l'IA
-            # ... (logique pour améliorer la couverture)
+            # Demander plus de tests a l'IA
+            # ... (logique pour ameliorer la couverture)
         
-        # Étape 4: Phase REFACTOR - Amélioration du code
+        # Etape 4: Phase REFACTOR - Amelioration du code
         print(f"\n[PHASE 4] [REFRESH] REFACTOR - Code improvement...")
         self.tdd_phase = TDDPhase.REFACTOR
         
@@ -342,7 +342,7 @@ Return the refactored code that maintains the same functionality.
             with open(impl_file, 'w', encoding='utf-8') as f:
                 f.write(refactored_code)
             
-            # Vérifier que les tests passent toujours
+            # Verifier que les tests passent toujours
             final_test = self.run_tests()
             if final_test["success"]:
                 final_coverage = final_test.get("coverage", 0)
@@ -371,12 +371,12 @@ Ready for code review! [START]""")
         return True
     
     async def run_development_cycle(self, project_number: int):
-        """Lance le cycle complet de développement"""
+        """Lance le cycle complet de developpement"""
         print(f"[START] Starting GitHub TDD Development Cycle")
         print(f"Repository: {self.repo_owner}/{self.repo_name}")
         print(f"Project: #{project_number}")
         
-        # Récupérer les issues
+        # Recuperer les issues
         issues = await self.get_project_issues(project_number)
         
         if not issues:
@@ -400,9 +400,9 @@ Ready for code review! [START]""")
         print(f"\n[SUCCESS] Development cycle complete!")
 
 async def main():
-    """Point d'entrée principal"""
+    """Point d'entree principal"""
     
-    # Configuration (à adapter selon vos besoins)
+    # Configuration (a adapter selon vos besoins)
     config = {
         "github_token": os.getenv("GITHUB_TOKEN", "your-token-here"),
         "repo_owner": "your-username",

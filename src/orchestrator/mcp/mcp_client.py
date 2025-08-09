@@ -1,6 +1,6 @@
 """
 MCP Client - Client pour le protocole MCP
-Implémentation minimale pour faire passer les tests
+Implementation minimale pour faire passer les tests
 """
 
 from typing import Dict, Any, Optional
@@ -21,7 +21,7 @@ class MCPClient:
     async def connect(self) -> bool:
         """Se connecter au serveur MCP"""
         try:
-            # Créer la connexion
+            # Creer la connexion
             self.connection = await self._create_connection()
             if self.connection:
                 result = await self.connection.connect()
@@ -33,15 +33,15 @@ class MCPClient:
             return False
     
     async def disconnect(self):
-        """Se déconnecter du serveur"""
+        """Se deconnecter du serveur"""
         if self.connection:
             await self.connection.disconnect()
         self.is_connected = False
         self.connection = None
     
     async def _create_connection(self):
-        """Créer une connexion (factory method pour les tests)"""
-        # Dans la vraie implémentation, créerait une vraie connexion
+        """Creer une connexion (factory method pour les tests)"""
+        # Dans la vraie implementation, creerait une vraie connexion
         # Pour les tests, retourne un mock ou une connexion simple
         from unittest.mock import AsyncMock
         mock = AsyncMock()
@@ -50,11 +50,11 @@ class MCPClient:
         return mock
     
     async def negotiate_protocol(self) -> Optional[Dict[str, Any]]:
-        """Négocier le protocole avec le serveur"""
+        """Negocier le protocole avec le serveur"""
         if not self.connection:
             return None
         
-        # Envoyer la négociation
+        # Envoyer la negociation
         negotiation = {
             "type": "protocol_negotiation",
             "version": "1.0"
@@ -62,7 +62,7 @@ class MCPClient:
         
         response = await self.connection.send_message(negotiation)
         
-        # Retourner les capacités si la négociation réussit
+        # Retourner les capacites si la negociation reussit
         if response:
             return response
         
@@ -74,7 +74,7 @@ class MCPClient:
     async def send_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
         """Envoyer un message au serveur"""
         if not self.connection:
-            raise ConnectionError("Client non connecté")
+            raise ConnectionError("Client non connecte")
         
         return await self.connection.send_message(message)
     
@@ -83,7 +83,7 @@ class MCPClient:
         if not self.connection:
             return None
         
-        # Implémentation minimale
+        # Implementation minimale
         await asyncio.sleep(0.1)
         return {
             "type": "response",
@@ -91,7 +91,7 @@ class MCPClient:
         }
     
     async def ensure_connected(self) -> bool:
-        """S'assurer que la connexion est active, reconnecter si nécessaire"""
+        """S'assurer que la connexion est active, reconnecter si necessaire"""
         if self.is_connected:
             return True
         
@@ -107,7 +107,7 @@ class MCPClient:
                     self.is_connected = True
                     return True
             except Exception as e:
-                print(f"Tentative {attempt + 1} échouée: {e}")
+                print(f"Tentative {attempt + 1} echouee: {e}")
                 if attempt < self.max_reconnect_attempts - 1:
                     await asyncio.sleep(1)
         

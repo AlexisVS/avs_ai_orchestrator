@@ -1,5 +1,5 @@
 """
-Tests pour Test Runner Agent - Améliorer couverture
+Tests pour Test Runner Agent - Ameliorer couverture
 Tests basiques pour augmenter la couverture globale
 """
 
@@ -11,33 +11,33 @@ import tempfile
 import os
 import json
 
-from src.orchestrator.agents.test_runner_agent import TestRunnerAgent
+from src.orchestrator.agents.test_runner_agent import QualityAssuranceAgent
 
 
-class TestTestRunnerAgentBasics:
-    """Tests pour TestRunnerAgent"""
+class TestQualityAssuranceAgentBasics:
+    """Tests pour QualityAssuranceAgent"""
     
     def test_initialization(self):
-        """Test l'initialisation du TestRunnerAgent"""
+        """Test l'initialisation du QualityAssuranceAgent"""
         config = {"python_command": "py", "test_timeout": 120}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         assert agent.config == config
         assert agent.python_cmd == "py"
         assert agent.test_timeout == 120
     
     def test_initialization_with_defaults(self):
-        """Test l'initialisation avec valeurs par défaut"""
+        """Test l'initialisation avec valeurs par defaut"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         assert agent.python_cmd == "python"
         assert agent.test_timeout == 300
     
     def test_parse_pytest_results(self):
-        """Test le parsing des résultats pytest"""
+        """Test le parsing des resultats pytest"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         # Simuler une sortie pytest
         pytest_output = """
@@ -58,9 +58,9 @@ class TestTestRunnerAgentBasics:
         assert failed >= 0
     
     def test_count_mypy_issues(self):
-        """Test le comptage des problèmes MyPy"""
+        """Test le comptage des problemes MyPy"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         # Simuler une sortie MyPy
         mypy_output = """
@@ -74,9 +74,9 @@ class TestTestRunnerAgentBasics:
         assert issues >= 0
     
     def test_calculate_quality_score(self):
-        """Test le calcul du score de qualité"""
+        """Test le calcul du score de qualite"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         quality_results = {
             "mypy_issues": 2,
@@ -91,11 +91,11 @@ class TestTestRunnerAgentBasics:
     
     @pytest.mark.asyncio
     async def test_run_quality_checks_mock(self):
-        """Test les vérifications de qualité avec mocks"""
+        """Test les verifications de qualite avec mocks"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
-        # Mock les méthodes subprocess
+        # Mock les methodes subprocess
         with patch.object(agent, '_run_mypy', return_value={"mypy_issues": 2}):
             with patch.object(agent, '_run_flake8', return_value={"flake8_issues": 1}):
                 with patch.object(agent, '_run_bandit', return_value={"bandit_issues": 0}):
@@ -108,7 +108,7 @@ class TestTestRunnerAgentBasics:
     async def test_analyze_coverage_mock(self):
         """Test l'analyse de couverture avec mock"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         # Mock la lecture du fichier de couverture
         mock_coverage_data = {
@@ -129,9 +129,9 @@ class TestTestRunnerAgentBasics:
     
     @pytest.mark.asyncio
     async def test_run_mypy_mock(self):
-        """Test l'exécution de MyPy avec mock"""
+        """Test l'execution de MyPy avec mock"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         # Mock subprocess
         mock_result = MagicMock()
@@ -151,9 +151,9 @@ class TestTestRunnerAgentBasics:
     
     @pytest.mark.asyncio
     async def test_run_flake8_mock(self):
-        """Test l'exécution de Flake8 avec mock"""
+        """Test l'execution de Flake8 avec mock"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         with patch('asyncio.create_subprocess_exec') as mock_subprocess:
             mock_process = AsyncMock()
@@ -168,9 +168,9 @@ class TestTestRunnerAgentBasics:
     
     @pytest.mark.asyncio
     async def test_run_bandit_mock(self):
-        """Test l'exécution de Bandit avec mock"""
+        """Test l'execution de Bandit avec mock"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         with patch('asyncio.create_subprocess_exec') as mock_subprocess:
             mock_process = AsyncMock()
@@ -185,25 +185,25 @@ class TestTestRunnerAgentBasics:
     
     @pytest.mark.asyncio
     async def test_create_autonomous_quality_validator(self):
-        """Test la création du validateur qualité autonome"""
+        """Test la creation du validateur qualite autonome"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         validator = await agent._create_autonomous_quality_validator()
         
         assert validator is not None
-        # Test de base pour améliorer la couverture
+        # Test de base pour ameliorer la couverture
         assert hasattr(validator, 'test_runner')
 
 
-class TestTestRunnerAgentIntegration:
-    """Tests d'intégration pour TestRunnerAgent"""
+class TestQualityAssuranceAgentIntegration:
+    """Tests d'integration pour QualityAssuranceAgent"""
     
     @pytest.mark.asyncio
     async def test_run_pytest_with_coverage_mock(self):
         """Test pytest avec couverture"""
         config = {}
-        agent = TestRunnerAgent(config)
+        agent = QualityAssuranceAgent(config)
         
         # Mock subprocess
         with patch('asyncio.create_subprocess_exec') as mock_subprocess:

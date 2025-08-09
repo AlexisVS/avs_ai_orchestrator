@@ -1,6 +1,6 @@
 """
-Model Manager - Gestion des modèles AI (Docker + LM Studio)
-Intégration avec LMStudioClient et DockerMCPClient (GREEN phase TDD)
+Model Manager - Gestion des modeles AI (Docker + LM Studio)
+Integration avec LMStudioClient et DockerMCPClient (GREEN phase TDD)
 Respecte les principes DDD (Domain-Driven Design) et SOLID
 """
 
@@ -17,7 +17,7 @@ from ..mcp.jetbrains_stdio_client import JetBrainsSTDIOClient
 
 @dataclass
 class Model:
-    """Représentation d'un modèle AI - Value Object DDD"""
+    """Representation d'un modele AI - Value Object DDD"""
     name: str
     type: str  # docker ou lm_studio
     endpoint: Optional[str] = None
@@ -31,7 +31,7 @@ class Model:
 
 
 class ModelManager:
-    """Gestionnaire des modèles AI - respecte SOLID SRP"""
+    """Gestionnaire des modeles AI - respecte SOLID SRP"""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -44,20 +44,20 @@ class ModelManager:
         self._current_index = 0
         self._logger = logging.getLogger(__name__)
         
-        # Clients AI réels
+        # Clients AI reels
         self._lm_studio_client: Optional[LMStudioClient] = None
         self._docker_mcp_clients: Dict[str, DockerMCPClient] = {}
         self._jetbrains_client: Optional[JetBrainsSTDIOClient] = None
     
     async def connect_docker_models(self) -> bool:
-        """Connecter aux modèles Docker MCP"""
+        """Connecter aux modeles Docker MCP"""
         try:
-            # Récupération des configurations Docker
+            # Recuperation des configurations Docker
             docker_configs = self.config.get("docker_models", [])
             
             for docker_config in docker_configs:
                 try:
-                    # Créer un client Docker MCP
+                    # Creer un client Docker MCP
                     client = DockerMCPClient(**docker_config)
                     
                     # Tenter la connexion
@@ -88,16 +88,16 @@ class ModelManager:
             return False
     
     async def connect_lm_studio(self) -> bool:
-        """Connecter à LM Studio"""
+        """Connecter a LM Studio"""
         try:
-            # Récupération de la configuration LM Studio
+            # Recuperation de la configuration LM Studio
             lm_config = self.config.get("lm_studio", {})
             
             if not lm_config:
                 self._logger.info("No LM Studio configuration found")
                 return False
             
-            # Créer le client LM Studio
+            # Creer le client LM Studio
             self._lm_studio_client = LMStudioClient(**lm_config)
             
             # Tester la connexion avec health check
@@ -126,14 +126,14 @@ class ModelManager:
     async def connect_jetbrains_mcp(self) -> bool:
         """Connecter au serveur MCP JetBrains"""
         try:
-            # Récupération de la configuration JetBrains
+            # Recuperation de la configuration JetBrains
             jetbrains_config = self.config.get("jetbrains_mcp", {})
             
             if not jetbrains_config.get("enabled", True):
                 self._logger.info("JetBrains MCP disabled in configuration")
                 return False
             
-            # Créer le client JetBrains
+            # Creer le client JetBrains
             self._jetbrains_client = JetBrainsSTDIOClient(**jetbrains_config)
             
             # Tester la connexion
@@ -147,7 +147,7 @@ class ModelManager:
                     capabilities=["code_inspection", "debugging", "refactoring"]
                 )
                 
-                self.docker_models.append(model)  # Ajouté aux docker_models pour compatibilité
+                self.docker_models.append(model)  # Ajoute aux docker_models pour compatibilite
                 self._logger.info(f"Connected to JetBrains MCP: {model.name}")
                 return True
             else:
@@ -159,18 +159,18 @@ class ModelManager:
             return False
     
     async def select_best_model(self) -> Optional[Dict[str, Any]]:
-        """Sélectionner le meilleur modèle selon la charge"""
+        """Selectionner le meilleur modele selon la charge"""
         if not self.active_models:
             return None
         
-        # Sélectionner le modèle avec la charge la plus faible
+        # Selectionner le modele avec la charge la plus faible
         best_model = min(self.active_models, key=lambda m: m.get("load", 1.0))
         return best_model
     
     async def assign_request(self) -> Dict[str, Any]:
-        """Assigner une requête à un modèle (load balancing)"""
+        """Assigner une requete a un modele (load balancing)"""
         if not self.active_models:
-            raise ValueError("Aucun modèle actif disponible")
+            raise ValueError("Aucun modele actif disponible")
         
         # Round-robin simple pour le load balancing
         model = self.active_models[self._current_index % len(self.active_models)]
@@ -178,7 +178,7 @@ class ModelManager:
         return model
     
     async def check_models_health(self) -> List[Dict[str, Any]]:
-        """Vérifier la santé des modèles"""
+        """Verifier la sante des modeles"""
         healthy_models = []
         for model in self.active_models:
             if model.get("status") == "running":
@@ -186,8 +186,8 @@ class ModelManager:
         return healthy_models
     
     async def get_active_model(self) -> Dict[str, Any]:
-        """Obtenir le modèle actif avec failover"""
-        # Si le modèle principal est en erreur, utiliser un backup
+        """Obtenir le modele actif avec failover"""
+        # Si le modele principal est en erreur, utiliser un backup
         if self.primary_model and self.primary_model.get("status") == "error":
             if self.backup_models:
                 for backup in self.backup_models:
@@ -196,7 +196,7 @@ class ModelManager:
         return self.primary_model or {"name": "default", "status": "running"}
     
     async def generate_with_retry(self, prompt: str) -> str:
-        """Générer avec retry automatique"""
+        """Generer avec retry automatique"""
         last_error = None
         client = self.get_client()
         
@@ -210,22 +210,22 @@ class ModelManager:
                     await asyncio.sleep(1)  # Attendre avant retry
                 continue
         
-        # Si tous les retries échouent, retourner la dernière réponse réussie
+        # Si tous les retries echouent, retourner la derniere reponse reussie
         if hasattr(client, 'generate_response'):
             return "Success response"
         raise last_error
     
     async def report_model_error(self, model: Dict[str, Any]):
-        """Rapporter une erreur sur un modèle"""
+        """Rapporter une erreur sur un modele"""
         model["errors"] = model.get("errors", 0) + 1
         
-        # Désactiver le modèle s'il a trop d'erreurs
+        # Desactiver le modele s'il a trop d'erreurs
         if model["errors"] > model.get("max_errors", 3):
             if model in self.active_models:
                 self.active_models.remove(model)
     
     def validate_model_config(self, config: Dict[str, Any]) -> bool:
-        """Valider la configuration d'un modèle"""
+        """Valider la configuration d'un modele"""
         required_fields = ["name", "type"]
         for field in required_fields:
             if field not in config:
@@ -238,15 +238,15 @@ class ModelManager:
     
     def get_client(self):
         """Obtenir un client AI (mock pour les tests)"""
-        # Dans la vraie implémentation, retournerait un vrai client
+        # Dans la vraie implementation, retournerait un vrai client
         from unittest.mock import AsyncMock
         client = AsyncMock()
         client.generate_response = AsyncMock()
         return client
     
     async def initialize(self) -> bool:
-        """Initialiser le gestionnaire de modèles"""
-        # Connecter aux différents providers
+        """Initialiser le gestionnaire de modeles"""
+        # Connecter aux differents providers
         docker_ok = await self.connect_docker_models()
         lm_studio_ok = await self.connect_lm_studio()
         jetbrains_ok = await self.connect_jetbrains_mcp()
@@ -254,7 +254,7 @@ class ModelManager:
         return docker_ok or lm_studio_ok or jetbrains_ok
     
     async def shutdown(self):
-        """Arrêter proprement le gestionnaire"""
+        """Arreter proprement le gestionnaire"""
         # Nettoyer les connexions AI
         if self._lm_studio_client:
             await self._lm_studio_client.close()

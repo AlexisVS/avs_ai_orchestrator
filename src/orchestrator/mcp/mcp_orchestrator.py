@@ -1,6 +1,6 @@
 """
-MCP Orchestrator - Orchestration complète des serveurs MCP
-Implémentation minimale pour faire passer les tests
+MCP Orchestrator - Orchestration complete des serveurs MCP
+Implementation minimale pour faire passer les tests
 """
 
 from typing import Dict, Any, List, Optional
@@ -8,7 +8,7 @@ import asyncio
 
 
 class MCPOrchestrator:
-    """Orchestrateur pour gérer le flux complet MCP"""
+    """Orchestrateur pour gerer le flux complet MCP"""
     
     def __init__(self):
         self.servers: List[Dict[str, Any]] = []
@@ -16,13 +16,13 @@ class MCPOrchestrator:
         self.router = None
     
     async def discover_servers(self) -> List[Dict[str, Any]]:
-        """Découvrir les serveurs MCP disponibles"""
-        # Implémentation minimale pour les tests
+        """Decouvrir les serveurs MCP disponibles"""
+        # Implementation minimale pour les tests
         return self.servers
     
     async def connect_to_server(self, server_info: Dict[str, Any]) -> bool:
-        """Se connecter à un serveur MCP"""
-        # Implémentation minimale
+        """Se connecter a un serveur MCP"""
+        # Implementation minimale
         server_name = server_info.get("name", "default")
         self.connections[server_name] = {
             "info": server_info,
@@ -31,8 +31,8 @@ class MCPOrchestrator:
         return True
     
     async def send_request(self, server_name: str, request: Dict[str, Any]) -> Dict[str, Any]:
-        """Envoyer une requête à un serveur"""
-        # Implémentation minimale
+        """Envoyer une requete a un serveur"""
+        # Implementation minimale
         return {
             "status": "ok",
             "result": "generated code",
@@ -40,8 +40,8 @@ class MCPOrchestrator:
         }
     
     async def process_request(self, request: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-        """Traiter une requête complète"""
-        # 1. Découvrir les serveurs si nécessaire
+        """Traiter une requete complete"""
+        # 1. Decouvrir les serveurs si necessaire
         if not self.servers:
             self.servers = await self.discover_servers()
         
@@ -51,7 +51,7 @@ class MCPOrchestrator:
             connected = await self.connect_to_server(server)
             
             if connected:
-                # 3. Envoyer la requête
+                # 3. Envoyer la requete
                 result = await self.send_request(server["name"], request)
                 return result
         
@@ -60,7 +60,7 @@ class MCPOrchestrator:
     async def initialize(self) -> bool:
         """Initialiser l'orchestrateur MCP"""
         try:
-            # Découvrir et connecter les serveurs
+            # Decouvrir et connecter les serveurs
             servers = await self.discover_servers()
             
             for server in servers:
@@ -72,8 +72,8 @@ class MCPOrchestrator:
             return False
     
     async def shutdown(self):
-        """Arrêter l'orchestrateur"""
-        # Déconnecter tous les serveurs
+        """Arreter l'orchestrateur"""
+        # Deconnecter tous les serveurs
         self.connections.clear()
         self.servers.clear()
     

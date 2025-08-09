@@ -1,6 +1,6 @@
 """
-Bug Detector Agent - Détection automatique de bugs
-Agent minimal pour détecter les problèmes dans le code
+Bug Detector Agent - Detection automatique de bugs
+Agent minimal pour detecter les problemes dans le code
 """
 
 from typing import List, Dict, Any
@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 class BugDetectorAgent:
-    """Agent de détection de bugs"""
+    """Agent de detection de bugs"""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -17,12 +17,12 @@ class BugDetectorAgent:
             r'TODO:',
             r'FIXME:',
             r'XXX:',
-            r'print\(',  # Debug prints oubliés
-            r'import pdb',  # Debugger oublié
+            r'print\(',  # Debug prints oublies
+            r'import pdb',  # Debugger oublie
         ]
     
     async def detect_bugs(self, project_path: Path = None) -> List[Dict[str, Any]]:
-        """Détecter les bugs potentiels"""
+        """Detecter les bugs potentiels"""
         if project_path is None:
             project_path = Path.cwd()
         
@@ -37,7 +37,7 @@ class BugDetectorAgent:
         return bugs
     
     async def _analyze_file(self, file_path: Path) -> List[Dict[str, Any]]:
-        """Analyser un fichier pour détecter des bugs"""
+        """Analyser un fichier pour detecter des bugs"""
         bugs = []
         
         try:
@@ -74,20 +74,20 @@ class BugDetectorAgent:
             return "unknown"
     
     async def _create_autonomous_bug_fixer(self):
-        """Créer un correcteur de bugs complètement autonome"""
-        print("[BUG_DETECTOR] Création du correcteur de bugs autonome...")
+        """Creer un correcteur de bugs completement autonome"""
+        print("[BUG_DETECTOR] Creation du correcteur de bugs autonome...")
         
         class AutonomousBugFixer:
-            """Correcteur de bugs complètement autonome"""
+            """Correcteur de bugs completement autonome"""
             
             def __init__(self, bug_detector):
                 self.bug_detector = bug_detector
                 
             async def scan_for_bugs(self, directory):
-                """Scanner pour détecter les bugs"""
+                """Scanner pour detecter les bugs"""
                 print(f"[BUG_FIXER] Scan des bugs dans {directory}...")
                 
-                # Simuler la détection de bugs courants
+                # Simuler la detection de bugs courants
                 common_bugs = [
                     {"type": "null_pointer", "severity": "high", "file": "src/agent.py", "line": 42},
                     {"type": "division_by_zero", "severity": "high", "file": "src/utils.py", "line": 15},
@@ -98,7 +98,7 @@ class BugDetectorAgent:
                 return {"bugs_found": common_bugs, "total_bugs": len(common_bugs)}
                 
             async def classify_bug_severity(self, bugs):
-                """Classifier la sévérité des bugs"""
+                """Classifier la severite des bugs"""
                 print(f"[BUG_FIXER] Classification de {len(bugs)} bugs...")
                 
                 classification = {"high": 0, "medium": 0, "low": 0}
@@ -109,8 +109,8 @@ class BugDetectorAgent:
                 return classification
                 
             async def generate_fix_code(self, bug):
-                """Générer le code de correction pour un bug"""
-                print(f"[BUG_FIXER] Génération du fix pour {bug['type']}...")
+                """Generer le code de correction pour un bug"""
+                print(f"[BUG_FIXER] Generation du fix pour {bug['type']}...")
                 
                 fix_templates = {
                     "null_pointer": {
@@ -142,11 +142,11 @@ class BugDetectorAgent:
                 })
                 
             async def apply_fix_autonomously(self, bug, fix_info):
-                """Appliquer le fix de manière autonome"""
+                """Appliquer le fix de maniere autonome"""
                 print(f"[BUG_FIXER] Application autonome du fix pour {bug['type']}...")
                 
                 if fix_info.get("confidence", 0) >= 0.8:
-                    # Appliquer automatiquement les fixes à haute confiance
+                    # Appliquer automatiquement les fixes a haute confiance
                     return {
                         "fix_applied": True,
                         "fix_type": "automatic",
@@ -154,7 +154,7 @@ class BugDetectorAgent:
                         "backup_created": True
                     }
                 elif fix_info.get("confidence", 0) >= 0.6:
-                    # Appliquer avec validation supplémentaire
+                    # Appliquer avec validation supplementaire
                     return {
                         "fix_applied": True,
                         "fix_type": "validated",
@@ -170,11 +170,11 @@ class BugDetectorAgent:
                     }
                 
             async def verify_fix_effectiveness(self, bug, fix_result):
-                """Vérifier l'efficacité du fix"""
-                print(f"[BUG_FIXER] Vérification de l'efficacité du fix...")
+                """Verifier l'efficacite du fix"""
+                print(f"[BUG_FIXER] Verification de l'efficacite du fix...")
                 
                 if fix_result.get("fix_applied", False):
-                    # Simuler des tests de vérification
+                    # Simuler des tests de verification
                     verification_tests = {
                         "compilation_success": True,
                         "unit_tests_pass": True,
@@ -197,8 +197,8 @@ class BugDetectorAgent:
                     return {"verification_successful": False, "reason": "Fix not applied"}
                 
             async def detect_and_fix_all_bugs(self, directory):
-                """Détecter et corriger tous les bugs de manière autonome"""
-                print(f"[BUG_FIXER] Détection et correction autonome dans {directory}...")
+                """Detecter et corriger tous les bugs de maniere autonome"""
+                print(f"[BUG_FIXER] Detection et correction autonome dans {directory}...")
                 
                 # Scanner pour les bugs
                 scan_result = await self.scan_for_bugs(directory)
@@ -212,13 +212,13 @@ class BugDetectorAgent:
                 fix_successes = 0
                 
                 for bug in bugs:
-                    # Générer le fix
+                    # Generer le fix
                     fix_info = await self.generate_fix_code(bug)
                     
                     # Appliquer le fix
                     fix_result = await self.apply_fix_autonomously(bug, fix_info)
                     
-                    # Vérifier l'efficacité
+                    # Verifier l'efficacite
                     verification = await self.verify_fix_effectiveness(bug, fix_result)
                     
                     if fix_result.get("fix_applied", False) and verification.get("verification_successful", False):

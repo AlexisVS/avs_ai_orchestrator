@@ -30,9 +30,9 @@ class JetBrainsSTDIOClient(MCPInterface):
         retry_delay: float = 1.0,
         **kwargs
     ):
-        # Validation des paramètres
+        # Validation des parametres
         if not java_command or not Path(java_command).exists():
-            raise ValueError("java_command doit pointer vers un exécutable Java valide")
+            raise ValueError("java_command doit pointer vers un executable Java valide")
         
         self.java_command = java_command
         self.mcp_port = mcp_port
@@ -47,7 +47,7 @@ class JetBrainsSTDIOClient(MCPInterface):
         self._request_counter = 0
         self._capabilities = {}
         
-        # Commande complète JetBrains MCP
+        # Commande complete JetBrains MCP
         self._args = [
             "-classpath",
             r"C:\Users\alexi\AppData\Roaming\JetBrains\PyCharmCE2025.2\plugins\mcpserver\lib\mcpserver-frontend.jar;C:\Users\alexi\AppData\Local\Programs\PyCharm Community\lib\util-8.jar",
@@ -60,21 +60,21 @@ class JetBrainsSTDIOClient(MCPInterface):
     
     @property
     def is_connected(self) -> bool:
-        """Indique si le client est connecté"""
+        """Indique si le client est connecte"""
         return self._connected and self._process and self._process.poll() is None
     
     @property
     def connection_state(self) -> MCPConnectionState:
-        """État actuel de la connexion"""
+        """Etat actuel de la connexion"""
         return self._connection_state
     
     def _get_next_request_id(self) -> int:
-        """Générer un ID unique pour les requêtes MCP"""
+        """Generer un ID unique pour les requetes MCP"""
         self._request_counter += 1
         return self._request_counter
     
     async def _send_mcp_request(self, method: str, params: Optional[Dict] = None) -> Dict[str, Any]:
-        """Envoyer une requête MCP via STDIO"""
+        """Envoyer une requete MCP via STDIO"""
         if not self._process:
             raise MCPConnectionError("Process not started")
         
@@ -88,14 +88,14 @@ class JetBrainsSTDIOClient(MCPInterface):
             request_data["params"] = params
         
         try:
-            # Envoyer la requête JSON
+            # Envoyer la requete JSON
             request_json = json.dumps(request_data) + '\n'
             self._logger.debug(f"Sending MCP request: {request_json.strip()}")
             
             self._process.stdin.write(request_json.encode('utf-8'))
             self._process.stdin.flush()
             
-            # Lire la réponse
+            # Lire la reponse
             response_line = await asyncio.wait_for(
                 asyncio.to_thread(self._process.stdout.readline),
                 timeout=self.timeout
@@ -109,7 +109,7 @@ class JetBrainsSTDIOClient(MCPInterface):
             
             response = json.loads(response_text)
             
-            # Vérifier les erreurs MCP
+            # Verifier les erreurs MCP
             if "error" in response:
                 error = response["error"]
                 raise MCPError(
@@ -142,14 +142,14 @@ class JetBrainsSTDIOClient(MCPInterface):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 env={**dict(os.environ), **self._env},
-                text=False,  # Mode binaire pour contrôler l'encodage
+                text=False,  # Mode binaire pour controler l'encodage
                 bufsize=0   # Pas de buffer
             )
             
-            # Attendre un peu que le processus démarre
+            # Attendre un peu que le processus demarre
             await asyncio.sleep(2)
             
-            # Vérifier que le processus est toujours en vie
+            # Verifier que le processus est toujours en vie
             if self._process.poll() is not None:
                 stderr_output = self._process.stderr.read().decode('utf-8')
                 raise MCPConnectionError(f"Process exited immediately: {stderr_output}")
@@ -166,7 +166,7 @@ class JetBrainsSTDIOClient(MCPInterface):
                 }
             })
             
-            # Vérifier la réponse d'initialisation
+            # Verifier la reponse d'initialisation
             if "result" in result:
                 self._capabilities = result["result"].get("capabilities", {})
                 self._connected = True
@@ -195,7 +195,7 @@ class JetBrainsSTDIOClient(MCPInterface):
             raise
     
     async def disconnect(self) -> bool:
-        """Se déconnecter du serveur MCP"""
+        """Se deconnecter du serveur MCP"""
         try:
             if self._process:
                 # Fermer proprement le processus
@@ -256,7 +256,7 @@ class JetBrainsSTDIOClient(MCPInterface):
             raise MCPError(f"List tools error: {e}")
     
     async def get_resources(self) -> List[Dict[str, Any]]:
-        """Récupérer les ressources disponibles"""
+        """Recuperer les ressources disponibles"""
         if not self.is_connected:
             raise MCPConnectionError("Not connected to JetBrains MCP server")
         
@@ -272,7 +272,7 @@ class JetBrainsSTDIOClient(MCPInterface):
             raise MCPResourceError(f"List resources error: {e}")
     
     async def inspect_code(self, file_path: str, checks: Optional[List[str]] = None) -> Dict[str, Any]:
-        """Inspecter du code avec PyCharm (outil spécialisé JetBrains)"""
+        """Inspecter du code avec PyCharm (outil specialise JetBrains)"""
         arguments = {"file_path": file_path}
         if checks:
             arguments["checks"] = checks
@@ -280,7 +280,7 @@ class JetBrainsSTDIOClient(MCPInterface):
         return await self.call_tool("inspect_code", arguments)
     
     async def debug_code(self, file_path: str, line_number: int, variables: Optional[List[str]] = None) -> Dict[str, Any]:
-        """Déboguer du code avec PyCharm (outil spécialisé JetBrains)"""
+        """Deboguer du code avec PyCharm (outil specialise JetBrains)"""
         arguments = {
             "file_path": file_path,
             "line_number": line_number
@@ -291,7 +291,7 @@ class JetBrainsSTDIOClient(MCPInterface):
         return await self.call_tool("debug_code", arguments)
     
     async def health_check(self) -> Dict[str, Any]:
-        """Vérifier la santé du serveur MCP JetBrains"""
+        """Verifier la sante du serveur MCP JetBrains"""
         try:
             if not self.is_connected:
                 return {

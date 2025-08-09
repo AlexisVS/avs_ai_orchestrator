@@ -22,14 +22,14 @@ class TestDockerMCPClientDomain:
     """Tests TDD pour le domaine Docker MCP Client"""
     
     def test_docker_mcp_client_implements_mcp_interface(self):
-        """DOMAIN: DockerMCPClient doit implémenter MCPInterface"""
+        """DOMAIN: DockerMCPClient doit implementer MCPInterface"""
         # GIVEN une instance DockerMCPClient
         client = DockerMCPClient(container_name="mcp-filesystem")
         
-        # THEN elle doit implémenter l'interface MCPInterface
+        # THEN elle doit implementer l'interface MCPInterface
         assert isinstance(client, MCPInterface)
         
-        # AND avoir toutes les méthodes requises
+        # AND avoir toutes les methodes requises
         assert hasattr(client, 'call_tool')
         assert hasattr(client, 'list_tools')
         assert hasattr(client, 'get_resources')
@@ -37,7 +37,7 @@ class TestDockerMCPClientDomain:
         assert hasattr(client, 'disconnect')
     
     def test_docker_mcp_client_configuration_validation(self):
-        """DOMAIN: Configuration Docker doit être validée"""
+        """DOMAIN: Configuration Docker doit etre validee"""
         # GIVEN des configurations valides
         valid_configs = [
             {"container_name": "mcp-filesystem"},
@@ -45,22 +45,22 @@ class TestDockerMCPClientDomain:
             {"container_name": "mcp-db", "timeout": 30}
         ]
         
-        # WHEN on crée des clients avec configs valides
+        # WHEN on cree des clients avec configs valides
         for config in valid_configs:
             client = DockerMCPClient(**config)
-            # THEN aucune exception ne doit être levée
+            # THEN aucune exception ne doit etre levee
             assert client.container_name is not None
         
         # GIVEN des configurations invalides
         invalid_configs = [
             {},  # container_name manquant
             {"container_name": ""},  # container_name vide
-            {"container_name": "test", "timeout": -1},  # timeout négatif
+            {"container_name": "test", "timeout": -1},  # timeout negatif
         ]
         
-        # WHEN on crée des clients avec configs invalides
+        # WHEN on cree des clients avec configs invalides
         for config in invalid_configs:
-            # THEN une exception de validation doit être levée
+            # THEN une exception de validation doit etre levee
             with pytest.raises(ValueError):
                 DockerMCPClient(**config)
 
@@ -70,11 +70,11 @@ class TestDockerMCPClientConnection:
     
     @pytest.mark.asyncio
     async def test_connect_to_docker_container_success(self):
-        """CONNECTION: Connexion réussie au conteneur Docker"""
-        # GIVEN un client MCP configuré
+        """CONNECTION: Connexion reussie au conteneur Docker"""
+        # GIVEN un client MCP configure
         client = DockerMCPClient(container_name="mcp-filesystem")
         
-        # AND un conteneur Docker qui répond
+        # AND un conteneur Docker qui repond
         mock_docker = MagicMock()
         mock_container = MagicMock()
         mock_container.status = "running"
@@ -87,17 +87,17 @@ class TestDockerMCPClientConnection:
             # WHEN on se connecte
             result = await client.connect()
         
-        # THEN la connexion doit réussir
+        # THEN la connexion doit reussir
         assert result is True
         assert client.is_connected is True
         
-        # AND Docker doit être interrogé
+        # AND Docker doit etre interroge
         mock_docker.containers.get.assert_called_once_with("mcp-filesystem")
     
     @pytest.mark.asyncio
     async def test_connect_to_stopped_container(self):
-        """CONNECTION: Gestion d'un conteneur arrêté"""
-        # GIVEN un client et un conteneur arrêté
+        """CONNECTION: Gestion d'un conteneur arrete"""
+        # GIVEN un client et un conteneur arrete
         client = DockerMCPClient(container_name="mcp-stopped")
         
         mock_docker = MagicMock()
@@ -108,7 +108,7 @@ class TestDockerMCPClientConnection:
             mock_docker.containers.get.return_value = mock_container
             
             # WHEN on tente de se connecter
-            # THEN une exception doit être levée
+            # THEN une exception doit etre levee
             with pytest.raises(Exception) as exc_info:
                 await client.connect()
             
@@ -116,8 +116,8 @@ class TestDockerMCPClientConnection:
     
     @pytest.mark.asyncio
     async def test_auto_start_container_if_configured(self):
-        """CONNECTION: Démarrage automatique du conteneur si configuré"""
-        # GIVEN un client avec auto-start activé
+        """CONNECTION: Demarrage automatique du conteneur si configure"""
+        # GIVEN un client avec auto-start active
         client = DockerMCPClient(
             container_name="mcp-auto-start", 
             auto_start=True
@@ -127,7 +127,7 @@ class TestDockerMCPClientConnection:
         mock_container = MagicMock()
         mock_container.status = "exited"
         
-        # Mock pour changer le statut après reload
+        # Mock pour changer le statut apres reload
         def mock_reload():
             mock_container.status = "running"
         
@@ -143,7 +143,7 @@ class TestDockerMCPClientConnection:
             # WHEN on se connecte
             await client.connect()
         
-        # THEN le conteneur doit être démarré automatiquement
+        # THEN le conteneur doit etre demarre automatiquement
         mock_container.start.assert_called_once()
         mock_container.reload.assert_called_once()
 
@@ -153,13 +153,13 @@ class TestDockerMCPClientToolCalls:
     
     @pytest.mark.asyncio
     async def test_call_tool_filesystem_read_success(self):
-        """TOOLS: Appel réussi d'un outil filesystem"""
-        # GIVEN un client connecté
+        """TOOLS: Appel reussi d'un outil filesystem"""
+        # GIVEN un client connecte
         client = DockerMCPClient(container_name="mcp-filesystem")
         client._connected = True
         client._container = MagicMock()
         
-        # AND une réponse MCP valide
+        # AND une reponse MCP valide
         mcp_response = {
             "jsonrpc": "2.0",
             "id": 1,
@@ -182,10 +182,10 @@ class TestDockerMCPClientToolCalls:
             arguments={"path": "/test/file.txt"}
         )
         
-        # THEN le contenu du fichier doit être retourné
+        # THEN le contenu du fichier doit etre retourne
         assert result["content"][0]["text"] == "File content here"
         
-        # AND la commande MCP doit être exécutée
+        # AND la commande MCP doit etre executee
         client._container.exec_run.assert_called_once()
         exec_args = client._container.exec_run.call_args[0][0]
         assert "read_file" in ' '.join(exec_args)
@@ -193,7 +193,7 @@ class TestDockerMCPClientToolCalls:
     @pytest.mark.asyncio
     async def test_call_tool_with_complex_arguments(self):
         """TOOLS: Appel d'outil avec arguments complexes"""
-        # GIVEN un client connecté
+        # GIVEN un client connecte
         client = DockerMCPClient(container_name="mcp-web")
         client._connected = True
         client._container = MagicMock()
@@ -222,17 +222,17 @@ class TestDockerMCPClientToolCalls:
             arguments=complex_args
         )
         
-        # THEN l'appel doit réussir
+        # THEN l'appel doit reussir
         assert result["status"] == "success"
         
-        # AND les arguments doivent être correctement encodés
+        # AND les arguments doivent etre correctement encodes
         exec_call = client._container.exec_run.call_args
         assert "http_request" in ' '.join(exec_call[0][0])
     
     @pytest.mark.asyncio
     async def test_call_tool_mcp_error_handling(self):
         """TOOLS: Gestion des erreurs MCP"""
-        # GIVEN un client connecté
+        # GIVEN un client connecte
         client = DockerMCPClient(container_name="mcp-tools")
         client._connected = True
         client._container = MagicMock()
@@ -251,7 +251,7 @@ class TestDockerMCPClientToolCalls:
         client._container.exec_run.return_value.exit_code = 0
         client._container.exec_run.return_value.output = json.dumps(mcp_error_response).encode()
         
-        # THEN une exception MCP doit être levée
+        # THEN une exception MCP doit etre levee
         with pytest.raises(Exception) as exc_info:
             await client.call_tool("unknown_tool", {})
         
@@ -259,17 +259,17 @@ class TestDockerMCPClientToolCalls:
 
 
 class TestDockerMCPClientDiscovery:
-    """Tests TDD pour la découverte des outils et ressources"""
+    """Tests TDD pour la decouverte des outils et ressources"""
     
     @pytest.mark.asyncio
     async def test_list_available_tools(self):
         """DISCOVERY: Liste des outils disponibles"""
-        # GIVEN un client connecté
+        # GIVEN un client connecte
         client = DockerMCPClient(container_name="mcp-toolkit")
         client._connected = True
         client._container = MagicMock()
         
-        # AND une réponse avec liste d'outils
+        # AND une reponse avec liste d'outils
         tools_response = {
             "jsonrpc": "2.0",
             "id": 1,
@@ -314,8 +314,8 @@ class TestDockerMCPClientDiscovery:
     
     @pytest.mark.asyncio
     async def test_get_resources_from_mcp_server(self):
-        """DISCOVERY: Récupération des ressources MCP"""
-        # GIVEN un client connecté
+        """DISCOVERY: Recuperation des ressources MCP"""
+        # GIVEN un client connecte
         client = DockerMCPClient(container_name="mcp-resources")
         client._connected = True
         client._container = MagicMock()
@@ -343,7 +343,7 @@ class TestDockerMCPClientDiscovery:
         client._container.exec_run.return_value.exit_code = 0
         client._container.exec_run.return_value.output = json.dumps(resources_response).encode()
         
-        # WHEN on récupère les ressources
+        # WHEN on recupere les ressources
         resources = await client.get_resources()
         
         # THEN on doit obtenir la liste des ressources
@@ -353,12 +353,12 @@ class TestDockerMCPClientDiscovery:
 
 
 class TestDockerMCPClientResilience:
-    """Tests TDD pour la résilience du client Docker MCP"""
+    """Tests TDD pour la resilience du client Docker MCP"""
     
     @pytest.mark.asyncio
     async def test_container_restart_during_operation(self):
-        """RESILIENCE: Redémarrage du conteneur pendant une opération"""
-        # GIVEN un client connecté
+        """RESILIENCE: Redemarrage du conteneur pendant une operation"""
+        # GIVEN un client connecte
         client = DockerMCPClient(
             container_name="mcp-unstable",
             auto_reconnect=True,
@@ -367,21 +367,21 @@ class TestDockerMCPClientResilience:
         client._connected = True
         client._container = MagicMock()
         
-        # WHEN le conteneur redémarre pendant un appel
+        # WHEN le conteneur redemarre pendant un appel
         client._container.exec_run.side_effect = [
-            Exception("Container stopped"),  # Premier essai échoue
-            Exception("Container not found"),  # Deuxième essai échoue  
-            MagicMock(exit_code=0, output=b'{"jsonrpc":"2.0","id":1,"result":{}}')  # Troisième réussit
+            Exception("Container stopped"),  # Premier essai echoue
+            Exception("Container not found"),  # Deuxieme essai echoue  
+            MagicMock(exit_code=0, output=b'{"jsonrpc":"2.0","id":1,"result":{}}')  # Troisieme reussit
         ]
         
         # AND mock de la reconnexion
         with patch.object(client, 'connect', new_callable=AsyncMock) as mock_reconnect:
             mock_reconnect.return_value = True
             
-            # THEN l'opération doit finalement réussir après reconnexion
+            # THEN l'operation doit finalement reussir apres reconnexion
             result = await client.call_tool("test_tool", {})
             
-            # AND la reconnexion doit être tentée
+            # AND la reconnexion doit etre tentee
             assert mock_reconnect.call_count >= 1
     
     @pytest.mark.asyncio
@@ -394,7 +394,7 @@ class TestDockerMCPClientResilience:
         with patch('docker.from_env') as mock_docker:
             mock_docker.side_effect = Exception("Cannot connect to Docker daemon")
             
-            # THEN une exception appropriée doit être levée
+            # THEN une exception appropriee doit etre levee
             with pytest.raises(Exception) as exc_info:
                 await client.connect()
             
@@ -402,14 +402,14 @@ class TestDockerMCPClientResilience:
     
     @pytest.mark.asyncio
     async def test_mcp_server_healthcheck(self):
-        """RESILIENCE: Vérification de santé du serveur MCP"""
-        # GIVEN un client configuré avec health check
+        """RESILIENCE: Verification de sante du serveur MCP"""
+        # GIVEN un client configure avec health check
         client = DockerMCPClient(
             container_name="mcp-health",
             health_check_enabled=True
         )
         
-        # WHEN on vérifie la santé du serveur
+        # WHEN on verifie la sante du serveur
         client._connected = True
         client._container = MagicMock()
         client._container.exec_run.return_value.exit_code = 0
@@ -417,26 +417,26 @@ class TestDockerMCPClientResilience:
         
         health_status = await client.health_check()
         
-        # THEN le statut de santé doit être retourné
+        # THEN le statut de sante doit etre retourne
         assert health_status["status"] == "healthy"
 
 
 class TestDockerMCPClientIntegration:
-    """Tests d'intégration TDD"""
+    """Tests d'integration TDD"""
     
     @pytest.mark.asyncio
     async def test_full_mcp_workflow_filesystem(self):
         """INTEGRATION: Workflow complet avec serveur MCP filesystem"""
-        # GIVEN un client filesystem connecté
+        # GIVEN un client filesystem connecte
         client = DockerMCPClient(container_name="mcp-filesystem")
         
-        # Mock la connexion et les opérations
+        # Mock la connexion et les operations
         with patch('docker.from_env') as mock_docker_env:
             mock_docker = MagicMock()
             mock_container = MagicMock()
             mock_container.status = "running"
             
-            # Réponses pour chaque opération
+            # Reponses pour chaque operation
             responses = [
                 b'{"jsonrpc":"2.0","id":1,"result":{"capabilities":{}}}',  # connect
                 b'{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"read_file"}]}}',  # list_tools
@@ -451,13 +451,13 @@ class TestDockerMCPClientIntegration:
             mock_docker.containers.get.return_value = mock_container
             mock_docker_env.return_value = mock_docker
             
-            # WHEN on exécute un workflow complet
+            # WHEN on execute un workflow complet
             await client.connect()
             tools = await client.list_tools()
             content = await client.call_tool("read_file", {"path": "/test.txt"})
             write_result = await client.call_tool("write_file", {"path": "/output.txt", "content": "new content"})
             
-            # THEN toutes les opérations doivent réussir
+            # THEN toutes les operations doivent reussir
             assert client.is_connected
             assert len(tools) == 1
             assert content["content"][0]["text"] == "file content"

@@ -3744,3 +3744,998 @@ Flags:
 2025-08-09 02:31:34,524 - IndependentOrchestrator - INFO - Cycle 14 terminé en 3.3s
 2025-08-09 02:31:34,524 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
 2025-08-09 02:31:34,633 - IndependentOrchestrator - INFO - GitHub Sync: 11 issues actives, version 1.0.0
+2025-08-09 19:16:37,490 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDÉPENDANT ===
+2025-08-09 19:16:37,490 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-09 19:16:37,490 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-09 19:16:37,490 - IndependentOrchestrator - INFO - === CYCLE ÉVOLUTION #1 ===
+2025-08-09 19:16:37,490 - IndependentOrchestrator - INFO - Santé système: healthy
+2025-08-09 19:16:37,490 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:16:37,490 - GitHubSyncAgent - INFO - Démarrage workflow PULL mode
+2025-08-09 19:16:38,594 - GitHubSyncAgent - INFO - Cartes récupérées (Todo): 0
+2025-08-09 19:16:39,434 - GitHubSyncAgent - INFO - Cartes récupérées (In Progress): 0
+2025-08-09 19:16:39,821 - GitHubSyncAgent - INFO - Issues récupérées: 0
+2025-08-09 19:16:39,822 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunités créées
+2025-08-09 19:16:39,822 - GitHubSyncAgent - INFO - Workflow PULL terminé: 0 opportunités
+2025-08-09 19:16:39,822 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:16:39,822 - IndependentOrchestrator - INFO - Opportunités détectées: 0
+2025-08-09 19:16:39,822 - IndependentOrchestrator - INFO - Cycle 1 terminé en 2.3s
+2025-08-09 19:16:39,822 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
+2025-08-09 19:16:39,935 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:19:39,950 - IndependentOrchestrator - INFO - === CYCLE ÉVOLUTION #2 ===
+2025-08-09 19:19:39,950 - IndependentOrchestrator - INFO - Santé système: healthy
+2025-08-09 19:19:39,950 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:19:39,950 - GitHubSyncAgent - INFO - Démarrage workflow PULL mode
+2025-08-09 19:19:40,825 - GitHubSyncAgent - INFO - Cartes récupérées (Todo): 0
+2025-08-09 19:19:42,370 - GitHubSyncAgent - INFO - Cartes récupérées (In Progress): 0
+2025-08-09 19:19:42,785 - GitHubSyncAgent - INFO - Issues récupérées: 0
+2025-08-09 19:19:42,785 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunités créées
+2025-08-09 19:19:42,785 - GitHubSyncAgent - INFO - Workflow PULL terminé: 0 opportunités
+2025-08-09 19:19:42,785 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:19:42,785 - IndependentOrchestrator - INFO - Opportunités détectées: 0
+2025-08-09 19:19:42,785 - IndependentOrchestrator - INFO - Cycle 2 terminé en 2.8s
+2025-08-09 19:19:42,785 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
+2025-08-09 19:19:42,900 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:22:42,910 - IndependentOrchestrator - INFO - === CYCLE ÉVOLUTION #3 ===
+2025-08-09 19:22:42,910 - IndependentOrchestrator - INFO - Santé système: healthy
+2025-08-09 19:22:42,910 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:22:42,910 - GitHubSyncAgent - INFO - Démarrage workflow PULL mode
+2025-08-09 19:22:43,911 - GitHubSyncAgent - INFO - Cartes récupérées (Todo): 0
+2025-08-09 19:22:45,023 - GitHubSyncAgent - INFO - Cartes récupérées (In Progress): 0
+2025-08-09 19:22:45,413 - GitHubSyncAgent - INFO - Issues récupérées: 0
+2025-08-09 19:22:45,413 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunités créées
+2025-08-09 19:22:45,414 - GitHubSyncAgent - INFO - Workflow PULL terminé: 0 opportunités
+2025-08-09 19:22:45,414 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:22:45,414 - IndependentOrchestrator - INFO - Opportunités détectées: 1
+2025-08-09 19:22:45,414 - GitHubSyncAgent - INFO - Démarrage GitHub sync pour: bug_fix
+2025-08-09 19:22:46,692 - GitHubSyncAgent - INFO - Issue créée: #11
+2025-08-09 19:22:46,784 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:22:46,784 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:22:48,377 - GitHubSyncAgent - INFO - Branche créée: auto/bug_fix/issue-11
+2025-08-09 19:22:48,469 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:22:48,469 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:22:48,469 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #11
+2025-08-09 19:22:48,470 - IndependentOrchestrator - INFO - Code généré appliqué: src/bug_fixes.py (bug_fixes)
+2025-08-09 19:22:48,470 - IndependentOrchestrator - INFO - Améliorations générées: 1
+2025-08-09 19:22:49,071 - IndependentOrchestrator - INFO - Tests: 0/0
+2025-08-09 19:22:49,096 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/bug_fixs.py' did not match any files
+
+2025-08-09 19:22:49,096 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/bug_fixs.py' did not match any files
+
+2025-08-09 19:22:50,182 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/bug_fix/issue-11, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:22:50,182 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/bug_fix/issue-11, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:22:50,275 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:22:50,275 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:22:50,780 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-11"
+
+2025-08-09 19:22:50,780 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-11"
+
+2025-08-09 19:22:50,781 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:22:50,781 - IndependentOrchestrator - INFO - Cycle 3 terminé en 7.9s
+2025-08-09 19:22:50,781 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
+2025-08-09 19:22:50,885 - IndependentOrchestrator - INFO - GitHub Sync: 1 issues actives, version 1.0.0
+2025-08-09 19:25:50,899 - IndependentOrchestrator - INFO - === CYCLE ÉVOLUTION #4 ===
+2025-08-09 19:25:50,900 - IndependentOrchestrator - INFO - Santé système: healthy
+2025-08-09 19:25:50,900 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:25:50,900 - GitHubSyncAgent - INFO - Démarrage workflow PULL mode
+2025-08-09 19:25:51,818 - GitHubSyncAgent - INFO - Cartes récupérées (Todo): 0
+2025-08-09 19:25:52,712 - GitHubSyncAgent - INFO - Cartes récupérées (In Progress): 0
+2025-08-09 19:25:53,130 - GitHubSyncAgent - INFO - Issues récupérées: 1
+2025-08-09 19:25:53,130 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunités créées
+2025-08-09 19:25:53,130 - GitHubSyncAgent - INFO - Workflow PULL terminé: 0 opportunités
+2025-08-09 19:25:53,130 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:25:53,130 - IndependentOrchestrator - INFO - Opportunités détectées: 1
+2025-08-09 19:25:53,130 - GitHubSyncAgent - INFO - Démarrage GitHub sync pour: test_coverage
+2025-08-09 19:25:54,370 - GitHubSyncAgent - INFO - Issue créée: #12
+2025-08-09 19:25:54,465 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:25:54,465 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:25:56,037 - GitHubSyncAgent - INFO - Branche créée: auto/test_coverage/issue-12
+2025-08-09 19:25:56,146 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:25:56,147 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:25:56,147 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #12
+2025-08-09 19:25:56,148 - IndependentOrchestrator - INFO - Code généré appliqué: tests/test_new_module.py (tests)
+2025-08-09 19:25:56,148 - IndependentOrchestrator - INFO - Améliorations générées: 1
+2025-08-09 19:25:56,686 - IndependentOrchestrator - INFO - Tests: 0/0
+2025-08-09 19:25:56,712 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/test_coverages.py' did not match any files
+
+2025-08-09 19:25:56,712 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/test_coverages.py' did not match any files
+
+2025-08-09 19:25:57,940 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/test_coverage/issue-12, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:25:57,941 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/test_coverage/issue-12, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:25:58,044 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:25:58,044 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:25:58,501 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-12"
+
+2025-08-09 19:25:58,501 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-12"
+
+2025-08-09 19:25:58,501 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:25:58,502 - IndependentOrchestrator - INFO - Cycle 4 terminé en 7.6s
+2025-08-09 19:25:58,502 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
+2025-08-09 19:25:58,604 - IndependentOrchestrator - INFO - GitHub Sync: 2 issues actives, version 1.0.0
+2025-08-09 19:28:58,612 - IndependentOrchestrator - INFO - === CYCLE ÉVOLUTION #5 ===
+2025-08-09 19:28:58,612 - IndependentOrchestrator - INFO - Santé système: healthy
+2025-08-09 19:28:58,612 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:28:58,612 - GitHubSyncAgent - INFO - Démarrage workflow PULL mode
+2025-08-09 19:28:59,556 - GitHubSyncAgent - INFO - Cartes récupérées (Todo): 0
+2025-08-09 19:29:00,527 - GitHubSyncAgent - INFO - Cartes récupérées (In Progress): 0
+2025-08-09 19:29:00,950 - GitHubSyncAgent - INFO - Issues récupérées: 2
+2025-08-09 19:29:00,951 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunités créées
+2025-08-09 19:29:00,951 - GitHubSyncAgent - INFO - Workflow PULL terminé: 0 opportunités
+2025-08-09 19:29:00,951 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:29:00,951 - IndependentOrchestrator - INFO - Opportunités détectées: 1
+2025-08-09 19:29:00,951 - GitHubSyncAgent - INFO - Démarrage GitHub sync pour: performance
+2025-08-09 19:29:02,088 - GitHubSyncAgent - INFO - Issue créée: #13
+2025-08-09 19:29:02,185 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:29:02,185 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:29:03,690 - GitHubSyncAgent - INFO - Branche créée: auto/performance/issue-13
+2025-08-09 19:29:03,784 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:29:03,784 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:29:03,784 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #13
+2025-08-09 19:29:03,785 - IndependentOrchestrator - INFO - Code généré appliqué: src/performance_fixes.py (optimizations)
+2025-08-09 19:29:03,785 - IndependentOrchestrator - INFO - Améliorations générées: 1
+2025-08-09 19:29:04,276 - IndependentOrchestrator - INFO - Tests: 0/0
+2025-08-09 19:29:04,300 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/performances.py' did not match any files
+
+2025-08-09 19:29:04,300 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/performances.py' did not match any files
+
+2025-08-09 19:29:05,385 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/performance/issue-13, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:29:05,385 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/performance/issue-13, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:29:05,483 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:29:05,484 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: project-id must be provided
+
+Usage:  gh project item-edit [flags]
+
+Flags:
+      --body string                      Body of the draft issue item
+      --clear                            Remove field value
+      --date string                      Date value for the field (YYYY-MM-DD)
+      --field-id string                  ID of the field to update
+      --format string                    Output format: {json}
+      --id string                        ID of the item to edit
+      --iteration-id string              ID of the iteration value to set on the field
+  -q, --jq expression                    Filter JSON output using a jq expression
+      --number float                     Number value for the field
+      --project-id string                ID of the project to which the field belongs to
+      --single-select-option-id string   ID of the single select option value to set on the field
+  -t, --template string                  Format JSON output using a Go template; see "gh help formatting"
+      --text string                      Text value for the field
+      --title string                     Title of the draft issue item
+  
+
+2025-08-09 19:29:05,980 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-13"
+
+2025-08-09 19:29:05,980 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-13"
+
+2025-08-09 19:29:05,980 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:29:05,980 - IndependentOrchestrator - INFO - Cycle 5 terminé en 7.4s
+2025-08-09 19:29:05,980 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
+2025-08-09 19:29:06,090 - IndependentOrchestrator - INFO - GitHub Sync: 3 issues actives, version 1.0.0
+2025-08-09 19:31:15,576 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDÉPENDANT ===
+2025-08-09 19:31:15,576 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-09 19:31:15,576 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-09 19:31:15,576 - IndependentOrchestrator - INFO - === CYCLE ÉVOLUTION #1 ===
+2025-08-09 19:31:15,576 - IndependentOrchestrator - INFO - Santé système: healthy
+2025-08-09 19:31:15,577 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:31:15,577 - GitHubSyncAgent - INFO - Démarrage workflow PULL mode
+2025-08-09 19:31:16,738 - GitHubSyncAgent - INFO - Cartes récupérées (Todo): 0
+2025-08-09 19:31:17,635 - GitHubSyncAgent - INFO - Cartes récupérées (In Progress): 0
+2025-08-09 19:31:18,070 - GitHubSyncAgent - INFO - Issues récupérées: 3
+2025-08-09 19:31:18,070 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunités créées
+2025-08-09 19:31:18,071 - GitHubSyncAgent - INFO - Workflow PULL terminé: 0 opportunités
+2025-08-09 19:31:18,071 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:31:18,071 - IndependentOrchestrator - INFO - Opportunités détectées: 0
+2025-08-09 19:31:18,071 - IndependentOrchestrator - INFO - Cycle 1 terminé en 2.5s
+2025-08-09 19:31:18,071 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
+2025-08-09 19:31:18,172 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:34:18,187 - IndependentOrchestrator - INFO - === CYCLE ÉVOLUTION #2 ===
+2025-08-09 19:34:18,187 - IndependentOrchestrator - INFO - Santé système: healthy
+2025-08-09 19:34:18,187 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:34:18,187 - GitHubSyncAgent - INFO - Démarrage workflow PULL mode
+2025-08-09 19:34:19,471 - GitHubSyncAgent - INFO - Cartes récupérées (Todo): 0
+2025-08-09 19:34:20,507 - GitHubSyncAgent - INFO - Cartes récupérées (In Progress): 0
+2025-08-09 19:34:20,951 - GitHubSyncAgent - INFO - Issues récupérées: 3
+2025-08-09 19:34:20,951 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunités créées
+2025-08-09 19:34:20,951 - GitHubSyncAgent - INFO - Workflow PULL terminé: 0 opportunités
+2025-08-09 19:34:20,951 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:34:20,951 - IndependentOrchestrator - INFO - Opportunités détectées: 0
+2025-08-09 19:34:20,951 - IndependentOrchestrator - INFO - Cycle 2 terminé en 2.8s
+2025-08-09 19:34:20,951 - IndependentOrchestrator - INFO - Méta-apprentissage en cours...
+2025-08-09 19:34:21,065 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:35:49,964 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-09 19:35:49,964 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-09 19:35:49,964 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-09 19:35:49,964 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-09 19:35:49,964 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:35:49,964 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:35:49,964 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:35:51,025 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:35:51,973 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:35:52,362 - GitHubSyncAgent - INFO - Issues recuperees: 3
+2025-08-09 19:35:52,362 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:35:52,362 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:35:52,362 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:35:52,362 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-09 19:35:52,362 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.4s
+2025-08-09 19:35:52,362 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:35:52,478 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:38:52,484 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #2 ===
+2025-08-09 19:38:52,485 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:38:52,485 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL activé - Lecture des issues GitHub...
+2025-08-09 19:38:52,485 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:38:53,514 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:38:54,517 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:38:54,944 - GitHubSyncAgent - INFO - Issues recuperees: 3
+2025-08-09 19:38:54,944 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:38:54,944 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:38:54,944 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunités détectées
+2025-08-09 19:38:54,944 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-09 19:38:54,944 - IndependentOrchestrator - INFO - Cycle 2 termine en 2.5s
+2025-08-09 19:38:54,945 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:38:55,050 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:40:30,450 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-09 19:40:30,450 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-09 19:40:30,450 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-09 19:40:30,450 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-09 19:40:30,450 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:40:30,450 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-09 19:40:30,450 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:40:31,431 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:40:32,390 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:40:32,878 - GitHubSyncAgent - INFO - Issues recuperees: 3
+2025-08-09 19:40:32,878 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:40:32,878 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:40:32,878 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-09 19:40:32,878 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-09 19:40:32,878 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.4s
+2025-08-09 19:40:32,878 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:40:32,993 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:43:32,996 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #2 ===
+2025-08-09 19:43:32,997 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:43:32,997 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-09 19:43:32,997 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:43:34,010 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:43:36,042 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:43:36,499 - GitHubSyncAgent - INFO - Issues recuperees: 3
+2025-08-09 19:43:36,500 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:43:36,500 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:43:36,500 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-09 19:43:36,500 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-09 19:43:36,500 - IndependentOrchestrator - INFO - Cycle 2 termine en 3.5s
+2025-08-09 19:43:36,500 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:43:36,608 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-09 19:46:36,610 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #3 ===
+2025-08-09 19:46:36,610 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:46:36,610 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-09 19:46:36,610 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:46:37,548 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:46:38,528 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:46:38,986 - GitHubSyncAgent - INFO - Issues recuperees: 3
+2025-08-09 19:46:38,986 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:46:38,986 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:46:38,986 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-09 19:46:38,986 - IndependentOrchestrator - INFO - Opportunites detectees: 1
+2025-08-09 19:46:38,986 - GitHubSyncAgent - INFO - Demarrage GitHub sync pour: bug_fix
+2025-08-09 19:46:40,101 - GitHubSyncAgent - INFO - Issue creee: #14
+2025-08-09 19:46:40,174 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:46:40,174 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:46:41,635 - GitHubSyncAgent - INFO - Branche creee: auto/bug_fix/issue-14
+2025-08-09 19:46:41,712 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:46:41,712 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:46:41,712 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #14
+2025-08-09 19:46:41,713 - IndependentOrchestrator - INFO - Code généré appliqué: src/bug_fixes.py (bug_fixes)
+2025-08-09 19:46:41,713 - IndependentOrchestrator - INFO - Améliorations générées: 1
+2025-08-09 19:46:42,157 - IndependentOrchestrator - INFO - Tests: 0/0
+2025-08-09 19:46:42,178 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/bug_fixs.py' did not match any files
+
+2025-08-09 19:46:42,179 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/bug_fixs.py' did not match any files
+
+2025-08-09 19:46:43,323 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/bug_fix/issue-14, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:46:43,324 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/bug_fix/issue-14, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:46:43,399 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:46:43,399 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:46:43,813 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-14"
+
+2025-08-09 19:46:43,813 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-14"
+
+2025-08-09 19:46:43,813 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:46:43,813 - IndependentOrchestrator - INFO - Cycle 3 termine en 7.2s
+2025-08-09 19:46:43,813 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:46:43,925 - IndependentOrchestrator - INFO - GitHub Sync: 1 issues actives, version 1.0.0
+2025-08-09 19:49:43,932 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #4 ===
+2025-08-09 19:49:43,932 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:49:43,932 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-09 19:49:43,932 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:49:44,906 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:49:45,761 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:49:46,266 - GitHubSyncAgent - INFO - Issues recuperees: 4
+2025-08-09 19:49:46,266 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:49:46,266 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:49:46,266 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-09 19:49:46,266 - IndependentOrchestrator - INFO - Opportunites detectees: 1
+2025-08-09 19:49:46,266 - GitHubSyncAgent - INFO - Demarrage GitHub sync pour: test_coverage
+2025-08-09 19:49:47,445 - GitHubSyncAgent - INFO - Issue creee: #15
+2025-08-09 19:49:47,523 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:49:47,523 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:49:49,116 - GitHubSyncAgent - INFO - Branche creee: auto/test_coverage/issue-15
+2025-08-09 19:49:49,191 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:49:49,191 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:49:49,191 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #15
+2025-08-09 19:49:49,192 - IndependentOrchestrator - INFO - Code généré appliqué: tests/test_new_module.py (tests)
+2025-08-09 19:49:49,192 - IndependentOrchestrator - INFO - Améliorations générées: 1
+2025-08-09 19:49:49,610 - IndependentOrchestrator - INFO - Tests: 0/0
+2025-08-09 19:49:49,631 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/test_coverages.py' did not match any files
+
+2025-08-09 19:49:49,631 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/test_coverages.py' did not match any files
+
+2025-08-09 19:49:50,647 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/test_coverage/issue-15, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:49:50,647 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/test_coverage/issue-15, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:49:50,720 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:49:50,720 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:49:51,190 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-15"
+
+2025-08-09 19:49:51,191 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-15"
+
+2025-08-09 19:49:51,191 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:49:51,191 - IndependentOrchestrator - INFO - Cycle 4 termine en 7.3s
+2025-08-09 19:49:51,191 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:49:51,298 - IndependentOrchestrator - INFO - GitHub Sync: 2 issues actives, version 1.0.0
+2025-08-09 19:52:51,298 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #5 ===
+2025-08-09 19:52:51,299 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:52:51,299 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-09 19:52:51,299 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:52:52,359 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:52:53,299 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:52:53,732 - GitHubSyncAgent - INFO - Issues recuperees: 5
+2025-08-09 19:52:53,732 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:52:53,732 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:52:53,732 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-09 19:52:53,732 - IndependentOrchestrator - INFO - Opportunites detectees: 1
+2025-08-09 19:52:53,732 - GitHubSyncAgent - INFO - Demarrage GitHub sync pour: performance
+2025-08-09 19:52:54,806 - GitHubSyncAgent - INFO - Issue creee: #16
+2025-08-09 19:52:54,883 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:52:54,883 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:52:56,337 - GitHubSyncAgent - INFO - Branche creee: auto/performance/issue-16
+2025-08-09 19:52:56,413 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:52:56,413 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:52:56,413 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #16
+2025-08-09 19:52:56,414 - IndependentOrchestrator - INFO - Code généré appliqué: src/performance_fixes.py (optimizations)
+2025-08-09 19:52:56,414 - IndependentOrchestrator - INFO - Améliorations générées: 1
+2025-08-09 19:52:56,867 - IndependentOrchestrator - INFO - Tests: 0/0
+2025-08-09 19:52:56,888 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/performances.py' did not match any files
+
+2025-08-09 19:52:56,888 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/performances.py' did not match any files
+
+2025-08-09 19:52:57,991 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/performance/issue-16, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:52:57,991 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/performance/issue-16, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:52:58,063 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:52:58,063 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:52:58,507 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-16"
+
+2025-08-09 19:52:58,507 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-16"
+
+2025-08-09 19:52:58,507 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:52:58,507 - IndependentOrchestrator - INFO - Cycle 5 termine en 7.2s
+2025-08-09 19:52:58,507 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:52:58,620 - IndependentOrchestrator - INFO - GitHub Sync: 3 issues actives, version 1.0.0
+2025-08-09 19:55:58,627 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #6 ===
+2025-08-09 19:55:58,627 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 19:55:58,627 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-09 19:55:58,627 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 19:55:59,785 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 19:56:00,889 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 19:56:01,317 - GitHubSyncAgent - INFO - Issues recuperees: 6
+2025-08-09 19:56:01,317 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 19:56:01,317 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 19:56:01,317 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-09 19:56:01,317 - IndependentOrchestrator - INFO - Opportunites detectees: 2
+2025-08-09 19:56:01,317 - GitHubSyncAgent - INFO - Demarrage GitHub sync pour: bug_fix
+2025-08-09 19:56:02,495 - GitHubSyncAgent - INFO - Issue creee: #17
+2025-08-09 19:56:02,568 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:02,568 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:04,046 - GitHubSyncAgent - INFO - Branche creee: auto/bug_fix/issue-17
+2025-08-09 19:56:04,122 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:04,123 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:04,123 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #17
+2025-08-09 19:56:04,123 - GitHubSyncAgent - INFO - Demarrage GitHub sync pour: feature
+2025-08-09 19:56:05,249 - GitHubSyncAgent - INFO - Issue creee: #18
+2025-08-09 19:56:05,326 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:05,326 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:06,736 - GitHubSyncAgent - INFO - Branche creee: auto/feature/issue-18
+2025-08-09 19:56:06,811 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:06,811 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:06,811 - IndependentOrchestrator - INFO - GitHub workflow initié: Issue #18
+2025-08-09 19:56:06,811 - IndependentOrchestrator - INFO - Code généré appliqué: src/bug_fixes.py (bug_fixes)
+2025-08-09 19:56:06,812 - IndependentOrchestrator - INFO - Code généré appliqué: src/improvements.py (features)
+2025-08-09 19:56:06,812 - IndependentOrchestrator - INFO - Améliorations générées: 2
+2025-08-09 19:56:07,232 - IndependentOrchestrator - INFO - Tests: 0/0
+2025-08-09 19:56:07,252 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/bug_fixs.py' did not match any files
+
+2025-08-09 19:56:07,252 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/bug_fixs.py' did not match any files
+
+2025-08-09 19:56:08,435 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/bug_fix/issue-17, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:56:08,435 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/bug_fix/issue-17, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:56:08,507 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:08,507 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:08,979 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-17"
+
+2025-08-09 19:56:08,980 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-17"
+
+2025-08-09 19:56:08,980 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:56:09,000 - GitHubSyncAgent - ERROR - Erreur commande git: git command failed: fatal: pathspec 'src/features.py' did not match any files
+
+2025-08-09 19:56:09,001 - GitHubSyncAgent - ERROR - Erreur commit: git command failed: fatal: pathspec 'src/features.py' did not match any files
+
+2025-08-09 19:56:10,212 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/feature/issue-18, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:56:10,212 - GitHubSyncAgent - ERROR - Erreur création PR: gh command failed: pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between master and auto/feature/issue-18, Head ref must be a branch (createPullRequest)
+
+2025-08-09 19:56:10,283 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:10,283 - GitHubSyncAgent - WARNING - Erreur mise à jour project: gh command failed: required flag(s) "id" not set
+
+2025-08-09 19:56:10,738 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: no pull requests found for branch "auto-18"
+
+2025-08-09 19:56:10,738 - GitHubSyncAgent - ERROR - Erreur auto-merge: gh command failed: no pull requests found for branch "auto-18"
+
+2025-08-09 19:56:10,738 - IndependentOrchestrator - INFO - Workflow GitHub terminé: True
+2025-08-09 19:56:10,738 - IndependentOrchestrator - INFO - Cycle 6 termine en 12.1s
+2025-08-09 19:56:10,738 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 19:56:10,843 - IndependentOrchestrator - INFO - GitHub Sync: 5 issues actives, version 1.0.0
+2025-08-09 20:24:30,007 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-09 20:24:30,007 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-09 20:24:30,007 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-09 20:24:30,007 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-09 20:24:30,007 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-09 20:24:30,007 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-09 20:24:30,007 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-09 20:24:30,892 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-09 20:24:31,850 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-09 20:24:32,293 - GitHubSyncAgent - INFO - Issues recuperees: 8
+2025-08-09 20:24:32,293 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-09 20:24:32,293 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-09 20:24:32,293 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-09 20:24:32,293 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-09 20:24:32,293 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.3s
+2025-08-09 20:24:32,293 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-09 20:24:32,402 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-10 01:01:11,577 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:01:11,577 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:01:11,577 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-10 01:01:11,577 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-10 01:01:11,577 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-10 01:01:11,578 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:01:11,578 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:01:12,448 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:01:13,288 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:01:13,645 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: GraphQL: Could not resolve to a Repository with the name 'AlexisVS/test-project'. (repository)
+
+2025-08-10 01:01:13,645 - GitHubSyncAgent - ERROR - Erreur recuperation issues: gh command failed: GraphQL: Could not resolve to a Repository with the name 'AlexisVS/test-project'. (repository)
+
+2025-08-10 01:01:13,645 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:01:13,645 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:01:13,645 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:01:13,646 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-10 01:01:13,646 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.1s
+2025-08-10 01:01:13,646 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-10 01:01:13,752 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-10 01:01:30,208 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:01:30,209 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:01:30,209 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-10 01:01:30,209 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-10 01:01:30,209 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-10 01:01:30,209 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:01:30,209 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:01:31,167 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:01:32,281 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:01:32,878 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:01:32,878 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:01:32,878 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:01:32,878 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:01:32,878 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-10 01:01:32,878 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.7s
+2025-08-10 01:01:32,878 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-10 01:01:32,993 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-10 01:21:41,506 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:21:41,506 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:21:41,506 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-10 01:21:41,506 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-10 01:21:41,506 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-10 01:21:41,506 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:21:41,506 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:21:42,445 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:21:43,406 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:21:43,884 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:21:43,884 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:21:43,884 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:21:43,884 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:21:43,884 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-10 01:21:43,884 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.4s
+2025-08-10 01:21:43,884 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-10 01:21:43,988 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-10 01:22:17,036 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:22:17,036 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:22:18,074 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:22:19,078 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:22:19,639 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:22:19,639 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:22:19,639 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:22:19,639 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:24:21,628 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:24:21,629 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:24:21,629 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:24:21,629 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:24:22,919 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:24:24,063 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:24:24,615 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:24:24,615 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:24:24,615 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:24:24,615 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:26:06,967 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:26:06,967 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:26:06,967 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-10 01:26:06,967 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-10 01:26:06,967 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-10 01:26:06,967 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:26:06,967 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:26:07,810 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:26:08,635 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:26:09,226 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:26:09,226 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:26:09,226 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:26:09,226 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:26:09,226 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-10 01:26:09,226 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.3s
+2025-08-10 01:26:09,226 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-10 01:26:09,330 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-10 01:27:13,968 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:27:13,969 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:27:13,969 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:27:13,969 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:27:15,149 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:27:16,135 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:27:16,669 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:27:16,669 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:27:16,669 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:27:16,669 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:28:32,505 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:28:32,505 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:28:32,505 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:28:32,505 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:28:33,389 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:28:34,307 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:28:34,659 - GitHubSyncAgent - ERROR - Erreur commande gh: gh command failed: GraphQL: Could not resolve to a Repository with the name 'AlexisVS/test-project'. (repository)
+
+2025-08-10 01:28:34,659 - GitHubSyncAgent - ERROR - Erreur recuperation issues: gh command failed: GraphQL: Could not resolve to a Repository with the name 'AlexisVS/test-project'. (repository)
+
+2025-08-10 01:28:34,659 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:28:34,659 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:28:34,659 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:36:18,753 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:36:18,753 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:36:18,753 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-10 01:36:18,753 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-10 01:36:18,753 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-10 01:36:18,753 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:36:18,753 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:36:19,944 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:36:20,775 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:36:21,330 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:36:21,330 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:36:21,331 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:36:21,331 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:36:21,331 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-10 01:36:21,331 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.6s
+2025-08-10 01:36:21,331 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-10 01:36:21,432 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0
+2025-08-10 01:36:56,399 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:36:56,399 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:36:56,399 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:36:56,399 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:36:57,581 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:36:58,805 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:36:59,310 - GitHubSyncAgent - INFO - Issues recuperees: 33
+2025-08-10 01:36:59,310 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:36:59,310 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:36:59,310 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:37:21,569 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:37:21,569 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:44:12,493 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:44:12,494 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:51:01,374 - IndependentOrchestrator - INFO - === INITIALISATION ORCHESTRATEUR INDEPENDANT ===
+2025-08-10 01:51:01,375 - IndependentOrchestrator - INFO - Systeme autonome initialise avec 5 agents
+2025-08-10 01:51:01,375 - IndependentOrchestrator - INFO - DEMARRAGE EVOLUTION PERPETUELLE
+2025-08-10 01:51:01,375 - IndependentOrchestrator - INFO - === CYCLE EVOLUTION #1 ===
+2025-08-10 01:51:01,375 - IndependentOrchestrator - INFO - Sante systeme: healthy
+2025-08-10 01:51:01,375 - IndependentOrchestrator - INFO - [REFRESH] Mode PULL active - Lecture des issues GitHub...
+2025-08-10 01:51:01,375 - GitHubSyncAgent - INFO - Demarrage workflow PULL mode
+2025-08-10 01:51:02,219 - GitHubSyncAgent - INFO - Cartes recuperees (Todo): 0
+2025-08-10 01:51:03,185 - GitHubSyncAgent - INFO - Cartes recuperees (In Progress): 0
+2025-08-10 01:51:03,601 - GitHubSyncAgent - INFO - Issues recuperees: 8
+2025-08-10 01:51:03,601 - GitHubSyncAgent - INFO - Sync Project Board: 0 opportunites creees
+2025-08-10 01:51:03,601 - GitHubSyncAgent - INFO - Workflow PULL termine: 0 opportunites
+2025-08-10 01:51:03,601 - IndependentOrchestrator - INFO - [OK] GitHub PULL: 0 opportunites detectees
+2025-08-10 01:51:03,601 - IndependentOrchestrator - INFO - Opportunites detectees: 0
+2025-08-10 01:51:03,602 - IndependentOrchestrator - INFO - Cycle 1 termine en 2.2s
+2025-08-10 01:51:03,602 - IndependentOrchestrator - INFO - Meta-apprentissage en cours...
+2025-08-10 01:51:03,708 - IndependentOrchestrator - INFO - GitHub Sync: 0 issues actives, version 1.0.0

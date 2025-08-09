@@ -31,7 +31,7 @@ class JetBrainsMCPClient(MCPInterface):
     ):
         # Validation de l'URL SSE
         if not sse_url or not sse_url.startswith(('http://', 'https://')):
-            raise ValueError("sse_url doit être une URL HTTP valide")
+            raise ValueError("sse_url doit etre une URL HTTP valide")
         
         self.sse_url = sse_url
         self.timeout = timeout
@@ -47,12 +47,12 @@ class JetBrainsMCPClient(MCPInterface):
     
     @property
     def is_connected(self) -> bool:
-        """Indique si le client est connecté"""
+        """Indique si le client est connecte"""
         return self._connected
     
     @property
     def connection_state(self) -> MCPConnectionState:
-        """État actuel de la connexion"""
+        """Etat actuel de la connexion"""
         return self._connection_state
     
     async def _ensure_session(self) -> aiohttp.ClientSession:
@@ -63,12 +63,12 @@ class JetBrainsMCPClient(MCPInterface):
         return self._session
     
     def _get_next_request_id(self) -> int:
-        """Générer un ID unique pour les requêtes MCP"""
+        """Generer un ID unique pour les requetes MCP"""
         self._request_counter += 1
         return self._request_counter
     
     async def _make_mcp_request(self, method: str, params: Optional[Dict] = None) -> Dict[str, Any]:
-        """Faire une requête MCP via HTTP POST"""
+        """Faire une requete MCP via HTTP POST"""
         session = await self._ensure_session()
         
         request_data = {
@@ -81,14 +81,14 @@ class JetBrainsMCPClient(MCPInterface):
             request_data["params"] = params
         
         try:
-            # Utiliser POST pour envoyer la requête MCP
+            # Utiliser POST pour envoyer la requete MCP
             api_url = self.sse_url.replace('/sse', '/api')  # Assuming API endpoint
             
             async with session.post(api_url, json=request_data) as response:
                 if response.status == 200:
                     result = await response.json()
                     
-                    # Vérifier les erreurs MCP
+                    # Verifier les erreurs MCP
                     if "error" in result:
                         error = result["error"]
                         raise MCPError(
@@ -122,7 +122,7 @@ class JetBrainsMCPClient(MCPInterface):
                 }
             })
             
-            # Vérifier la réponse d'initialisation
+            # Verifier la reponse d'initialisation
             if "result" in result:
                 self._capabilities = result["result"].get("capabilities", {})
                 self._connected = True
@@ -139,7 +139,7 @@ class JetBrainsMCPClient(MCPInterface):
             raise
     
     async def disconnect(self) -> bool:
-        """Se déconnecter du serveur MCP"""
+        """Se deconnecter du serveur MCP"""
         try:
             if self._connected:
                 self._connected = False
@@ -194,7 +194,7 @@ class JetBrainsMCPClient(MCPInterface):
             raise MCPError(f"List tools error: {e}")
     
     async def get_resources(self) -> List[Dict[str, Any]]:
-        """Récupérer les ressources disponibles"""
+        """Recuperer les ressources disponibles"""
         if not self._connected:
             raise MCPConnectionError("Not connected to JetBrains MCP server")
         
@@ -210,7 +210,7 @@ class JetBrainsMCPClient(MCPInterface):
             raise MCPResourceError(f"List resources error: {e}")
     
     async def inspect_code(self, file_path: str, checks: Optional[List[str]] = None) -> Dict[str, Any]:
-        """Inspecter du code avec PyCharm (outil spécialisé JetBrains)"""
+        """Inspecter du code avec PyCharm (outil specialise JetBrains)"""
         arguments = {"file_path": file_path}
         if checks:
             arguments["checks"] = checks
@@ -218,7 +218,7 @@ class JetBrainsMCPClient(MCPInterface):
         return await self.call_tool("inspect_code", arguments)
     
     async def debug_code(self, file_path: str, line_number: int, variables: Optional[List[str]] = None) -> Dict[str, Any]:
-        """Déboguer du code avec PyCharm (outil spécialisé JetBrains)"""
+        """Deboguer du code avec PyCharm (outil specialise JetBrains)"""
         arguments = {
             "file_path": file_path,
             "line_number": line_number
@@ -229,7 +229,7 @@ class JetBrainsMCPClient(MCPInterface):
         return await self.call_tool("debug_code", arguments)
     
     async def refactor_code(self, file_path: str, refactor_type: str, **kwargs) -> Dict[str, Any]:
-        """Refactoriser du code avec PyCharm (outil spécialisé JetBrains)"""
+        """Refactoriser du code avec PyCharm (outil specialise JetBrains)"""
         arguments = {
             "file_path": file_path,
             "refactor_type": refactor_type,
@@ -239,7 +239,7 @@ class JetBrainsMCPClient(MCPInterface):
         return await self.call_tool("refactor_code", arguments)
     
     async def health_check(self) -> Dict[str, Any]:
-        """Vérifier la santé du serveur MCP JetBrains"""
+        """Verifier la sante du serveur MCP JetBrains"""
         try:
             if not self._connected:
                 return {
@@ -278,13 +278,13 @@ class JetBrainsMCPClient(MCPInterface):
         await self.close()
 
 
-# Factory Pattern pour création de clients selon DDD
+# Factory Pattern pour creation de clients selon DDD
 class JetBrainsMCPClientFactory:
-    """Factory pour créer des instances de JetBrainsMCPClient"""
+    """Factory pour creer des instances de JetBrainsMCPClient"""
     
     @staticmethod
     def create_client(config: Dict[str, Any]) -> JetBrainsMCPClient:
-        """Créer un client JetBrains MCP à partir d'une configuration"""
+        """Creer un client JetBrains MCP a partir d'une configuration"""
         required_fields = ["sse_url"]
         
         for field in required_fields:
@@ -295,7 +295,7 @@ class JetBrainsMCPClientFactory:
     
     @staticmethod
     def create_from_env() -> JetBrainsMCPClient:
-        """Créer un client à partir des variables d'environnement"""
+        """Creer un client a partir des variables d'environnement"""
         import os
         
         sse_url = os.getenv("JETBRAINS_MCP_SSE_URL", "http://localhost:64342/sse")

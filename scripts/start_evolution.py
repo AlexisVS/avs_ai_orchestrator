@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Script de démarrage pour l'auto-évolution autonome
-Lance l'orchestrateur en mode auto-évolution permanente
+Script de demarrage pour l'auto-evolution autonome
+Lance l'orchestrateur en mode auto-evolution permanente
 """
 
 import sys
@@ -17,7 +17,7 @@ from orchestrator.core import MainOrchestrator
 
 
 class AutoEvolutionRunner:
-    """Runner pour l'auto-évolution en mode daemon"""
+    """Runner pour l'auto-evolution en mode daemon"""
     
     def __init__(self):
         self.orchestrator = None
@@ -25,20 +25,20 @@ class AutoEvolutionRunner:
         self.setup_signal_handlers()
     
     def setup_signal_handlers(self):
-        """Configurer les handlers pour arrêt propre"""
+        """Configurer les handlers pour arret propre"""
         signal.signal(signal.SIGINT, self._signal_handler)
         signal.signal(signal.SIGTERM, self._signal_handler)
     
     def _signal_handler(self, signum, frame):
-        """Handler pour arrêt propre"""
-        print(f"\n[SIGNAL] Signal {signum} reçu - Arrêt en cours...")
+        """Handler pour arret propre"""
+        print(f"\n[SIGNAL] Signal {signum} recu - Arret en cours...")
         self.running = False
         
         if self.orchestrator and hasattr(self.orchestrator, 'evolution_agent'):
             self.orchestrator.evolution_agent.stop_evolution()
     
     async def start(self):
-        """Démarrer l'auto-évolution"""
+        """Demarrer l'auto-evolution"""
         print("=" * 80)
         print("AVS AI ORCHESTRATOR - AUTO-EVOLUTION MODE")
         print("=" * 80)
@@ -48,7 +48,7 @@ class AutoEvolutionRunner:
         print("=" * 80)
         
         try:
-            # Créer l'orchestrateur avec la config d'auto-évolution
+            # Creer l'orchestrateur avec la config d'auto-evolution
             config_file = "auto_evolution_config.yaml"
             
             if not Path(config_file).exists():
@@ -57,48 +57,48 @@ class AutoEvolutionRunner:
             
             self.orchestrator = MainOrchestrator(config_file)
             
-            # Démarrer le workflow initial
+            # Demarrer le workflow initial
             print("[INIT] Initialisation de l'orchestrateur...")
             success = await self.orchestrator.run_full_workflow()
             
             if not success:
-                print("[ERROR] Échec initialisation")
+                print("[ERROR] Echec initialisation")
                 return False
             
-            # Maintenir le processus en vie pour l'auto-évolution
-            print("\n[AUTO-EVOLUTION] Orchestrateur en mode auto-évolution")
-            print("[INFO] Appuyez sur Ctrl+C pour arrêter proprement")
+            # Maintenir le processus en vie pour l'auto-evolution
+            print("\n[AUTO-EVOLUTION] Orchestrateur en mode auto-evolution")
+            print("[INFO] Appuyez sur Ctrl+C pour arreter proprement")
             
             # Boucle principale - maintenir en vie
             while self.running:
                 await asyncio.sleep(10)  # Check every 10 seconds
                 
-                # Vérifier que l'auto-évolution tourne toujours
+                # Verifier que l'auto-evolution tourne toujours
                 if hasattr(self.orchestrator.evolution_agent, 'is_evolving'):
                     if not self.orchestrator.evolution_agent.is_evolving:
-                        print("[WARNING] Auto-évolution arrêtée, redémarrage...")
+                        print("[WARNING] Auto-evolution arretee, redemarrage...")
                         await self.orchestrator.evolution_agent.start_evolution_loop()
             
-            print("\n[SHUTDOWN] Arrêt propre de l'auto-évolution")
+            print("\n[SHUTDOWN] Arret propre de l'auto-evolution")
             return True
             
         except KeyboardInterrupt:
-            print("\n[INTERRUPT] Arrêt demandé par l'utilisateur")
+            print("\n[INTERRUPT] Arret demande par l'utilisateur")
             return True
         except Exception as e:
             print(f"\n[ERROR] Erreur fatale: {e}")
             return False
     
     async def monitor_health(self):
-        """Monitorer la santé du système"""
+        """Monitorer la sante du systeme"""
         while self.running:
             try:
-                # Vérifier l'état des composants
+                # Verifier l'etat des composants
                 if self.orchestrator:
-                    # Log des métriques
+                    # Log des metriques
                     if hasattr(self.orchestrator.evolution_agent, 'evolution_cycle'):
                         cycle = self.orchestrator.evolution_agent.evolution_cycle
-                        print(f"[HEALTH] Cycle d'évolution: {cycle}")
+                        print(f"[HEALTH] Cycle d'evolution: {cycle}")
                 
                 await asyncio.sleep(60)  # Check every minute
                 
@@ -108,21 +108,21 @@ class AutoEvolutionRunner:
 
 
 async def main():
-    """Point d'entrée principal"""
+    """Point d'entree principal"""
     
-    # Vérifications préalables
+    # Verifications prealables
     if not Path("src").exists():
-        print("[ERROR] Répertoire src/ manquant")
+        print("[ERROR] Repertoire src/ manquant")
         return False
     
-    # Créer les répertoires nécessaires
+    # Creer les repertoires necessaires
     for directory in ["logs", "metrics", "sandbox"]:
         Path(directory).mkdir(exist_ok=True)
     
-    # Démarrer l'auto-évolution
+    # Demarrer l'auto-evolution
     runner = AutoEvolutionRunner()
     
-    # Lancer le monitoring en parallèle
+    # Lancer le monitoring en parallele
     monitor_task = asyncio.create_task(runner.monitor_health())
     evolution_task = asyncio.create_task(runner.start())
     
@@ -131,7 +131,7 @@ async def main():
 
 
 def check_dependencies():
-    """Vérifier les dépendances nécessaires"""
+    """Verifier les dependances necessaires"""
     required_modules = [
         'yaml', 'aiohttp', 'pytest', 'asyncio'
     ]
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     
     print("[INIT] Dependances OK")
     
-    # Démarrer l'auto-évolution
+    # Demarrer l'auto-evolution
     try:
         asyncio.run(main())
         print("\n[SUCCESS] Auto-evolution terminee")

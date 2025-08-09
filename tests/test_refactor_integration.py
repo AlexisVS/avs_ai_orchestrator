@@ -1,5 +1,5 @@
 """
-Phase REFACTOR TDD - Tests d'intégration pour améliorer la couverture
+Phase REFACTOR TDD - Tests d'integration pour ameliorer la couverture
 Objectif: Atteindre 80%+ de couverture sur les composants critiques
 """
 
@@ -13,7 +13,7 @@ import tempfile
 
 @pytest.fixture
 def enhanced_config():
-    """Configuration étendue pour les tests REFACTOR"""
+    """Configuration etendue pour les tests REFACTOR"""
     return {
         "python_command": "python",
         "test_timeout": 60,
@@ -36,17 +36,17 @@ def enhanced_config():
 
 
 class TestAutonomousOrchestratorRefactor:
-    """Tests REFACTOR pour améliorer la couverture de l'orchestrateur autonome"""
+    """Tests REFACTOR pour ameliorer la couverture de l'orchestrateur autonome"""
     
     @pytest.mark.asyncio
     async def test_orchestrator_initialization_and_lifecycle(self, enhanced_config):
         """Test complet du cycle de vie de l'orchestrateur"""
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         
-        # GIVEN un orchestrateur avec configuration étendue
+        # GIVEN un orchestrateur avec configuration etendue
         orchestrator = AutonomousOrchestrator(enhanced_config)
         
-        # WHEN on teste l'initialisation complète
+        # WHEN on teste l'initialisation complete
         assert orchestrator.config == enhanced_config
         assert orchestrator.agents == {}
         assert orchestrator.task_queue == []
@@ -54,7 +54,7 @@ class TestAutonomousOrchestratorRefactor:
         assert orchestrator.performance_metrics == {}
         assert orchestrator.autonomy_level == 0.0
         
-        # Test des métriques de démarrage
+        # Test des metriques de demarrage
         startup_metrics = orchestrator._get_startup_metrics()
         assert "initialization_time" in startup_metrics
         assert "component_count" in startup_metrics
@@ -81,7 +81,7 @@ class TestAutonomousOrchestratorRefactor:
                 {"priority": agent_config["priority"]}
             )
         
-        # Vérifier que tous les agents sont ajoutés
+        # Verifier que tous les agents sont ajoutes
         assert len(orchestrator.agents) == 3
         assert "test_evolution" in orchestrator.agents
         assert "test_meta" in orchestrator.agents
@@ -94,12 +94,12 @@ class TestAutonomousOrchestratorRefactor:
         
     @pytest.mark.asyncio
     async def test_task_orchestration_comprehensive(self, enhanced_config):
-        """Test complet de l'orchestration de tâches"""
+        """Test complet de l'orchestration de taches"""
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         
         orchestrator = AutonomousOrchestrator(enhanced_config)
         
-        # Ajouter des tâches de différents types
+        # Ajouter des taches de differents types
         tasks = [
             {"task_id": "task_1", "type": "analysis", "priority": "high", "data": {"files": ["file1.py"]}},
             {"task_id": "task_2", "type": "generation", "priority": "medium", "data": {"template": "test"}},
@@ -109,10 +109,10 @@ class TestAutonomousOrchestratorRefactor:
         for task in tasks:
             await orchestrator.add_task(task)
         
-        # Vérifier la queue des tâches
+        # Verifier la queue des taches
         assert len(orchestrator.task_queue) == 3
         
-        # Test du traitement des tâches
+        # Test du traitement des taches
         results = await orchestrator.process_all_tasks()
         assert "processed_tasks" in results
         assert "failed_tasks" in results
@@ -125,7 +125,7 @@ class TestAutonomousOrchestratorRefactor:
         
         orchestrator = AutonomousOrchestrator(enhanced_config)
         
-        # Test de collecte de métriques de base
+        # Test de collecte de metriques de base
         base_metrics = await orchestrator._collect_base_metrics()
         assert "cpu_usage" in base_metrics
         assert "memory_usage" in base_metrics
@@ -144,7 +144,7 @@ class TestAutonomousOrchestratorRefactor:
 
 
 class TestMetaCognitiveAgentRefactor:
-    """Tests REFACTOR pour améliorer la couverture de l'agent méta-cognitif"""
+    """Tests REFACTOR pour ameliorer la couverture de l'agent meta-cognitif"""
     
     @pytest.mark.asyncio
     async def test_comprehensive_cognitive_patterns(self, enhanced_config):
@@ -153,7 +153,7 @@ class TestMetaCognitiveAgentRefactor:
         
         agent = MetaCognitiveAgent(enhanced_config)
         
-        # Créer plusieurs patterns cognitifs
+        # Creer plusieurs patterns cognitifs
         patterns = [
             CognitivePattern(
                 id="pattern_1", name="Problem Solving", description="Advanced problem solving",
@@ -169,7 +169,7 @@ class TestMetaCognitiveAgentRefactor:
             )
         ]
         
-        # Ajouter les patterns à l'agent
+        # Ajouter les patterns a l'agent
         for pattern in patterns:
             agent.cognitive_patterns[pattern.id] = pattern
         
@@ -177,11 +177,11 @@ class TestMetaCognitiveAgentRefactor:
         pattern_analysis = await agent._analyze_recent_behavior()
         assert len(pattern_analysis) > 0
         
-        # Test d'évaluation des décisions
+        # Test d'evaluation des decisions
         decision_quality = await agent._evaluate_recent_decisions()
         assert 0.0 <= decision_quality <= 1.0
         
-        # Test de gathering des métriques
+        # Test de gathering des metriques
         metrics = await agent._gather_performance_metrics()
         assert "pattern_recognition" in metrics
         assert "abstract_reasoning" in metrics
@@ -189,12 +189,12 @@ class TestMetaCognitiveAgentRefactor:
         
     @pytest.mark.asyncio
     async def test_meta_thought_processing(self, enhanced_config):
-        """Test complet du traitement des méta-pensées"""
+        """Test complet du traitement des meta-pensees"""
         from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent, MetaThought
         
         agent = MetaCognitiveAgent(enhanced_config)
         
-        # Créer des méta-pensées
+        # Creer des meta-pensees
         meta_thoughts = [
             MetaThought(
                 thought_id="thought_1",
@@ -212,18 +212,18 @@ class TestMetaCognitiveAgentRefactor:
             )
         ]
         
-        # Ajouter les pensées à l'agent
+        # Ajouter les pensees a l'agent
         agent.meta_thoughts.extend(meta_thoughts)
         
-        # Test de traitement des pensées
+        # Test de traitement des pensees
         assert len(agent.meta_thoughts) == 2
         
-        # Test d'évolution du niveau de conscience
+        # Test d'evolution du niveau de conscience
         old_consciousness = agent.consciousness_level
         await agent._evolve_consciousness()
         new_consciousness = agent.consciousness_level
         
-        # La conscience devrait évoluer
+        # La conscience devrait evoluer
         assert new_consciousness >= old_consciousness
         
         # Test du rapport de conscience
@@ -234,17 +234,17 @@ class TestMetaCognitiveAgentRefactor:
 
 
 class TestSelfEvolutionAgentRefactor:
-    """Tests REFACTOR pour améliorer la couverture de l'agent d'auto-évolution"""
+    """Tests REFACTOR pour ameliorer la couverture de l'agent d'auto-evolution"""
     
     @pytest.mark.asyncio
     async def test_comprehensive_improvement_detection(self, enhanced_config, temp_dir):
-        """Test complet de la détection d'améliorations"""
+        """Test complet de la detection d'ameliorations"""
         from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
         
         agent = SelfEvolutionAgent(enhanced_config)
         agent.main_repo_path = temp_dir
         
-        # Créer des fichiers de test avec des patterns d'amélioration
+        # Creer des fichiers de test avec des patterns d'amelioration
         test_files = [
             "src/test_module1.py",
             "src/test_module2.py", 
@@ -262,13 +262,13 @@ def test_function():
 """
             full_path.write_text(content)
         
-        # Test de détection d'améliorations
+        # Test de detection d'ameliorations
         improvements = await agent.detect_improvements()
         assert len(improvements) > 0
         
-        # Vérifier les types d'amélioration détectés
+        # Verifier les types d'amelioration detectes
         improvement_types = [imp["type"] for imp in improvements]
-        expected_types = ["test_coverage", "feature"]  # "bug_fix", "performance" peuvent être absents
+        expected_types = ["test_coverage", "feature"]  # "bug_fix", "performance" peuvent etre absents
         
         for expected_type in expected_types:
             if expected_type == "test_coverage":
@@ -285,9 +285,9 @@ def test_function():
         
         # Test de la version actuelle
         current_version = agent._get_current_version()
-        assert len(current_version) == 8  # Hash MD5 tronqué
+        assert len(current_version) == 8  # Hash MD5 tronque
         
-        # Modifier un fichier et vérifier que la version change
+        # Modifier un fichier et verifier que la version change
         test_file = temp_dir / "src" / "test_change.py"
         test_file.parent.mkdir(parents=True, exist_ok=True)
         test_file.write_text("# Version 1")
@@ -298,26 +298,26 @@ def test_function():
         test_file.write_text("# Version 2")
         new_version_2 = agent._get_current_version()
         
-        # Les versions doivent être différentes
+        # Les versions doivent etre differentes
         assert new_version_1 != new_version_2
         
-        # Test de l'historique d'évolution
+        # Test de l'historique d'evolution
         assert isinstance(agent.evolution_history, list)
         assert agent.evolution_cycle == 0
         assert agent.is_evolving is False
 
 
-class TestTestRunnerAgentRefactor:
-    """Tests REFACTOR pour améliorer la couverture de l'agent test runner"""
+class TestQualityAssuranceAgentRefactor:
+    """Tests REFACTOR pour ameliorer la couverture de l'agent test runner"""
     
     @pytest.mark.asyncio
     async def test_comprehensive_pytest_execution(self, enhanced_config):
-        """Test complet de l'exécution pytest"""
-        from orchestrator.agents.test_runner_agent import TestRunnerAgent
+        """Test complet de l'execution pytest"""
+        from orchestrator.agents.test_runner_agent import QualityAssuranceAgent
         
-        test_runner = TestRunnerAgent(enhanced_config)
+        test_runner = QualityAssuranceAgent(enhanced_config)
         
-        # Test du parsing des résultats pytest avec différents formats
+        # Test du parsing des resultats pytest avec differents formats
         test_outputs = [
             "2 passed, 1 failed in 1.23s",
             "5 passed in 0.87s",
@@ -333,12 +333,12 @@ class TestTestRunnerAgentRefactor:
         
     @pytest.mark.asyncio
     async def test_comprehensive_quality_scoring(self, enhanced_config):
-        """Test complet du calcul de score de qualité"""
-        from orchestrator.agents.test_runner_agent import TestRunnerAgent
+        """Test complet du calcul de score de qualite"""
+        from orchestrator.agents.test_runner_agent import QualityAssuranceAgent
         
-        test_runner = TestRunnerAgent(enhanced_config)
+        test_runner = QualityAssuranceAgent(enhanced_config)
         
-        # Test avec différentes configurations de qualité
+        # Test avec differentes configurations de qualite
         quality_scenarios = [
             {
                 "mypy": {"issues": 0},
@@ -356,7 +356,7 @@ class TestTestRunnerAgentRefactor:
                 "mypy": {"issues": 20},
                 "flake8": {"issues": 50},
                 "bandit": {"high_severity": 5, "medium_severity": 10},
-                "expected_score": 0.0  # Plafonné à 0
+                "expected_score": 0.0  # Plafonne a 0
             }
         ]
         
@@ -374,11 +374,11 @@ class TestTestRunnerAgentRefactor:
     @pytest.mark.asyncio
     async def test_coverage_analysis_comprehensive(self, enhanced_config, temp_dir):
         """Test complet de l'analyse de couverture"""
-        from orchestrator.agents.test_runner_agent import TestRunnerAgent
+        from orchestrator.agents.test_runner_agent import QualityAssuranceAgent
         
-        test_runner = TestRunnerAgent(enhanced_config)
+        test_runner = QualityAssuranceAgent(enhanced_config)
         
-        # Créer un fichier de couverture simulé
+        # Creer un fichier de couverture simule
         coverage_data = {
             "totals": {
                 "num_statements": 100,
@@ -396,11 +396,11 @@ class TestTestRunnerAgentRefactor:
             }
         }
         
-        # Sauvegarder temporairement les données de couverture
+        # Sauvegarder temporairement les donnees de couverture
         coverage_file = temp_dir / "coverage.json"
         coverage_file.write_text(json.dumps(coverage_data))
         
-        # Changer le répertoire de travail temporairement
+        # Changer le repertoire de travail temporairement
         import os
         original_cwd = os.getcwd()
         os.chdir(temp_dir)
@@ -409,7 +409,7 @@ class TestTestRunnerAgentRefactor:
             # Analyser la couverture
             coverage_analysis = await test_runner._analyze_coverage()
             
-            # Vérifications
+            # Verifications
             assert coverage_analysis["coverage"] == 80.0  # 80/100 * 100
             assert coverage_analysis["covered_lines"] == 80
             assert coverage_analysis["total_lines"] == 100
@@ -422,25 +422,25 @@ class TestTestRunnerAgentRefactor:
 
 @pytest.mark.integration
 class TestRefactorIntegrationWorkflow:
-    """Tests d'intégration pour le workflow complet REFACTOR"""
+    """Tests d'integration pour le workflow complet REFACTOR"""
     
     @pytest.mark.asyncio
     async def test_complete_autonomous_workflow(self, enhanced_config, temp_dir):
-        """Test du workflow autonome complet après REFACTOR"""
+        """Test du workflow autonome complet apres REFACTOR"""
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
         from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
         
-        # Créer tous les agents principaux
+        # Creer tous les agents principaux
         orchestrator = AutonomousOrchestrator(enhanced_config)
         meta_agent = MetaCognitiveAgent(enhanced_config)
         evolution_agent = SelfEvolutionAgent(enhanced_config)
         evolution_agent.main_repo_path = temp_dir
         
-        # Test d'intégration des composants
+        # Test d'integration des composants
         components = [orchestrator, meta_agent, evolution_agent]
         
-        # Chaque composant doit être correctement initialisé
+        # Chaque composant doit etre correctement initialise
         for component in components:
             assert component.config == enhanced_config
         
@@ -449,7 +449,7 @@ class TestRefactorIntegrationWorkflow:
         assert "coordination_success" in coordination_result
         assert coordination_result["coordination_success"] is True
         
-        # Test du rapport d'état complet
+        # Test du rapport d'etat complet
         system_status = await orchestrator._get_complete_system_status()
         assert "orchestrator_status" in system_status
         assert "agents_status" in system_status
@@ -457,34 +457,34 @@ class TestRefactorIntegrationWorkflow:
         
     @pytest.mark.asyncio
     async def test_refactor_quality_improvements(self, enhanced_config):
-        """Test que les améliorations REFACTOR maintiennent la qualité"""
-        # Test que toutes les classes principales peuvent être importées
+        """Test que les ameliorations REFACTOR maintiennent la qualite"""
+        # Test que toutes les classes principales peuvent etre importees
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
         from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
-        from orchestrator.agents.test_runner_agent import TestRunnerAgent
+        from orchestrator.agents.test_runner_agent import QualityAssuranceAgent
         
         # Test d'instanciation sans erreur
         agents = [
             AutonomousOrchestrator(enhanced_config),
             MetaCognitiveAgent(enhanced_config), 
             SelfEvolutionAgent(enhanced_config),
-            TestRunnerAgent(enhanced_config)
+            QualityAssuranceAgent(enhanced_config)
         ]
         
-        # Tous les agents doivent être correctement initialisés
+        # Tous les agents doivent etre correctement initialises
         for agent in agents:
             assert agent.config == enhanced_config
             assert hasattr(agent, 'config')
         
-        # Test de la couverture attendue après REFACTOR
+        # Test de la couverture attendue apres REFACTOR
         coverage_targets = {
-            "autonomous_orchestrator": 0.65,  # Objectif réaliste post-REFACTOR
+            "autonomous_orchestrator": 0.65,  # Objectif realiste post-REFACTOR
             "meta_cognitive_agent": 0.60,
             "self_evolution_agent": 0.55,
             "test_runner_agent": 0.50
         }
         
-        # Les cibles doivent être réalistes
+        # Les cibles doivent etre realistes
         for component, target in coverage_targets.items():
             assert 0.5 <= target <= 1.0, f"{component} target should be between 50% and 100%"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Interface AIModelInterface - Domain-Driven Design
-Définit le contrat pour tous les clients de modèles AI
+Definit le contrat pour tous les clients de modeles AI
 Respecte le principe SOLID ISP (Interface Segregation Principle)
 """
 
@@ -10,37 +10,37 @@ from typing import Dict, List, Any, Optional
 
 
 class AIModelInterface(ABC):
-    """Interface abstraite pour tous les clients de modèles AI"""
+    """Interface abstraite pour tous les clients de modeles AI"""
     
     @abstractmethod
     async def generate_code(self, prompt: str, **kwargs) -> str:
         """
-        Génère du code basé sur un prompt
+        Genere du code base sur un prompt
         
         Args:
-            prompt: Description de ce qui doit être généré
-            **kwargs: Paramètres additionnels (language, framework, etc.)
+            prompt: Description de ce qui doit etre genere
+            **kwargs: Parametres additionnels (language, framework, etc.)
             
         Returns:
-            Code généré sous forme de string
+            Code genere sous forme de string
             
         Raises:
-            AIModelError: En cas d'erreur de génération
+            AIModelError: En cas d'erreur de generation
         """
         pass
     
     @abstractmethod
     async def analyze_text(self, text: str, analysis_type: str, **kwargs) -> str:
         """
-        Analyse un texte selon un type d'analyse spécifique
+        Analyse un texte selon un type d'analyse specifique
         
         Args:
-            text: Texte à analyser
+            text: Texte a analyser
             analysis_type: Type d'analyse (bug_detection, code_review, etc.)
-            **kwargs: Paramètres additionnels
+            **kwargs: Parametres additionnels
             
         Returns:
-            Résultat de l'analyse sous forme de string
+            Resultat de l'analyse sous forme de string
             
         Raises:
             AIModelError: En cas d'erreur d'analyse
@@ -50,18 +50,18 @@ class AIModelInterface(ABC):
     @abstractmethod
     async def generate_tests(self, code: str, test_framework: str = "pytest", **kwargs) -> str:
         """
-        Génère des tests pour un code donné
+        Genere des tests pour un code donne
         
         Args:
-            code: Code pour lequel générer les tests
-            test_framework: Framework de test à utiliser
-            **kwargs: Paramètres additionnels
+            code: Code pour lequel generer les tests
+            test_framework: Framework de test a utiliser
+            **kwargs: Parametres additionnels
             
         Returns:
-            Code des tests généré
+            Code des tests genere
             
         Raises:
-            AIModelError: En cas d'erreur de génération
+            AIModelError: En cas d'erreur de generation
         """
         pass
     
@@ -72,11 +72,11 @@ class AIModelInterface(ABC):
         
         Args:
             code: Code contenant les bugs
-            bug_description: Description des bugs à corriger
-            **kwargs: Paramètres additionnels
+            bug_description: Description des bugs a corriger
+            **kwargs: Parametres additionnels
             
         Returns:
-            Code corrigé
+            Code corrige
             
         Raises:
             AIModelError: En cas d'erreur de correction
@@ -85,7 +85,7 @@ class AIModelInterface(ABC):
 
 
 class AIModelError(Exception):
-    """Exception personnalisée pour les erreurs de modèles AI"""
+    """Exception personnalisee pour les erreurs de modeles AI"""
     
     def __init__(self, message: str, error_code: Optional[str] = None, details: Optional[Dict] = None):
         super().__init__(message)
@@ -94,7 +94,7 @@ class AIModelError(Exception):
 
 
 class AIModelConfiguration:
-    """Configuration pour les clients de modèles AI - Value Object DDD"""
+    """Configuration pour les clients de modeles AI - Value Object DDD"""
     
     def __init__(
         self, 
@@ -108,19 +108,19 @@ class AIModelConfiguration:
     ):
         # Validation selon DDD
         if not base_url or not isinstance(base_url, str):
-            raise ValueError("base_url doit être une string non-vide")
+            raise ValueError("base_url doit etre une string non-vide")
         
         if not base_url.startswith(('http://', 'https://')):
             raise ValueError("base_url doit commencer par http:// ou https://")
         
         if timeout <= 0:
-            raise ValueError("timeout doit être positif")
+            raise ValueError("timeout doit etre positif")
         
         if max_retries < 0:
-            raise ValueError("max_retries ne peut être négatif")
+            raise ValueError("max_retries ne peut etre negatif")
         
         if retry_delay < 0:
-            raise ValueError("retry_delay ne peut être négatif")
+            raise ValueError("retry_delay ne peut etre negatif")
         
         # Immutable value object
         self._base_url = base_url
@@ -188,7 +188,7 @@ class AIModelConfiguration:
 
 
 class AIModelCapabilities:
-    """Capacités d'un modèle AI - Value Object DDD"""
+    """Capacites d'un modele AI - Value Object DDD"""
     
     def __init__(
         self,
@@ -237,13 +237,13 @@ class AIModelCapabilities:
         return self._supported_frameworks.copy()
     
     def can_handle_language(self, language: str) -> bool:
-        """Vérifie si le modèle supporte un langage donné"""
+        """Verifie si le modele supporte un langage donne"""
         if not self._supported_languages:
             return True  # Si pas de restriction, supporte tout
         return language.lower() in [lang.lower() for lang in self._supported_languages]
     
     def can_handle_framework(self, framework: str) -> bool:
-        """Vérifie si le modèle supporte un framework donné"""
+        """Verifie si le modele supporte un framework donne"""
         if not self._supported_frameworks:
             return True  # Si pas de restriction, supporte tout
         return framework.lower() in [fw.lower() for fw in self._supported_frameworks]

@@ -1,6 +1,6 @@
 """
-Tests TDD pour l'intégration MCP (Model Context Protocol)
-Phase RED : Ces tests doivent échouer initialement
+Tests TDD pour l'integration MCP (Model Context Protocol)
+Phase RED : Ces tests doivent echouer initialement
 """
 
 import pytest
@@ -10,7 +10,7 @@ import asyncio
 
 
 class TestMCPIntegration:
-    """Tests pour l'intégration du protocole MCP"""
+    """Tests pour l'integration du protocole MCP"""
     
     @pytest.mark.unit
     def test_mcp_server_initialization(self, mock_config):
@@ -24,10 +24,10 @@ class TestMCPIntegration:
             "port": 8080
         }
         
-        # WHEN on crée un serveur MCP
+        # WHEN on cree un serveur MCP
         server = MCPServer(config)
         
-        # THEN le serveur doit être initialisé
+        # THEN le serveur doit etre initialise
         assert server is not None
         assert server.name == "test-server"
         assert server.port == 8080
@@ -38,7 +38,7 @@ class TestMCPIntegration:
     @pytest.mark.unit
     @pytest.mark.asyncio
     async def test_mcp_connection(self, mock_mcp_server):
-        """Test la connexion à un serveur MCP"""
+        """Test la connexion a un serveur MCP"""
         # GIVEN un serveur MCP
         from orchestrator.mcp.mcp_client import MCPClient
         
@@ -48,21 +48,21 @@ class TestMCPIntegration:
             # WHEN on se connecte
             result = await client.connect()
             
-            # THEN la connexion doit réussir
+            # THEN la connexion doit reussir
             assert result is True
             mock_mcp_server.connect.assert_called_once()
     
     @pytest.mark.unit
     @pytest.mark.asyncio
     async def test_mcp_protocol_negotiation(self, mock_mcp_server):
-        """Test la négociation du protocole MCP"""
+        """Test la negociation du protocole MCP"""
         # GIVEN un client MCP
         from orchestrator.mcp.mcp_client import MCPClient
         
         client = MCPClient("localhost", 8080)
         client.connection = mock_mcp_server
         
-        # WHEN on négocie le protocole
+        # WHEN on negocie le protocole
         mock_mcp_server.send_message.return_value = {
             "protocol": "mcp/1.0",
             "capabilities": ["text", "code", "tools"]
@@ -70,7 +70,7 @@ class TestMCPIntegration:
         
         capabilities = await client.negotiate_protocol()
         
-        # THEN les capacités doivent être reçues
+        # THEN les capacites doivent etre recues
         assert capabilities is not None
         assert "text" in capabilities["capabilities"]
         assert capabilities["protocol"] == "mcp/1.0"
@@ -79,7 +79,7 @@ class TestMCPIntegration:
     @pytest.mark.asyncio
     async def test_mcp_message_sending(self, mock_mcp_server):
         """Test l'envoi de messages MCP"""
-        # GIVEN un client connecté
+        # GIVEN un client connecte
         from orchestrator.mcp.mcp_client import MCPClient
         
         client = MCPClient("localhost", 8080)
@@ -94,20 +94,20 @@ class TestMCPIntegration:
         # WHEN on envoie un message
         response = await client.send_message(message)
         
-        # THEN le message doit être envoyé et la réponse reçue
+        # THEN le message doit etre envoye et la reponse recue
         mock_mcp_server.send_message.assert_called_with(message)
         assert response["status"] == "ok"
     
     @pytest.mark.unit
     @pytest.mark.asyncio
     async def test_mcp_service_discovery(self):
-        """Test la découverte de services MCP"""
+        """Test la decouverte de services MCP"""
         # GIVEN un gestionnaire MCP
         from orchestrator.mcp.mcp_manager import MCPManager
         
         manager = MCPManager()
         
-        with patch('orchestrator.mcp.mcp_manager.docker.from_env') as mock_docker:
+        with patch('docker.from_env') as mock_docker:
             mock_container = Mock()
             mock_container.name = "mcp-service"
             mock_container.labels = {"mcp.enabled": "true"}
@@ -120,10 +120,10 @@ class TestMCPIntegration:
             }
             mock_docker.return_value.containers.list.return_value = [mock_container]
             
-            # WHEN on découvre les services
+            # WHEN on decouvre les services
             services = await manager.discover_services()
             
-            # THEN les services MCP doivent être trouvés
+            # THEN les services MCP doivent etre trouves
             assert len(services) == 1
             assert services[0]["name"] == "mcp-service"
             assert services[0]["ip"] == "172.17.0.2"
@@ -146,7 +146,7 @@ class TestMCPIntegration:
         message = {"type": "code_generation"}
         target = await router.route_message(message)
         
-        # THEN le bon serveur doit être sélectionné
+        # THEN le bon serveur doit etre selectionne
         assert target == router.servers["code"]
     
     @pytest.mark.unit
@@ -164,7 +164,7 @@ class TestMCPIntegration:
         with pytest.raises(Exception) as exc_info:
             await client.send_message({"test": "message"})
         
-        # THEN l'erreur doit être gérée correctement
+        # THEN l'erreur doit etre geree correctement
         assert "Connection lost" in str(exc_info.value)
     
     @pytest.mark.unit
@@ -185,7 +185,7 @@ class TestMCPIntegration:
             # WHEN on tente de reconnecter
             result = await client.ensure_connected()
             
-            # THEN la reconnexion doit réussir après quelques tentatives
+            # THEN la reconnexion doit reussir apres quelques tentatives
             assert result is True
             assert mock_mcp_server.connect.call_count == 3
     
@@ -206,7 +206,7 @@ class TestMCPIntegration:
                     mock_connect.return_value = True
                     mock_send.return_value = {"result": "generated code"}
                     
-                    # WHEN on exécute une requête complète
+                    # WHEN on execute une requete complete
                     request = {
                         "action": "generate",
                         "type": "code",
@@ -236,7 +236,7 @@ class TestMCPIntegration:
             {"name": "server3", "load": 0.8, "capacity": 100}
         ]
         
-        # WHEN on distribue des requêtes
+        # WHEN on distribue des requetes
         assignments = []
         for _ in range(10):
             server = await balancer.get_next_server()
@@ -244,7 +244,7 @@ class TestMCPIntegration:
             # Simuler augmentation de charge
             server["load"] += 0.1
         
-        # THEN les requêtes doivent être distribuées selon la charge
-        assert assignments[0] == "server1"  # Première requête au moins chargé
+        # THEN les requetes doivent etre distribuees selon la charge
+        assert assignments[0] == "server1"  # Premiere requete au moins charge
         assert "server1" in assignments
         assert "server2" in assignments

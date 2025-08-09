@@ -1,6 +1,6 @@
 """
 MCP Server - Serveur pour le protocole MCP
-Implémentation minimale pour faire passer les tests
+Implementation minimale pour faire passer les tests
 """
 
 from typing import Dict, Any, Optional
@@ -21,7 +21,7 @@ class MCPServer:
     async def connect(self) -> bool:
         """Se connecter au serveur"""
         try:
-            # Implémentation minimale pour les tests
+            # Implementation minimale pour les tests
             self.is_connected = True
             return True
         except Exception as e:
@@ -29,7 +29,7 @@ class MCPServer:
             return False
     
     async def disconnect(self):
-        """Se déconnecter du serveur"""
+        """Se deconnecter du serveur"""
         self.is_connected = False
         if self.connection:
             # Fermer la connexion si elle existe
@@ -38,9 +38,9 @@ class MCPServer:
     async def send_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
         """Envoyer un message au serveur"""
         if not self.is_connected:
-            raise ConnectionError("Serveur non connecté")
+            raise ConnectionError("Serveur non connecte")
         
-        # Implémentation minimale : echo du message avec status ok
+        # Implementation minimale : echo du message avec status ok
         return {
             "status": "ok",
             "response": message,
@@ -52,7 +52,7 @@ class MCPServer:
         if not self.is_connected:
             return None
         
-        # Implémentation minimale
+        # Implementation minimale
         await asyncio.sleep(0.1)  # Simuler l'attente
         return {
             "type": "response",

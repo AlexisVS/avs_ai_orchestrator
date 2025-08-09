@@ -1,6 +1,6 @@
 """
-Todo Loop Manager - Implémentation minimale
-Gestion simplifiée des tâches pour l'auto-évolution
+Todo Loop Manager - Implementation minimale
+Gestion simplifiee des taches pour l'auto-evolution
 """
 
 import asyncio
@@ -9,7 +9,7 @@ from enum import Enum
 
 
 class TaskStatus(Enum):
-    """États des tâches"""
+    """Etats des taches"""
     PENDING = "pending"
     TDD_RED = "tdd_red"
     TDD_GREEN = "tdd_green" 
@@ -19,7 +19,7 @@ class TaskStatus(Enum):
 
 
 class Task:
-    """Tâche simple"""
+    """Tache simple"""
     def __init__(self, task_id: int, title: str):
         self.id = task_id
         self.title = title
@@ -27,7 +27,7 @@ class Task:
 
 
 class TodoLoopManager:
-    """Gestionnaire de tâches simplifié"""
+    """Gestionnaire de taches simplifie"""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -38,36 +38,36 @@ class TodoLoopManager:
         print("[TODO] Synchronisation GitHub...")
         await asyncio.sleep(0.1)
         
-        # Créer quelques tâches d'exemple
+        # Creer quelques taches d'exemple
         tasks = [
-            Task(1, "Améliorer la performance"),
+            Task(1, "Ameliorer la performance"),
             Task(2, "Ajouter plus de tests"),
-            Task(3, "Corriger les bugs détectés")
+            Task(3, "Corriger les bugs detectes")
         ]
         
         self.tasks = tasks
         return tasks
     
     async def update_task_status(self, task_id: int, status: TaskStatus):
-        """Mettre à jour le statut d'une tâche"""
+        """Mettre a jour le statut d'une tache"""
         for task in self.tasks:
             if task.id == task_id:
                 task.status = status
-                print(f"[TODO] Tâche {task_id} → {status.value}")
+                print(f"[TODO] Tache {task_id} → {status.value}")
                 break
         await asyncio.sleep(0.05)
     
     async def comment_on_github_issue(self, task_id: int, comment: str):
         """Commenter sur une issue GitHub"""
-        print(f"[GITHUB] Commentaire sur tâche {task_id}")
+        print(f"[GITHUB] Commentaire sur tache {task_id}")
         await asyncio.sleep(0.05)
     
     def generate_progress_report(self) -> str:
-        """Générer un rapport de progression"""
+        """Generer un rapport de progression"""
         completed = len([t for t in self.tasks if t.status == TaskStatus.COMPLETED])
         total = len(self.tasks)
         
-        return f"Progression: {completed}/{total} tâches terminées"
+        return f"Progression: {completed}/{total} taches terminees"
     
     def get_loop_statistics(self) -> Dict[str, Any]:
         """Obtenir les statistiques"""

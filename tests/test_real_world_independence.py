@@ -1,6 +1,6 @@
 """
-Tests TDD pour l'Indépendance Réelle en Conditions Réelles
-Phase RED : Tests définissant la prochaine étape d'orchestration indépendante
+Tests TDD pour l'Independance Reelle en Conditions Reelles
+Phase RED : Tests definissant la prochaine etape d'orchestration independante
 """
 
 import pytest
@@ -15,28 +15,28 @@ from datetime import datetime, timedelta
 
 
 class TestRealWorldAutonomousDeployment:
-    """Tests pour le déploiement autonome en conditions réelles"""
+    """Tests pour le deploiement autonome en conditions reelles"""
     
     @pytest.mark.integration
     @pytest.mark.asyncio
     async def test_autonomous_sandbox_creation_and_management(self, mock_config, temp_dir):
-        """Test la création et gestion autonome de la sandbox réelle"""
-        # GIVEN un orchestrateur capable de créer sa propre sandbox
+        """Test la creation et gestion autonome de la sandbox reelle"""
+        # GIVEN un orchestrateur capable de creer sa propre sandbox
         from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
         
         agent = SelfEvolutionAgent(mock_config)
         agent.main_repo_path = temp_dir
         
-        # WHEN il crée et gère sa sandbox de manière autonome
+        # WHEN il cree et gere sa sandbox de maniere autonome
         sandbox_manager = await agent._create_autonomous_sandbox_manager()
         
-        # THEN il doit pouvoir gérer complètement la sandbox
+        # THEN il doit pouvoir gerer completement la sandbox
         assert sandbox_manager is not None
         assert hasattr(sandbox_manager, 'create_isolated_environment')
         assert hasattr(sandbox_manager, 'deploy_to_production')
         assert hasattr(sandbox_manager, 'rollback_if_failed')
         
-        # Le manager doit pouvoir créer une sandbox isolée
+        # Le manager doit pouvoir creer une sandbox isolee
         sandbox_result = await sandbox_manager.create_isolated_environment()
         assert sandbox_result["success"] is True
         assert "sandbox_path" in sandbox_result
@@ -45,23 +45,23 @@ class TestRealWorldAutonomousDeployment:
     @pytest.mark.integration
     @pytest.mark.asyncio
     async def test_autonomous_git_operations(self, mock_config, temp_dir):
-        """Test les opérations Git complètement autonomes"""
-        # GIVEN un agent d'évolution autonome
+        """Test les operations Git completement autonomes"""
+        # GIVEN un agent d'evolution autonome
         from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
         
         agent = SelfEvolutionAgent(mock_config)
         agent.main_repo_path = temp_dir
         
-        # WHEN il effectue des opérations Git de manière autonome
+        # WHEN il effectue des operations Git de maniere autonome
         git_manager = await agent._create_autonomous_git_manager()
         
-        # THEN il doit pouvoir gérer complètement Git
+        # THEN il doit pouvoir gerer completement Git
         assert hasattr(git_manager, 'autonomous_commit')
         assert hasattr(git_manager, 'autonomous_branch_management')
         assert hasattr(git_manager, 'autonomous_merge_strategy')
         assert hasattr(git_manager, 'autonomous_conflict_resolution')
         
-        # Test des opérations Git autonomes
+        # Test des operations Git autonomes
         commit_result = await git_manager.autonomous_commit(
             changes=["file1.py", "file2.py"],
             message="Auto-generated improvement"
@@ -72,13 +72,13 @@ class TestRealWorldAutonomousDeployment:
     @pytest.mark.integration
     @pytest.mark.asyncio 
     async def test_autonomous_quality_validation(self, mock_config):
-        """Test la validation qualité complètement autonome"""
-        # GIVEN un validateur de qualité autonome
-        from orchestrator.agents.test_runner_agent import TestRunnerAgent
+        """Test la validation qualite completement autonome"""
+        # GIVEN un validateur de qualite autonome
+        from orchestrator.agents.test_runner_agent import QualityAssuranceAgent
         
-        test_runner = TestRunnerAgent(mock_config)
+        test_runner = QualityAssuranceAgent(mock_config)
         
-        # WHEN il valide la qualité de manière autonome
+        # WHEN il valide la qualite de maniere autonome
         quality_validator = await test_runner._create_autonomous_quality_validator()
         
         # THEN il doit pouvoir valider sans intervention
@@ -87,7 +87,7 @@ class TestRealWorldAutonomousDeployment:
         assert hasattr(quality_validator, 'autonomous_code_review')
         assert hasattr(quality_validator, 'autonomous_security_scan')
         
-        # La validation doit être complètement autonome
+        # La validation doit etre completement autonome
         validation_result = await quality_validator.validate_completely_autonomous()
         assert "overall_quality_score" in validation_result
         assert "autonomous_decision" in validation_result
@@ -95,18 +95,18 @@ class TestRealWorldAutonomousDeployment:
 
 
 class TestRealWorldSelfModification:
-    """Tests pour l'auto-modification réelle du système"""
+    """Tests pour l'auto-modification reelle du systeme"""
     
     @pytest.mark.integration
     @pytest.mark.asyncio
     async def test_live_self_code_modification(self, mock_config):
-        """Test la modification du code en temps réel"""
-        # GIVEN un agent méta-cognitif capable de s'auto-modifier
+        """Test la modification du code en temps reel"""
+        # GIVEN un agent meta-cognitif capable de s'auto-modifier
         from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
         
         agent = MetaCognitiveAgent(mock_config)
         
-        # WHEN il se modifie en temps réel
+        # WHEN il se modifie en temps reel
         self_modifier = await agent._create_live_self_modifier()
         
         # THEN il doit pouvoir modifier son propre code
@@ -115,7 +115,7 @@ class TestRealWorldSelfModification:
         assert hasattr(self_modifier, 'rewrite_own_logic')
         assert hasattr(self_modifier, 'expand_own_consciousness')
         
-        # Test de modification réelle
+        # Test de modification reelle
         modification_result = await self_modifier.modify_own_algorithms(
             target_improvement="increase processing efficiency by 20%"
         )
@@ -126,22 +126,22 @@ class TestRealWorldSelfModification:
     @pytest.mark.integration
     @pytest.mark.asyncio
     async def test_autonomous_architecture_evolution(self, mock_config):
-        """Test l'évolution architecturale autonome"""
-        # GIVEN un orchestrateur capable d'évoluer son architecture
+        """Test l'evolution architecturale autonome"""
+        # GIVEN un orchestrateur capable d'evoluer son architecture
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         
         orchestrator = AutonomousOrchestrator(mock_config)
         
-        # WHEN il fait évoluer son architecture de manière autonome
+        # WHEN il fait evoluer son architecture de maniere autonome
         arch_evolver = await orchestrator._create_architecture_evolver()
         
-        # THEN il doit pouvoir restrucrurer complètement l'architecture
+        # THEN il doit pouvoir restrucrurer completement l'architecture
         assert hasattr(arch_evolver, 'evolve_component_architecture')
         assert hasattr(arch_evolver, 'optimize_communication_patterns')
         assert hasattr(arch_evolver, 'create_new_agent_types')
         assert hasattr(arch_evolver, 'eliminate_redundant_components')
         
-        # L'évolution doit être mesurable
+        # L'evolution doit etre mesurable
         evolution_result = await arch_evolver.evolve_complete_architecture()
         assert "architectural_improvements" in evolution_result
         assert "performance_gain" in evolution_result
@@ -156,15 +156,15 @@ class TestRealWorldContinuousOperation:
     @pytest.mark.asyncio
     async def test_24_7_autonomous_operation(self, mock_config):
         """Test le fonctionnement autonome 24/7"""
-        # GIVEN un système d'orchestration continue
+        # GIVEN un systeme d'orchestration continue
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         
         orchestrator = AutonomousOrchestrator(mock_config)
         
-        # WHEN il fonctionne de manière continue
+        # WHEN il fonctionne de maniere continue
         continuous_manager = await orchestrator._create_continuous_operation_manager()
         
-        # THEN il doit pouvoir fonctionner indéfiniment
+        # THEN il doit pouvoir fonctionner indefiniment
         assert hasattr(continuous_manager, 'maintain_health_monitoring')
         assert hasattr(continuous_manager, 'handle_unexpected_errors')
         assert hasattr(continuous_manager, 'auto_restart_failed_components')
@@ -186,16 +186,16 @@ class TestRealWorldContinuousOperation:
         
         orchestrator = AutonomousOrchestrator(mock_config)
         
-        # WHEN il optimise les ressources de manière autonome
+        # WHEN il optimise les ressources de maniere autonome
         resource_optimizer = await orchestrator._create_resource_optimizer()
         
-        # THEN il doit pouvoir gérer efficacement les ressources
+        # THEN il doit pouvoir gerer efficacement les ressources
         assert hasattr(resource_optimizer, 'monitor_resource_usage')
         assert hasattr(resource_optimizer, 'predict_resource_needs')
         assert hasattr(resource_optimizer, 'allocate_resources_dynamically')
         assert hasattr(resource_optimizer, 'optimize_cost_efficiency')
         
-        # L'optimisation doit être mesurable
+        # L'optimisation doit etre mesurable
         optimization_result = await resource_optimizer.optimize_all_resources()
         assert "cpu_optimization" in optimization_result
         assert "memory_optimization" in optimization_result
@@ -206,12 +206,12 @@ class TestRealWorldContinuousOperation:
     @pytest.mark.asyncio
     async def test_autonomous_scaling_and_adaptation(self, mock_config):
         """Test l'adaptation et scaling autonome"""
-        # GIVEN un système d'adaptation autonome
+        # GIVEN un systeme d'adaptation autonome
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         
         orchestrator = AutonomousOrchestrator(mock_config)
         
-        # WHEN il s'adapte et scale de manière autonome
+        # WHEN il s'adapte et scale de maniere autonome
         adaptive_scaler = await orchestrator._create_adaptive_scaler()
         
         # THEN il doit pouvoir s'adapter aux conditions changeantes
@@ -220,7 +220,7 @@ class TestRealWorldContinuousOperation:
         assert hasattr(adaptive_scaler, 'execute_autonomous_scaling')
         assert hasattr(adaptive_scaler, 'adapt_to_new_requirements')
         
-        # Test d'adaptation en temps réel
+        # Test d'adaptation en temps reel
         adaptation_result = await adaptive_scaler.adapt_to_changing_conditions(
             new_load_level=2.5,
             performance_requirements={"response_time": "<100ms", "throughput": ">1000rps"}
@@ -231,13 +231,13 @@ class TestRealWorldContinuousOperation:
 
 
 class TestCompleteIndependenceValidation:
-    """Tests pour valider l'indépendance complète"""
+    """Tests pour valider l'independance complete"""
     
     @pytest.mark.integration
     @pytest.mark.asyncio
     async def test_zero_human_dependency_validation(self, mock_config):
-        """Test la validation d'indépendance complète"""
-        # GIVEN tous les composants d'indépendance
+        """Test la validation d'independance complete"""
+        # GIVEN tous les composants d'independance
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         from orchestrator.agents.meta_cognitive_agent import MetaCognitiveAgent
         from orchestrator.agents.self_evolution_agent import SelfEvolutionAgent
@@ -246,15 +246,15 @@ class TestCompleteIndependenceValidation:
         meta_agent = MetaCognitiveAgent(mock_config)
         evolution_agent = SelfEvolutionAgent(mock_config)
         
-        # WHEN on valide l'indépendance complète
+        # WHEN on valide l'independance complete
         independence_validator = await orchestrator._create_independence_validator()
         
-        # THEN l'indépendance doit être complète et mesurable
+        # THEN l'independance doit etre complete et mesurable
         validation_result = await independence_validator.validate_complete_independence(
             components=[orchestrator, meta_agent, evolution_agent]
         )
         
-        # Validation stricte d'indépendance
+        # Validation stricte d'independance
         assert validation_result["human_intervention_required"] is False
         assert validation_result["external_dependencies"] == []
         assert validation_result["self_sufficiency_level"] >= 0.95
@@ -265,16 +265,16 @@ class TestCompleteIndependenceValidation:
     @pytest.mark.integration 
     @pytest.mark.asyncio
     async def test_autonomous_goal_setting_and_achievement(self, mock_config):
-        """Test la définition et réalisation autonome d'objectifs"""
-        # GIVEN un système capable de définir ses propres objectifs
+        """Test la definition et realisation autonome d'objectifs"""
+        # GIVEN un systeme capable de definir ses propres objectifs
         from orchestrator.agents.autonomous_orchestrator import AutonomousOrchestrator
         
         orchestrator = AutonomousOrchestrator(mock_config)
         
-        # WHEN il définit et poursuit ses objectifs de manière autonome
+        # WHEN il definit et poursuit ses objectifs de maniere autonome
         goal_manager = await orchestrator._create_autonomous_goal_manager()
         
-        # THEN il doit pouvoir gérer ses objectifs complètement
+        # THEN il doit pouvoir gerer ses objectifs completement
         assert hasattr(goal_manager, 'define_own_objectives')
         assert hasattr(goal_manager, 'prioritize_goals_autonomously')
         assert hasattr(goal_manager, 'create_execution_plans')
@@ -291,12 +291,12 @@ class TestCompleteIndependenceValidation:
 
 
 class TestTDDCompletionForIndependence:
-    """Tests pour compléter le TDD vers l'indépendance"""
+    """Tests pour completer le TDD vers l'independance"""
     
     @pytest.mark.unit
     def test_all_independence_requirements_covered(self):
-        """Test que toutes les exigences d'indépendance sont couvertes par des tests"""
-        # GIVEN les exigences critiques d'indépendance
+        """Test que toutes les exigences d'independance sont couvertes par des tests"""
+        # GIVEN les exigences critiques d'independance
         critical_independence_requirements = [
             "autonomous_sandbox_management",
             "autonomous_git_operations", 
@@ -312,16 +312,16 @@ class TestTDDCompletionForIndependence:
         
         # THEN chaque exigence doit avoir des tests correspondants
         for requirement in critical_independence_requirements:
-            # Vérifier que l'exigence est testable
+            # Verifier que l'exigence est testable
             assert len(requirement) > 0
-            # Vérifier que l'exigence est liée à l'indépendance (mots-clés étendus)
+            # Verifier que l'exigence est liee a l'independance (mots-cles etendus)
             independence_keywords = ["autonomous", "independence", "live", "self_", "zero_human", "continuous", "24_7"]
             assert any(keyword in requirement for keyword in independence_keywords), f"Requirement '{requirement}' must indicate independence capability"
             
     @pytest.mark.unit
     def test_tdd_red_phase_for_next_iteration(self):
-        """Test que la phase RED est complète pour la prochaine itération"""
-        # GIVEN cette nouvelle suite de tests pour l'indépendance réelle
+        """Test que la phase RED est complete pour la prochaine iteration"""
+        # GIVEN cette nouvelle suite de tests pour l'independance reelle
         test_classes = [
             TestRealWorldAutonomousDeployment,
             TestRealWorldSelfModification,
@@ -329,34 +329,34 @@ class TestTDDCompletionForIndependence:
             TestCompleteIndependenceValidation
         ]
         
-        # THEN chaque classe doit définir des tests qui échoueront initialement
+        # THEN chaque classe doit definir des tests qui echoueront initialement
         for test_class in test_classes:
             test_methods = [method for method in dir(test_class) 
                            if method.startswith('test_')]
             assert len(test_methods) > 0
             
-            # Les tests doivent être orientés indépendance réelle
+            # Les tests doivent etre orientes independance reelle
             class_focus = " ".join(test_methods)
             real_world_terms = ["real_world", "autonomous", "continuous", "live", "24_7"]
             has_real_world_focus = any(term in class_focus for term in real_world_terms)
-            assert has_real_world_focus, f"{test_class.__name__} doit se concentrer sur l'indépendance réelle"
+            assert has_real_world_focus, f"{test_class.__name__} doit se concentrer sur l'independance reelle"
             
     @pytest.mark.integration
     def test_coverage_targets_for_independence(self):
-        """Test que les cibles de couverture sont définies pour l'indépendance"""
-        # GIVEN les composants critiques pour l'indépendance réelle
+        """Test que les cibles de couverture sont definies pour l'independance"""
+        # GIVEN les composants critiques pour l'independance reelle
         critical_components_coverage_targets = {
             "autonomous_orchestrator": 0.90,    # 90% pour le composant principal
             "meta_cognitive_agent": 0.85,       # 85% pour la conscience
-            "self_evolution_agent": 0.80,       # 80% pour l'auto-évolution
-            "code_generator_agent": 0.75        # 75% pour la génération
+            "self_evolution_agent": 0.80,       # 80% pour l'auto-evolution
+            "code_generator_agent": 0.75        # 75% pour la generation
         }
         
-        # THEN les cibles doivent être ambitieuses pour l'indépendance
+        # THEN les cibles doivent etre ambitieuses pour l'independance
         for component, target in critical_components_coverage_targets.items():
             assert target >= 0.75, f"{component} doit avoir au moins 75% de couverture"
-            assert target <= 1.0, f"{component} ne peut pas dépasser 100% de couverture"
+            assert target <= 1.0, f"{component} ne peut pas depasser 100% de couverture"
             
-        # La couverture moyenne doit être élevée
+        # La couverture moyenne doit etre elevee
         average_target = sum(critical_components_coverage_targets.values()) / len(critical_components_coverage_targets)
-        assert average_target >= 0.825, "La couverture moyenne doit être d'au moins 82.5%"
+        assert average_target >= 0.825, "La couverture moyenne doit etre d'au moins 82.5%"

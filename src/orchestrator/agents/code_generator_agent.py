@@ -1,6 +1,6 @@
 """
-Code Generator Agent - Agent de génération de code autonome
-Génère du code Python pour corriger des bugs, ajouter des fonctionnalités, etc.
+Code Generator Agent - Agent de generation de code autonome
+Genere du code Python pour corriger des bugs, ajouter des fonctionnalites, etc.
 """
 
 import asyncio
@@ -12,7 +12,7 @@ import json
 
 
 class CodeGeneratorAgent:
-    """Agent responsable de la génération automatique de code"""
+    """Agent responsable de la generation automatique de code"""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -67,7 +67,7 @@ except {exception_type} as e:
         }
     
     async def generate_bug_fix(self, error_patterns: List[str]) -> Dict[str, str]:
-        """Générer du code pour corriger des bugs"""
+        """Generer du code pour corriger des bugs"""
         fixes = {}
         
         for pattern in error_patterns:
@@ -82,7 +82,7 @@ except {exception_type} as e:
         return fixes
     
     async def generate_performance_improvement(self, issues: List[Dict[str, Any]]) -> Dict[str, str]:
-        """Générer du code pour améliorer les performances"""
+        """Generer du code pour ameliorer les performances"""
         improvements = {}
         
         for issue in issues:
@@ -94,11 +94,11 @@ except {exception_type} as e:
         return improvements
     
     async def generate_feature(self, features: List[str]) -> Dict[str, str]:
-        """Générer du code pour de nouvelles fonctionnalités"""
+        """Generer du code pour de nouvelles fonctionnalites"""
         generated = {}
         
         for feature in features:
-            # Parser la demande de fonctionnalité
+            # Parser la demande de fonctionnalite
             feature_spec = await self._parse_feature_request(feature)
             
             if feature_spec:
@@ -109,7 +109,7 @@ except {exception_type} as e:
         return generated
     
     async def generate_tests(self, coverage_gaps: List[str]) -> Dict[str, str]:
-        """Générer des tests pour combler les lacunes de couverture"""
+        """Generer des tests pour combler les lacunes de couverture"""
         tests = {}
         
         for gap in coverage_gaps:
@@ -123,7 +123,7 @@ except {exception_type} as e:
         return tests
     
     async def _analyze_error_pattern(self, error_pattern: str) -> Optional[Dict[str, Any]]:
-        """Analyser un pattern d'erreur pour comprendre le problème"""
+        """Analyser un pattern d'erreur pour comprendre le probleme"""
         try:
             # Extraire les informations de l'erreur
             lines = error_pattern.split("\n")
@@ -161,7 +161,7 @@ except {exception_type} as e:
             return None
     
     async def _generate_fix_code(self, analysis: Dict[str, Any]) -> str:
-        """Générer le code pour corriger un bug spécifique"""
+        """Generer le code pour corriger un bug specifique"""
         fix_type = analysis.get("fix_type", "generic")
         
         if fix_type == "missing_import":
@@ -174,7 +174,7 @@ except {exception_type} as e:
             return await self._generate_generic_fix(analysis)
     
     async def _generate_import_fix(self, analysis: Dict[str, Any]) -> str:
-        """Générer un fix pour une erreur d'import"""
+        """Generer un fix pour une erreur d'import"""
         missing_module = self._extract_missing_module(analysis["message"])
         
         return f'''# Auto-generated import fix
@@ -189,7 +189,7 @@ except ImportError:
 '''
     
     async def _generate_attribute_fix(self, analysis: Dict[str, Any]) -> str:
-        """Générer un fix pour une erreur d'attribut manquant"""
+        """Generer un fix pour une erreur d'attribut manquant"""
         return '''# Auto-generated attribute fix
 def __getattr__(self, name):
     """Dynamic attribute access for missing attributes"""
@@ -199,7 +199,7 @@ def __getattr__(self, name):
 '''
     
     async def _generate_type_fix(self, analysis: Dict[str, Any]) -> str:
-        """Générer un fix pour une erreur de type"""
+        """Generer un fix pour une erreur de type"""
         return '''# Auto-generated type validation
 def validate_types(**kwargs):
     """Validate parameter types"""
@@ -215,7 +215,7 @@ def validate_types(**kwargs):
 '''
     
     async def _generate_generic_fix(self, analysis: Dict[str, Any]) -> str:
-        """Générer un fix générique"""
+        """Generer un fix generique"""
         return self.templates["bug_fix"].format(
             issue=analysis.get("message", "Unknown issue"),
             analysis="Auto-detected error pattern",
@@ -229,7 +229,7 @@ def validate_types(**kwargs):
         )
     
     async def _generate_optimization(self, issue: Dict[str, Any]) -> str:
-        """Générer une optimisation de performance"""
+        """Generer une optimisation de performance"""
         optimization_type = issue.get("type", "general")
         
         if optimization_type == "slow_function":
@@ -260,7 +260,7 @@ async def async_optimized_{function_name}(*args, **kwargs) -> Any:
 '''
     
     async def _generate_memory_optimization(self, issue: Dict[str, Any]) -> str:
-        """Optimiser l'usage mémoire"""
+        """Optimiser l'usage memoire"""
         return '''# Memory optimization
 import gc
 from typing import Generator, Any
@@ -284,7 +284,7 @@ def process_chunk(chunk):
 '''
     
     async def _generate_general_optimization(self, issue: Dict[str, Any]) -> str:
-        """Optimisation générale"""
+        """Optimisation generale"""
         return self.templates["performance_improvement"].format(
             improvement="General performance optimization",
             before_analysis="Identified performance bottleneck",
@@ -316,7 +316,7 @@ class OptimizedProcessor:
         )
     
     async def _parse_feature_request(self, feature: str) -> Optional[Dict[str, Any]]:
-        """Parser une demande de fonctionnalité depuis un TODO"""
+        """Parser une demande de fonctionnalite depuis un TODO"""
         try:
             # Extraire les informations du TODO
             if "TODO:" in feature:
@@ -326,7 +326,7 @@ class OptimizedProcessor:
             else:
                 description = feature.strip()
             
-            # Analyser le type de fonctionnalité
+            # Analyser le type de fonctionnalite
             if any(word in description.lower() for word in ["function", "method", "def"]):
                 return {
                     "type": "function",
@@ -351,7 +351,7 @@ class OptimizedProcessor:
             return None
     
     async def _generate_feature_code(self, feature_spec: Dict[str, Any]) -> str:
-        """Générer le code pour une nouvelle fonctionnalité"""
+        """Generer le code pour une nouvelle fonctionnalite"""
         feature_type = feature_spec.get("type", "generic")
         description = feature_spec.get("description", "New feature")
         
@@ -363,7 +363,7 @@ class OptimizedProcessor:
             return await self._generate_generic_feature(description)
     
     async def _generate_function_from_description(self, description: str) -> str:
-        """Générer une fonction depuis sa description"""
+        """Generer une fonction depuis sa description"""
         # Extraire le nom de la fonction si possible
         function_name = self._extract_function_name(description) or "new_function"
         
@@ -376,7 +376,7 @@ class OptimizedProcessor:
         )
     
     async def _generate_class_from_description(self, description: str) -> str:
-        """Générer une classe depuis sa description"""
+        """Generer une classe depuis sa description"""
         class_name = self._extract_class_name(description) or "NewClass"
         
         return self.templates["class"].format(
@@ -388,7 +388,7 @@ class OptimizedProcessor:
         )
     
     async def _generate_generic_feature(self, description: str) -> str:
-        """Générer une fonctionnalité générique"""
+        """Generer une fonctionnalite generique"""
         return f'''"""
 Auto-generated feature implementation
 Description: {description}
@@ -406,7 +406,7 @@ def implement_feature():
 '''
     
     async def _generate_module_tests(self, module_name: str) -> str:
-        """Générer des tests pour un module"""
+        """Generer des tests pour un module"""
         return f'''"""
 Auto-generated tests for {module_name} module
 """
@@ -478,7 +478,7 @@ class Test{module_name.title()}:
             if word[0].isupper() and len(word) > 3:
                 return word
         
-        # Générer un nom basé sur la description
+        # Generer un nom base sur la description
         key_words = ['manager', 'handler', 'processor', 'controller', 'service']
         for key_word in key_words:
             if key_word in description.lower():
@@ -487,17 +487,17 @@ class Test{module_name.title()}:
         return None
     
     async def _create_autonomous_feature_implementer(self):
-        """Créer un implémenteur de fonctionnalités autonome"""
-        print("[CODE_GEN] Création de l'implémenteur de fonctionnalités autonome...")
+        """Creer un implementeur de fonctionnalites autonome"""
+        print("[CODE_GEN] Creation de l'implementeur de fonctionnalites autonome...")
         
         class AutonomousFeatureImplementer:
-            """Implémenteur de fonctionnalités complètement autonome"""
+            """Implementeur de fonctionnalites completement autonome"""
             
             def __init__(self, code_generator):
                 self.code_generator = code_generator
                 
             async def analyze_feature_requirements(self, feature_spec):
-                """Analyser les exigences de la fonctionnalité"""
+                """Analyser les exigences de la fonctionnalite"""
                 print(f"[FEATURE] Analyse des exigences pour {feature_spec['name']}...")
                 
                 requirements = feature_spec.get("requirements", [])
@@ -515,7 +515,7 @@ class Test{module_name.title()}:
                     }
                 }
                 
-                # Analyser les patterns nécessaires
+                # Analyser les patterns necessaires
                 if "monitoring" in feature_spec["description"].lower():
                     technical_analysis["dependencies"].extend(["asyncio", "time", "logging"])
                     technical_analysis["patterns"] = ["observer", "strategy"]
@@ -532,7 +532,7 @@ class Test{module_name.title()}:
                 }
                 
             async def design_architecture(self, requirements_analysis):
-                """Designer l'architecture de la fonctionnalité"""
+                """Designer l'architecture de la fonctionnalite"""
                 print("[FEATURE] Design de l'architecture...")
                 
                 technical = requirements_analysis["technical_analysis"]
@@ -576,25 +576,25 @@ class Test{module_name.title()}:
                 }
                 
             async def generate_implementation_code(self, architecture_design):
-                """Générer le code d'implémentation"""
-                print("[FEATURE] Génération du code d'implémentation...")
+                """Generer le code d'implementation"""
+                print("[FEATURE] Generation du code d'implementation...")
                 
                 generated_files = {}
                 
-                # Générer le code pour chaque composant
+                # Generer le code pour chaque composant
                 for component in architecture_design["components"]:
                     if component["type"] == "class":
                         class_code = await self._generate_class_code(component)
                         file_name = f"src/features/{component['name'].lower()}.py"
                         generated_files[file_name] = class_code
                 
-                # Générer les interfaces
+                # Generer les interfaces
                 for interface in architecture_design.get("interfaces", []):
                     interface_code = await self._generate_interface_code(interface)
                     file_name = f"src/interfaces/{interface['name'].lower()}.py"
                     generated_files[file_name] = interface_code
                 
-                # Générer le fichier d'init pour le package
+                # Generer le fichier d'init pour le package
                 init_code = self._generate_package_init(architecture_design["components"])
                 generated_files["src/features/__init__.py"] = init_code
                 
@@ -606,11 +606,11 @@ class Test{module_name.title()}:
                 }
                 
             async def _generate_class_code(self, component):
-                """Générer le code d'une classe"""
+                """Generer le code d'une classe"""
                 class_name = component["name"]
                 methods = component.get("methods", [])
                 
-                # Générer les méthodes
+                # Generer les methodes
                 method_codes = []
                 for method in methods:
                     method_code = f"""
@@ -668,11 +668,11 @@ class {class_name}:
                 return class_code
                 
             async def _generate_interface_code(self, interface):
-                """Générer le code d'une interface"""
+                """Generer le code d'une interface"""
                 interface_name = interface["name"]
                 methods = interface.get("methods", [])
                 
-                # Générer les méthodes d'interface
+                # Generer les methodes d'interface
                 method_signatures = []
                 for method in methods:
                     signature = f"""
@@ -699,7 +699,7 @@ class {interface_name}(ABC):
                 return interface_code
                 
             def _generate_package_init(self, components):
-                """Générer le fichier __init__.py du package"""
+                """Generer le fichier __init__.py du package"""
                 imports = []
                 exports = []
                 
@@ -727,13 +727,13 @@ FEATURE_REGISTRY = {{
                 return init_code
                 
             async def create_comprehensive_tests(self, implementation_result):
-                """Créer des tests complets"""
-                print("[FEATURE] Création des tests complets...")
+                """Creer des tests complets"""
+                print("[FEATURE] Creation des tests complets...")
                 
                 generated_files = implementation_result["files_created"]
                 test_files = {}
                 
-                # Générer des tests pour chaque fichier de code
+                # Generer des tests pour chaque fichier de code
                 for file_path, code in generated_files.items():
                     if file_path.endswith(".py") and "src/features/" in file_path:
                         # Extraire le nom de classe du code
@@ -752,8 +752,8 @@ FEATURE_REGISTRY = {{
                 }
                 
             async def _generate_test_code(self, class_name, source_code):
-                """Générer le code de test pour une classe"""
-                # Extraire les méthodes de la classe
+                """Generer le code de test pour une classe"""
+                # Extraire les methodes de la classe
                 methods = re.findall(r'async def (\w+)\(self', source_code)
                 
                 test_methods = []
@@ -835,8 +835,8 @@ class Test{class_name}:
                 return test_code
                 
             async def integrate_with_existing_code(self, implementation_result):
-                """Intégrer avec le code existant"""
-                print("[FEATURE] Intégration avec le code existant...")
+                """Integrer avec le code existant"""
+                print("[FEATURE] Integration avec le code existant...")
                 
                 integration_points = [
                     {"component": "configuration_system", "integration_type": "config_injection"},
@@ -846,9 +846,9 @@ class Test{class_name}:
                 
                 integration_success = True
                 for point in integration_points:
-                    # Simuler l'intégration
-                    print(f"[FEATURE] Intégration avec {point['component']}...")
-                    # En réalité, cela modifierait les fichiers existants
+                    # Simuler l'integration
+                    print(f"[FEATURE] Integration avec {point['component']}...")
+                    # En realite, cela modifierait les fichiers existants
                 
                 return {
                     "integration_successful": integration_success,
@@ -858,25 +858,25 @@ class Test{class_name}:
                 }
                 
             async def implement_complete_feature(self, feature_spec):
-                """Implémenter une fonctionnalité complète"""
-                print(f"[FEATURE] Implémentation complète de {feature_spec['name']}...")
+                """Implementer une fonctionnalite complete"""
+                print(f"[FEATURE] Implementation complete de {feature_spec['name']}...")
                 
-                # Étape 1: Analyser les exigences
+                # Etape 1: Analyser les exigences
                 requirements = await self.analyze_feature_requirements(feature_spec)
                 
-                # Étape 2: Designer l'architecture
+                # Etape 2: Designer l'architecture
                 architecture = await self.design_architecture(requirements)
                 
-                # Étape 3: Générer l'implémentation
+                # Etape 3: Generer l'implementation
                 implementation = await self.generate_implementation_code(architecture)
                 
-                # Étape 4: Créer les tests complets
+                # Etape 4: Creer les tests complets
                 tests = await self.create_comprehensive_tests(implementation)
                 
-                # Étape 5: Intégrer avec le code existant
+                # Etape 5: Integrer avec le code existant
                 integration = await self.integrate_with_existing_code(implementation)
                 
-                # Calculer le score de qualité
+                # Calculer le score de qualite
                 quality_factors = [
                     requirements["requirements_understood"],
                     architecture["architecture_designed"],
