@@ -8,16 +8,26 @@ Respecte les principes DDD (Domain-Driven Design) et SOLID
 import asyncio
 import json
 import logging
-from typing import Dict, List, Any, Optional
-# import docker
-# from docker.errors import NotFound, APIError
+from typing import Dict, List, Any, Optional, TYPE_CHECKING
 
-# Mock Docker classes for tests
-class NotFound(Exception):
-    pass
-
-class APIError(Exception):
-    pass
+# Import conditionnel pour eviter les erreurs si docker n'est pas installe
+try:
+    import docker
+    from docker.errors import NotFound, APIError
+    DOCKER_AVAILABLE = True
+except ImportError:
+    # Mock Docker classes si docker n'est pas installe
+    DOCKER_AVAILABLE = False
+    
+    class NotFound(Exception):
+        pass
+    
+    class APIError(Exception):
+        pass
+    
+    # Type stub pour les annotations
+    if TYPE_CHECKING:
+        import docker
 
 from .mcp_interface import (
     MCPInterface, MCPError, MCPConnectionError, MCPToolError, MCPResourceError,
@@ -42,7 +52,7 @@ class DockerMCPClient(MCPInterface):
     ):
         # Validation explicite pour respecter les tests
         if not container_name:
-            raise ValueError("container_name doit être une string non-vide")
+            raise ValueError("container_name doit etre une string non-vide")
         # Utiliser le Value Object de configuration
         self._config = MCPConfiguration(
             container_name=container_name,
@@ -65,21 +75,24 @@ class DockerMCPClient(MCPInterface):
     
     @property
     def container_name(self) -> str:
-        """Propriété pour accès au nom du conteneur"""
+        """Propriete pour acces au nom du conteneur"""
         return self._config.container_name
     
     @property
     def is_connected(self) -> bool:
-        """Indique si le client est connecté"""
+        """Indique si le client est connecte"""
         return self._connected
     
     @property
     def connection_state(self) -> MCPConnectionState:
-        """État actuel de la connexion"""
+        """Etat actuel de la connexion"""
         return self._connection_state
     
-    def _get_docker_client(self) -> docker.DockerClient:
+    def _get_docker_client(self) -> "docker.DockerClient":
         """Obtenir le client Docker"""
+        if not DOCKER_AVAILABLE:
+            raise MCPConnectionError("Docker package not installed. Please install with: pip install docker")
+        
         if self._docker_client is None:
             try:
                 self._docker_client = docker.from_env()
@@ -96,22 +109,22 @@ class DockerMCPClient(MCPInterface):
             # Obtenir le client Docker
             docker_client = self._get_docker_client()
             
-            # Récupérer le conteneur
+            # Recuperer le conteneur
             try:
                 self._container = docker_client.containers.get(self._config.container_name)
             except NotFound:
                 if self._config.auto_start:
-                    # Tenter de créer/démarrer le conteneur (logique simplifiée)
+                    # Tenter de creer/demarrer le conteneur (logique simplifiee)
                     raise MCPConnectionError(f"Container '{self._config.container_name}' not found and auto-start not implemented")
                 else:
                     raise MCPConnectionError(f"Container '{self._config.container_name}' not found")
             
-            # Vérifier l'état du conteneur
+            # Verifier l'etat du conteneur
             if self._container.status != "running":
                 if self._config.auto_start:
                     self._logger.info(f"Starting container {self._config.container_name}")
                     self._container.start()
-                    # Attendre que le conteneur démarre
+                    # Attendre que le conteneur demarre
                     await asyncio.sleep(2)
                     self._container.reload()
                     
@@ -138,7 +151,7 @@ class DockerMCPClient(MCPInterface):
                 
                 result = self._execute_mcp_command(test_request)
                 
-                # Vérifier la réponse
+                # Verifier la reponse
                 if result.get("jsonrpc") == "2.0" and "result" in result:
                     self._connected = True
                     self._connection_state = MCPConnectionState.CONNECTED
@@ -157,7 +170,7 @@ class DockerMCPClient(MCPInterface):
             raise
     
     async def disconnect(self) -> bool:
-        """Se déconnecter du serveur MCP"""
+        """Se deconnecter du serveur MCP"""
         try:
             if self._connected:
                 self._connected = False
@@ -175,12 +188,12 @@ class DockerMCPClient(MCPInterface):
             return False
     
     def _get_next_request_id(self) -> int:
-        """Générer un ID unique pour les requêtes MCP"""
+        """Generer un ID unique pour les requetes MCP"""
         self._request_counter += 1
         return self._request_counter
     
     def _execute_mcp_command(self, request: Dict[str, Any]) -> Dict[str, Any]:
-        """Exécuter une commande MCP dans le conteneur"""
+        """Executer une commande MCP dans le conteneur"""
         if not self._container:
             raise MCPConnectionError("No container connection")
         
@@ -191,7 +204,7 @@ class DockerMCPClient(MCPInterface):
                 f"import json; import sys; sys.stdout.write(json.dumps({json.dumps(request)}))"
             ]
             
-            # Exécuter dans le conteneur
+            # Executer dans le conteneur
             exec_result = self._container.exec_run(
                 cmd,
                 stdout=True,
@@ -203,7 +216,7 @@ class DockerMCPClient(MCPInterface):
                 error_msg = exec_result.output.decode() if exec_result.output else "Unknown error"
                 raise MCPError(f"Command execution failed: {error_msg}")
             
-            # Parser la réponse JSON
+            # Parser la reponse JSON
             response_text = exec_result.output.decode().strip()
             return json.loads(response_text)
             
@@ -231,7 +244,7 @@ class DockerMCPClient(MCPInterface):
                 
                 response = self._execute_mcp_command(request)
                 
-                # Vérifier les erreurs MCP
+                # Verifier les erreurs MCP
                 if "error" in response:
                     error = response["error"]
                     raise MCPToolError(
@@ -252,13 +265,13 @@ class DockerMCPClient(MCPInterface):
                 if attempt == self._config.max_retries - 1:
                     raise MCPToolError(f"Tool call error: {e}", tool_name=tool_name)
                 
-                # Tentative de reconnexion si configurée
+                # Tentative de reconnexion si configuree
                 if self._config.auto_reconnect:
                     self._logger.warning(f"Tool call failed (attempt {attempt + 1}), trying to reconnect: {e}")
                     try:
                         await self.connect()
                         await asyncio.sleep(self._config.retry_delay)
-                        continue  # Retry l'opération
+                        continue  # Retry l'operation
                     except Exception as reconnect_error:
                         self._logger.error(f"Reconnection failed: {reconnect_error}")
                 
@@ -292,7 +305,7 @@ class DockerMCPClient(MCPInterface):
             raise MCPError(f"List tools error: {e}")
     
     async def get_resources(self) -> List[Dict[str, Any]]:
-        """Récupérer les ressources disponibles"""
+        """Recuperer les ressources disponibles"""
         if not self._connected:
             raise MCPConnectionError("Not connected to MCP server")
         
@@ -319,7 +332,7 @@ class DockerMCPClient(MCPInterface):
             raise MCPResourceError(f"List resources error: {e}")
     
     async def health_check(self) -> Dict[str, Any]:
-        """Vérifier la santé du serveur MCP"""
+        """Verifier la sante du serveur MCP"""
         if not self._config.health_check_enabled:
             return {"status": "disabled"}
         
@@ -360,13 +373,13 @@ class DockerMCPClient(MCPInterface):
         await self.close()
 
 
-# Factory Pattern pour création de clients selon DDD
+# Factory Pattern pour creation de clients selon DDD
 class DockerMCPClientFactory:
-    """Factory pour créer des instances de DockerMCPClient"""
+    """Factory pour creer des instances de DockerMCPClient"""
     
     @staticmethod
     def create_client(config: Dict[str, Any]) -> DockerMCPClient:
-        """Créer un client Docker MCP à partir d'une configuration"""
+        """Creer un client Docker MCP a partir d'une configuration"""
         required_fields = ["container_name"]
         
         for field in required_fields:
@@ -377,7 +390,7 @@ class DockerMCPClientFactory:
     
     @staticmethod
     def create_from_env() -> DockerMCPClient:
-        """Créer un client à partir des variables d'environnement"""
+        """Creer un client a partir des variables d'environnement"""
         import os
         
         container_name = os.getenv("MCP_CONTAINER_NAME")
