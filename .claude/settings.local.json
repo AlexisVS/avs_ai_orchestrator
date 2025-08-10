@@ -64,7 +64,20 @@
       "Bash(docker:*)",
       "Bash(timeout:*)",
       "Bash(sed:*)",
-      "Bash(set \"PYTHONIOENCODING=utf-8\")"
+      "Bash(set \"PYTHONIOENCODING=utf-8\")",
+      "Bash(set)",
+      "Bash(.start-mcp-servers.bat)",
+      "Bash(cmd:*)",
+      "Bash(.setup_permanent_mcp.bat)",
+      "Bash(cp:*)",
+      "Bash(set GIT_CONFIG_NOSYSTEM=1)",
+      "Bash(set HOME=C:temp)",
+      "Bash(dir .git)",
+      "Bash(dir:*)",
+      "Bash(icacls:*)",
+      "Bash(git --version)",
+      "Bash(copy:*)",
+      "Bash(del \"C:\\Users\\alexi\\.gitconfig\")"
     ],
     "deny": []
   },
